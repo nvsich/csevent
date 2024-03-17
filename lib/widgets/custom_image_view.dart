@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class MyWidget extends StatelessWidget {
+class CustomImageView extends StatelessWidget {
   String? imagePath;
 
   double? height;
@@ -18,7 +18,8 @@ class MyWidget extends StatelessWidget {
   BorderRadius? radius;
   BoxBorder? border;
 
-  MyWidget({
+  CustomImageView({
+    Key? key,
     this.imagePath,
     this.height,
     this.width,
@@ -30,7 +31,9 @@ class MyWidget extends StatelessWidget {
     this.margin,
     this.border,
     this.placeHolder = 'assets/images/image_not_found.png',
-  });
+  }) : super(
+          key: key,
+        );
 
   @override
   Widget build(BuildContext context) {

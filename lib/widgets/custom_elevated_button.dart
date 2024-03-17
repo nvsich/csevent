@@ -9,7 +9,7 @@ class CustomElevatedButton extends BaseButton {
     this.leftIcon,
     this.rightIcon,
     EdgeInsets? margin,
-    VoidCallBack? onPressed,
+    VoidCallback? onPressed,
     ButtonStyle? buttonStyle,
     Alignment? alignment,
     TextStyle? buttonTextStyle,

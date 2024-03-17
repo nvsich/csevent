@@ -83,3 +83,9 @@ class BorderRadiusStyle {
         3.h,
       );
 }
+
+double get strokeAlignInside => BorderSide.strokeAlignInside;
+
+double get strokeAlignCenter => BorderSide.strokeAlignCenter;
+
+double get strokeAlignOutside => BorderSide.strokeAlignOutside;

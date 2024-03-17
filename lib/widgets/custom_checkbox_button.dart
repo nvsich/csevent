@@ -2,7 +2,7 @@ import 'package:csevent/core/app_export.dart';
 import 'package:flutter/material.dart';
 
 class CustomCheckboxButton extends StatelessWidget {
-  const CustomCheckboxButton({
+  CustomCheckboxButton({
     Key? key,
     required this.onChange,
     this.decoration,
@@ -69,8 +69,8 @@ class CustomCheckboxButton extends StatelessWidget {
   Widget get leftSideCheckbox => Row(
         children: [
           Padding(
-            child: checkboxWidget,
             padding: const EdgeInsets.only(right: 8),
+            child: checkboxWidget,
           ),
           isExpandedText
               ? Expanded(
@@ -89,7 +89,7 @@ class CustomCheckboxButton extends StatelessWidget {
                 )
               : textWidget,
           Padding(
-            padding: EdgeInsets.only(left: 8),
+            padding: const EdgeInsets.only(left: 8),
             child: checkboxWidget,
           ),
         ],
@@ -105,10 +105,14 @@ class CustomCheckboxButton extends StatelessWidget {
         height: iconSize ?? 17.h,
         width: iconSize ?? 17.h,
         child: Checkbox(
-          visualDensity: VisualDensity(
+          visualDensity: const VisualDensity(
             vertical: -4,
             horizontal: -4,
           ),
+          value: value ?? false,
+          onChanged: (value) {
+            onChange(value!);
+          },
         ),
       );
 }

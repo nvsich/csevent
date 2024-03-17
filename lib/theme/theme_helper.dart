@@ -35,7 +35,7 @@ class ThemeHelper {
     }
 
     var colorScheme =
-        _supportedColorScheme[_appTheme] ?? ColorSchemes.primaryColoScheme;
+        _supportedColorScheme[_appTheme] ?? ColorSchemes.primaryColorScheme;
 
     return ThemeData(
       visualDensity: VisualDensity.standard,

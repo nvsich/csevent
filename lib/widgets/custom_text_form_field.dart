@@ -76,7 +76,12 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return alignment != null
+        ? Align(
+            alignment: alignment ?? Alignment.center,
+            child: textFormFieldWidget(context),
+          )
+        : textFormFieldWidget(context);
   }
 
   Widget textFormFieldWidget(BuildContext context) => SizedBox(

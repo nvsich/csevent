@@ -2,7 +2,7 @@ import 'package:csevent/core/app_export.dart';
 import 'package:flutter/material.dart';
 
 class AppbarSubtitle extends StatelessWidget {
-  const AppbarSubtitle({
+  AppbarSubtitle({
     Key? key,
     required this.text,
     this.margin,

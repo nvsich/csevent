@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:csevent/core/utils/size_utils.dart';
 import 'package:csevent/theme/theme_helper.dart';
 
 class CustomTextStyles {
@@ -48,4 +47,12 @@ class CustomTextStyles {
   static get titleMediumMedium => theme.textTheme.titleMedium!.copyWith(
         fontWeight: FontWeight.w500,
       );
+}
+
+extension on TextStyle {
+  TextStyle get montserrat {
+    return copyWith(
+      fontFamily: 'Montserrat',
+    );
+  }
 }
