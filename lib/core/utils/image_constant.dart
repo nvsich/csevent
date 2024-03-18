@@ -6,4 +6,6 @@ class ImageConstant {
   static String imgVector = '$imagePath/img_vector.svg';
 
   static String imgVectorPrimary = '$imagePath/img_vector_primary.svg';
+
+  static String imgProfileIconButton = '$imagePath/img_profile_icon_button.svg';
 }

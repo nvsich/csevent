@@ -1,4 +1,6 @@
 import 'package:csevent/screens/create_organization_screen.dart';
+import 'package:csevent/screens/dashboard/screens/dashboard.dart';
+import 'package:csevent/screens/dashboard/screens/events/events_screen.dart';
 import 'package:csevent/screens/login_screen.dart';
 import 'package:csevent/screens/signin_organization_screen.dart';
 import 'package:csevent/screens/signup_screen.dart';
@@ -15,6 +17,8 @@ class RouteGenerator {
 
   static const String dashboard = '/dashboard';
 
+  static const String eventsScreen = '/dashboard/events';
+
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
 
@@ -30,6 +34,12 @@ class RouteGenerator {
 
       case createOrganizationScreen:
         return MaterialPageRoute(builder: (_) => CreateOrganization());
+
+      case dashboard:
+        return MaterialPageRoute(builder: (_) => Dashboard());
+
+      case eventsScreen:
+        return MaterialPageRoute(builder: (_) => EventsScreen());
 
       default:
         return _errorRoute();
