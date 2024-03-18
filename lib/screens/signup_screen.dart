@@ -1,4 +1,5 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/routes/route_generator.dart';
 import 'package:csevent/widgets/custom_elevated_button.dart';
 import 'package:csevent/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -106,9 +107,9 @@ class SignupScreen extends StatelessWidget {
                     Align(
                       alignment: Alignment.center,
                       child: GestureDetector(
-                        // onTap: _onTapTxtAlreadyHasAcc(context),
                         onTap: () {
-                          Navigator.of(context).pushNamed('/login');
+                          Navigator.of(context)
+                              .pushNamed(RouteGenerator.loginScreen);
                         },
                         child: Text(
                           "Войти",
@@ -160,6 +161,10 @@ class SignupScreen extends StatelessWidget {
 
   Widget _buildTf(BuildContext context) {
     return CustomElevatedButton(
+      onPressed: () {
+        Navigator.of(context)
+            .pushNamed(RouteGenerator.signInOrganizationScreen);
+      },
       text: "Продолжить",
       buttonStyle: CustomButtonStyles.fillPrimaryTL23,
     );

@@ -1,4 +1,5 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/routes/route_generator.dart';
 import 'package:csevent/widgets/custom_elevated_button.dart';
 import 'package:csevent/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -77,6 +78,10 @@ class LoginScreen extends StatelessWidget {
                       height: 38.v,
                     ),
                     CustomElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(RouteGenerator.signInOrganizationScreen);
+                      },
                       text: "Продолжить",
                       buttonStyle: CustomButtonStyles.fillPrimaryTL23,
                     ),
@@ -97,7 +102,8 @@ class LoginScreen extends StatelessWidget {
                       alignment: Alignment.center,
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pushNamed('/signup');
+                          Navigator.of(context)
+                              .pushNamed(RouteGenerator.signupScreen);
                         },
                         child: Text(
                           "Зарегистрироваться",
