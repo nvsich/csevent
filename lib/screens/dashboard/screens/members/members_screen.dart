@@ -6,13 +6,6 @@ class MembersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).pushNamed(RouteGenerator.eventsScreen);
-        },
-        child: Text("TESTTESTSTS"),
-      ),
-    );
+    return const Placeholder();
   }
 }
