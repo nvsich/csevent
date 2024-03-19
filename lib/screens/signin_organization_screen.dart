@@ -126,15 +126,11 @@ class SignInOrganization extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(20.h, 11.v, 20.h, 12.v),
           child: Column(
             children: [
-              AppbarTrailingImage(
-                imagePath: ImageConstant.imgVector,
-                margin: EdgeInsets.only(left: 4.h, right: 5.h),
-              ),
               SizedBox(
                 height: 6.v,
               ),
               AppbarTrailingImage(
-                imagePath: ImageConstant.imgVectorPrimary,
+                imagePath: ImageConstant.imgNotFound,
               ),
             ],
           ),

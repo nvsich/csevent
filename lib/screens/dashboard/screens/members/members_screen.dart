@@ -42,7 +42,7 @@ class MembersScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomImageView(
-            imagePath: ImageConstant.imgProfileIconButton,
+            imagePath: ImageConstant.imgNotFound,
             height: 66.adaptSize,
             width: 66.adaptSize,
             margin: EdgeInsets.only(bottom: 6.v),
@@ -90,7 +90,7 @@ class MembersScreen extends StatelessWidget {
       ),
       child: Flexible(
         child: Text(
-          "Бал ФКН`24",
+          "Бал ФКН`23",
           style: theme.textTheme.bodySmall,
         ),
       ),

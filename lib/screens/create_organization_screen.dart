@@ -123,17 +123,10 @@ class CreateOrganization extends StatelessWidget {
           child: Column(
             children: [
               AppbarTrailingImage(
-                imagePath: ImageConstant.imgVector,
-                margin: EdgeInsets.only(
-                  left: 4.h,
-                  right: 5.h,
-                ),
-              ),
-              SizedBox(
-                height: 6.v,
-              ),
-              AppbarTrailingImage(
-                imagePath: ImageConstant.imgVectorPrimary,
+                imagePath: ImageConstant.imgNotFound,
+                onTap: () {
+                  Navigator.of(context).pushNamed(RouteGenerator.profile);
+                },
               ),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/routes/route_generator.dart';
 import 'package:csevent/screens/dashboard/screens/events/events_screen.dart';
 import 'package:csevent/screens/dashboard/screens/members/members_screen.dart';
 import 'package:csevent/screens/dashboard/screens/products/products_screen.dart';
@@ -67,11 +68,14 @@ class _DashboardState extends State<Dashboard> {
       title: AppbarTitle(text: "CSTATI"),
       actions: [
         AppbarTrailingImage(
-          imagePath: ImageConstant.imgProfileIconButton,
+          imagePath: ImageConstant.imgNotFound,
           margin: EdgeInsets.symmetric(
             horizontal: 9.h,
             vertical: 3.v,
           ),
+          onTap: () {
+            Navigator.of(context).pushNamed(RouteGenerator.profile);
+          },
         ),
       ],
     );

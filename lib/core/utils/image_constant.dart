@@ -12,4 +12,6 @@ class ImageConstant {
   static String imgBackIconButton = '$imagePath/img_back_icon_button.svg';
 
   static String imgFilter = '$imagePath/img_filter.svg';
+
+  static String imgNotFound = '$imagePath/image_not_found.png';
 }

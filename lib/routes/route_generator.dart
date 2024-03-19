@@ -1,10 +1,12 @@
 import 'package:csevent/screens/create_organization_screen.dart';
+import 'package:csevent/screens/dashboard/profile/edit_profile_screen.dart';
+import 'package:csevent/screens/dashboard/profile/organizations_profile_screen.dart';
 import 'package:csevent/screens/dashboard/screens/dashboard.dart';
 import 'package:csevent/screens/dashboard/screens/events/add_new_event_screen.dart';
-import 'package:csevent/screens/dashboard/screens/events/events_screen.dart';
 import 'package:csevent/screens/dashboard/screens/products/add_new_product_screen.dart';
 import 'package:csevent/screens/dashboard/screens/warehouses/add_new_warehouse_screen.dart';
 import 'package:csevent/screens/login_screen.dart';
+import 'package:csevent/screens/dashboard/profile/profile_screen.dart';
 import 'package:csevent/screens/signin_organization_screen.dart';
 import 'package:csevent/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +27,12 @@ class RouteGenerator {
   static const String addNewEvent = 'dashboard/events/add-new';
 
   static const String addNewProduct = 'dashboard/products/add-new';
+
+  static const String profile = '/profile';
+
+  static const String editProfile = '/profile/edit';
+
+  static const String organizationsProfile = 'profile/organizations';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
@@ -53,6 +61,15 @@ class RouteGenerator {
 
       case addNewProduct:
         return MaterialPageRoute(builder: (_) => AddNewProductScreen());
+
+      case profile:
+        return MaterialPageRoute(builder: (_) => ProfileScreen());
+
+      case editProfile:
+        return MaterialPageRoute(builder: (_) => EditProfileScreen());
+
+      case organizationsProfile:
+        return MaterialPageRoute(builder: (_) => OrganizationsProfileScreen());
 
       default:
         return _errorRoute();
