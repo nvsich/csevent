@@ -131,10 +131,10 @@ class ProductsScreen extends StatelessWidget {
   }) {
     return Container(
       margin: EdgeInsets.only(right: 1.h),
-      padding: EdgeInsets.symmetric(vertical: 18.v),
+      padding: EdgeInsets.symmetric(horizontal: 18.h, vertical: 18.v),
       decoration: AppDecoration.outlineBlack900,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,9 +143,7 @@ class ProductsScreen extends StatelessWidget {
                 productName,
                 style: theme.textTheme.titleLarge,
               ),
-              SizedBox(height: 10.v),
               Container(
-                width: 72.h,
                 padding: EdgeInsets.symmetric(
                   horizontal: 6.h,
                   vertical: 2.v,
@@ -153,11 +151,13 @@ class ProductsScreen extends StatelessWidget {
                 decoration: AppDecoration.fillRed.copyWith(
                   borderRadius: BorderRadiusStyle.roundedBorder3,
                 ),
-                child: Text(
-                  productType,
-                  style: theme.textTheme.bodySmall,
+                child: Flexible(
+                  child: Text(
+                    productType,
+                    style: theme.textTheme.bodySmall,
+                  ),
                 ),
-              )
+              ),
             ],
           ),
           _buildTotal(

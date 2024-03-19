@@ -59,7 +59,7 @@ class EventsScreen extends StatelessWidget {
 
   Widget _buildEventCardsListItemWidget(context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery.of(context).size.width - 45,
       padding: EdgeInsets.symmetric(
         horizontal: 62.h,
         vertical: 22.v,
