@@ -18,7 +18,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   int currentIndex = 2;
 
-  List<Widget> body = const [
+  List<Widget> body = [
     ProductsScreen(),
     WarehousesScreen(),
     EventsScreen(),

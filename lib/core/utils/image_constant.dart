@@ -10,4 +10,6 @@ class ImageConstant {
   static String imgProfileIconButton = '$imagePath/img_profile_icon_button.svg';
 
   static String imgBackIconButton = '$imagePath/img_back_icon_button.svg';
+
+  static String imgFilter = '$imagePath/img_filter.svg';
 }

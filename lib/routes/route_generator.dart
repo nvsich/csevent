@@ -2,6 +2,7 @@ import 'package:csevent/screens/create_organization_screen.dart';
 import 'package:csevent/screens/dashboard/screens/dashboard.dart';
 import 'package:csevent/screens/dashboard/screens/events/add_new_event_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/events_screen.dart';
+import 'package:csevent/screens/dashboard/screens/products/add_new_product_screen.dart';
 import 'package:csevent/screens/dashboard/screens/warehouses/add_new_warehouse_screen.dart';
 import 'package:csevent/screens/login_screen.dart';
 import 'package:csevent/screens/signin_organization_screen.dart';
@@ -22,6 +23,8 @@ class RouteGenerator {
   static const String addNewWarehouse = 'dashboard/warehouses/add-new';
 
   static const String addNewEvent = 'dashboard/events/add-new';
+
+  static const String addNewProduct = 'dashboard/products/add-new';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
@@ -47,6 +50,9 @@ class RouteGenerator {
 
       case addNewEvent:
         return MaterialPageRoute(builder: (_) => AddNewEventScreen());
+
+      case addNewProduct:
+        return MaterialPageRoute(builder: (_) => AddNewProductScreen());
 
       default:
         return _errorRoute();
