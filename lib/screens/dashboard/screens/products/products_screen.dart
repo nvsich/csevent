@@ -154,11 +154,9 @@ class ProductsScreen extends StatelessWidget {
                 decoration: AppDecoration.fillRed.copyWith(
                   borderRadius: BorderRadiusStyle.roundedBorder3,
                 ),
-                child: Flexible(
-                  child: Text(
-                    productType,
-                    style: theme.textTheme.bodySmall,
-                  ),
+                child: Text(
+                  productType,
+                  style: theme.textTheme.bodySmall,
                 ),
               ),
             ],

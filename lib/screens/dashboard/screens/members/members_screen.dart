@@ -87,11 +87,9 @@ class MembersScreen extends StatelessWidget {
       decoration: AppDecoration.fillBlue.copyWith(
         borderRadius: BorderRadiusStyle.roundedBorder3,
       ),
-      child: Flexible(
-        child: Text(
-          "Бал ФКН`23",
-          style: theme.textTheme.bodySmall,
-        ),
+      child: Text(
+        "Бал ФКН`23",
+        style: theme.textTheme.bodySmall,
       ),
     );
   }
