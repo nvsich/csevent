@@ -109,7 +109,10 @@ class ProductsScreen extends StatelessWidget {
             ),
           ),
           CustomImageView(
-            imagePath: ImageConstant.imgFilter,
+            onTap: () {
+              Navigator.of(context).pushNamed(RouteGenerator.filterProducts);
+            },
+            imagePath: ImageConstant.imgNotFound,
             height: 21.v,
             width: 24.h,
             margin: EdgeInsets.only(

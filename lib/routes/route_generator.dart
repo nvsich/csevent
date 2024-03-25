@@ -4,6 +4,7 @@ import 'package:csevent/screens/dashboard/profile/organizations_profile_screen.d
 import 'package:csevent/screens/dashboard/screens/dashboard.dart';
 import 'package:csevent/screens/dashboard/screens/events/add_new_event_screen.dart';
 import 'package:csevent/screens/dashboard/screens/products/add_product_screen.dart';
+import 'package:csevent/screens/dashboard/screens/products/filter_products_screen.dart';
 import 'package:csevent/screens/dashboard/screens/warehouses/add_new_warehouse_screen.dart';
 import 'package:csevent/screens/dashboard/screens/warehouses/add_product_to_warehouse_screen.dart';
 import 'package:csevent/screens/dashboard/screens/warehouses/edit_product_in_warehouse_screen.dart';
@@ -31,19 +32,21 @@ class RouteGenerator {
 
   static const String addNewProduct = '/dashboard/products/add-new';
 
+  static const String filterProducts = '/dashboard/products/filter';
+
   static const String profile = '/profile';
 
   static const String editProfile = '/profile/edit';
 
-  static const String organizationsProfile = 'profile/organizations';
+  static const String organizationsProfile = '/profile/organizations';
 
-  static const String warehouseDetails = 'dashboard/warehouse/details';
+  static const String warehouseDetails = '/dashboard/warehouse/details';
 
   static const String addProductToWarehouse =
-      'dashboard/warehouse/details/add-new';
+      '/dashboard/warehouse/details/add-new';
 
   static const String editProductInWarehouse =
-      'dashboard/warehouse/details/edit';
+      '/dashboard/warehouse/details/edit';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
@@ -96,6 +99,9 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) =>
                 EditProductInWarehouse(warehouseId: args as String));
+
+      case filterProducts:
+        return MaterialPageRoute(builder: (_) => const FilterProductsScreen());
 
       default:
         return _errorRoute();
