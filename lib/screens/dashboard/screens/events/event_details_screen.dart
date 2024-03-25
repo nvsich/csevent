@@ -141,6 +141,9 @@ class EventDetailsScreen extends StatelessWidget {
 
   Widget _buildBarCardButton(BuildContext context) {
     return CustomElevatedButton(
+      onPressed: () {
+        Navigator.of(context).pushNamed(RouteGenerator.eventBarCard);
+      },
       text: "Барная карта",
       margin: EdgeInsets.only(
         left: 43.h,
