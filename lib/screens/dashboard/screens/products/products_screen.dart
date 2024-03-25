@@ -166,13 +166,18 @@ class ProductsScreen extends StatelessWidget {
           _buildTotal(
             context: context,
             amount: productAmount,
+            productId: productName,
           ),
         ],
       ),
     );
   }
 
-  Widget _buildTotal({required BuildContext context, required String amount}) {
+  Widget _buildTotal({
+    required BuildContext context,
+    required String amount,
+    required String productId,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -194,10 +199,18 @@ class ProductsScreen extends StatelessWidget {
         SizedBox(
           height: 6.v,
         ),
-        Text(
-          "На каких складах?",
-          style: theme.textTheme.labelLarge!.copyWith(
-            color: theme.colorScheme.primary,
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              RouteGenerator.warehousesWithProduct,
+              arguments: productId,
+            );
+          },
+          child: Text(
+            "На каких складах?",
+            style: theme.textTheme.labelLarge!.copyWith(
+              color: theme.colorScheme.primary,
+            ),
           ),
         )
       ],

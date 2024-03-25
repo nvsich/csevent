@@ -1,5 +1,4 @@
 import 'package:csevent/core/app_export.dart';
-import 'package:csevent/core/utils/size_utils.dart';
 import 'package:csevent/widgets/app_bar/appbar_leading_image.dart';
 import 'package:csevent/widgets/app_bar/appbar_subtitle.dart';
 import 'package:csevent/widgets/app_bar/custom_app_bar_image.dart';

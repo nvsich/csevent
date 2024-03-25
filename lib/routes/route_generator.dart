@@ -5,6 +5,7 @@ import 'package:csevent/screens/dashboard/screens/dashboard.dart';
 import 'package:csevent/screens/dashboard/screens/events/add_new_event_screen.dart';
 import 'package:csevent/screens/dashboard/screens/products/add_product_screen.dart';
 import 'package:csevent/screens/dashboard/screens/products/filter_products_screen.dart';
+import 'package:csevent/screens/dashboard/screens/products/warehouses_with_product.dart';
 import 'package:csevent/screens/dashboard/screens/warehouses/add_new_warehouse_screen.dart';
 import 'package:csevent/screens/dashboard/screens/warehouses/add_product_to_warehouse_screen.dart';
 import 'package:csevent/screens/dashboard/screens/warehouses/edit_product_in_warehouse_screen.dart';
@@ -33,6 +34,8 @@ class RouteGenerator {
   static const String addNewProduct = '/dashboard/products/add-new';
 
   static const String filterProducts = '/dashboard/products/filter';
+
+  static const String warehousesWithProduct = '/dashboard/products/warehouses';
 
   static const String profile = '/profile';
 
@@ -102,6 +105,10 @@ class RouteGenerator {
 
       case filterProducts:
         return MaterialPageRoute(builder: (_) => const FilterProductsScreen());
+
+      case warehousesWithProduct:
+        return MaterialPageRoute(
+            builder: (_) => WarehousesWithProduct(productId: args as String));
 
       default:
         return _errorRoute();
