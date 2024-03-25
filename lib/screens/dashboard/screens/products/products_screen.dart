@@ -77,19 +77,6 @@ class ProductsScreen extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            bottom: 20.0,
-            left: 50,
-            right: 50,
-            child: Center(
-              child: CustomElevatedButton(
-                text: "Добавить новый продукт",
-                onPressed: () {
-                  Navigator.of(context).pushNamed(RouteGenerator.addNewProduct);
-                },
-              ),
-            ),
-          ),
         ],
       ),
     );
