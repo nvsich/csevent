@@ -166,42 +166,48 @@ class WarehouseDetailsScreen extends StatelessWidget {
     required String productType,
     required String productAmount,
   }) {
-    return Container(
-      margin: EdgeInsets.only(right: 1.h),
-      padding: EdgeInsets.symmetric(horizontal: 18.h, vertical: 18.v),
-      decoration: AppDecoration.outlineBlack900,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                productName,
-                style: theme.textTheme.titleLarge,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 6.h,
-                  vertical: 2.v,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(RouteGenerator.editProductInWarehouse,
+            arguments: productName);
+      },
+      child: Container(
+        margin: EdgeInsets.only(right: 1.h),
+        padding: EdgeInsets.symmetric(horizontal: 18.h, vertical: 18.v),
+        decoration: AppDecoration.outlineBlack900,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  productName,
+                  style: theme.textTheme.titleLarge,
                 ),
-                decoration: AppDecoration.fillRed.copyWith(
-                  borderRadius: BorderRadiusStyle.roundedBorder3,
-                ),
-                child: Flexible(
-                  child: Text(
-                    productType,
-                    style: theme.textTheme.bodySmall,
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 6.h,
+                    vertical: 2.v,
+                  ),
+                  decoration: AppDecoration.fillRed.copyWith(
+                    borderRadius: BorderRadiusStyle.roundedBorder3,
+                  ),
+                  child: Flexible(
+                    child: Text(
+                      productType,
+                      style: theme.textTheme.bodySmall,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          _buildTotal(
-            context: context,
-            amount: productAmount,
-          ),
-        ],
+              ],
+            ),
+            _buildTotal(
+              context: context,
+              amount: productAmount,
+            ),
+          ],
+        ),
       ),
     );
   }

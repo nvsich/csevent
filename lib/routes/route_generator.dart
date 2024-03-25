@@ -6,6 +6,7 @@ import 'package:csevent/screens/dashboard/screens/events/add_new_event_screen.da
 import 'package:csevent/screens/dashboard/screens/products/add_product_screen.dart';
 import 'package:csevent/screens/dashboard/screens/warehouses/add_new_warehouse_screen.dart';
 import 'package:csevent/screens/dashboard/screens/warehouses/add_product_to_warehouse_screen.dart';
+import 'package:csevent/screens/dashboard/screens/warehouses/edit_product_in_warehouse_screen.dart';
 import 'package:csevent/screens/dashboard/screens/warehouses/warehouse_details_screen.dart';
 import 'package:csevent/screens/login_screen.dart';
 import 'package:csevent/screens/dashboard/profile/profile_screen.dart';
@@ -24,11 +25,11 @@ class RouteGenerator {
 
   static const String dashboard = '/dashboard';
 
-  static const String addNewWarehouse = 'dashboard/warehouses/add-new';
+  static const String addNewWarehouse = '/dashboard/warehouses/add-new';
 
-  static const String addNewEvent = 'dashboard/events/add-new';
+  static const String addNewEvent = '/dashboard/events/add-new';
 
-  static const String addNewProduct = 'dashboard/products/add-new';
+  static const String addNewProduct = '/dashboard/products/add-new';
 
   static const String profile = '/profile';
 
@@ -36,9 +37,13 @@ class RouteGenerator {
 
   static const String organizationsProfile = 'profile/organizations';
 
-  static const String warehouseDetails = '/warehouse/details';
+  static const String warehouseDetails = 'dashboard/warehouse/details';
 
-  static const String addProductToWarehouse = '/warehouse/details/add-new';
+  static const String addProductToWarehouse =
+      'dashboard/warehouse/details/add-new';
+
+  static const String editProductInWarehouse =
+      'dashboard/warehouse/details/edit';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
@@ -57,25 +62,26 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => CreateOrganization());
 
       case dashboard:
-        return MaterialPageRoute(builder: (_) => Dashboard());
+        return MaterialPageRoute(builder: (_) => const Dashboard());
 
       case addNewWarehouse:
         return MaterialPageRoute(builder: (_) => AddNewWarehouseScreen());
 
       case addNewEvent:
-        return MaterialPageRoute(builder: (_) => AddNewEventScreen());
+        return MaterialPageRoute(builder: (_) => const AddNewEventScreen());
 
       case addNewProduct:
-        return MaterialPageRoute(builder: (_) => AddProductScreen());
+        return MaterialPageRoute(builder: (_) => const AddProductScreen());
 
       case profile:
-        return MaterialPageRoute(builder: (_) => ProfileScreen());
+        return MaterialPageRoute(builder: (_) => const ProfileScreen());
 
       case editProfile:
         return MaterialPageRoute(builder: (_) => EditProfileScreen());
 
       case organizationsProfile:
-        return MaterialPageRoute(builder: (_) => OrganizationsProfileScreen());
+        return MaterialPageRoute(
+            builder: (_) => const OrganizationsProfileScreen());
 
       case warehouseDetails:
         return MaterialPageRoute(
@@ -83,7 +89,13 @@ class RouteGenerator {
                 WarehouseDetailsScreen(warehouseId: args as String));
 
       case addProductToWarehouse:
-        return MaterialPageRoute(builder: (_) => AddProductToWarehouseScreen());
+        return MaterialPageRoute(
+            builder: (_) => const AddProductToWarehouseScreen());
+
+      case editProductInWarehouse:
+        return MaterialPageRoute(
+            builder: (_) =>
+                EditProductInWarehouse(warehouseId: args as String));
 
       default:
         return _errorRoute();
