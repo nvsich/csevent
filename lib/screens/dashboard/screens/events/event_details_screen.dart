@@ -1,4 +1,5 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/routes/route_generator.dart';
 import 'package:csevent/widgets/app_bar/appbar_leading_image.dart';
 import 'package:csevent/widgets/app_bar/appbar_title.dart';
 import 'package:csevent/widgets/app_bar/custom_app_bar_image.dart';
@@ -108,7 +109,10 @@ class EventDetailsScreen extends StatelessWidget {
 
   Widget _buildEditButton(BuildContext context) {
     return CustomElevatedButton(
-      text: "Барная карта",
+      onPressed: () {
+        Navigator.of(context).pushNamed(RouteGenerator.editEvent);
+      },
+      text: "Редактировать",
       margin: EdgeInsets.only(
         left: 43.h,
         right: 51.h,
