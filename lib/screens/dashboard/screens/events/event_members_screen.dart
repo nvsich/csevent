@@ -16,6 +16,7 @@ class EventMembersScreen extends StatelessWidget {
       body: Stack(
         children: [
           Container(
+            height: MediaQuery.of(context).size.height,
             width: double.maxFinite,
             padding: EdgeInsets.symmetric(vertical: 3.v),
             child: SingleChildScrollView(
@@ -43,7 +44,7 @@ class EventMembersScreen extends StatelessWidget {
             right: 50,
             child: Center(
               child: CustomElevatedButton(
-                text: "Добавить организатора",
+                text: "Добавить организаторов",
                 onPressed: () {
                   Navigator.of(context)
                       .pushNamed(RouteGenerator.addNewMemberToEvent);
@@ -133,11 +134,9 @@ class EventMembersScreen extends StatelessWidget {
       decoration: AppDecoration.fillBlue.copyWith(
         borderRadius: BorderRadiusStyle.roundedBorder3,
       ),
-      child: Flexible(
-        child: Text(
-          "Бал ФКН`23",
-          style: theme.textTheme.bodySmall,
-        ),
+      child: Text(
+        "Бал ФКН`23",
+        style: theme.textTheme.bodySmall,
       ),
     );
   }
