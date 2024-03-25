@@ -57,41 +57,49 @@ class WarehousesScreen extends StatelessWidget {
     String warehouseName,
     String warehouseAddress,
   ) {
-    return Container(
-      margin: EdgeInsets.only(right: 2.h),
-      padding: EdgeInsets.all(17.h),
-      decoration: AppDecoration.outlineBlack900,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 2.v),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  warehouseName,
-                  style: theme.textTheme.titleLarge,
-                ),
-                SizedBox(
-                  height: 5.v,
-                ),
-                Text(
-                  warehouseAddress,
-                  style: theme.textTheme.bodySmall,
-                ),
-              ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(
+          RouteGenerator.warehouseDetails,
+          arguments: warehouseName,
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.only(right: 2.h),
+        padding: EdgeInsets.all(17.h),
+        decoration: AppDecoration.outlineBlack900,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 2.v),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    warehouseName,
+                    style: theme.textTheme.titleLarge,
+                  ),
+                  SizedBox(
+                    height: 5.v,
+                  ),
+                  Text(
+                    warehouseAddress,
+                    style: theme.textTheme.bodySmall,
+                  ),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 33.v),
-            child: Text(
-              "Что на складе?",
-              style: theme.textTheme.labelLarge,
-            ),
-          )
-        ],
+            Padding(
+              padding: EdgeInsets.only(top: 33.v),
+              child: Text(
+                "Что на складе?",
+                style: theme.textTheme.labelLarge,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

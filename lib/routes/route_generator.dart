@@ -5,6 +5,7 @@ import 'package:csevent/screens/dashboard/screens/dashboard.dart';
 import 'package:csevent/screens/dashboard/screens/events/add_new_event_screen.dart';
 import 'package:csevent/screens/dashboard/screens/products/add_new_product_screen.dart';
 import 'package:csevent/screens/dashboard/screens/warehouses/add_new_warehouse_screen.dart';
+import 'package:csevent/screens/dashboard/screens/warehouses/warehouse_details_screen.dart';
 import 'package:csevent/screens/login_screen.dart';
 import 'package:csevent/screens/dashboard/profile/profile_screen.dart';
 import 'package:csevent/screens/signin_organization_screen.dart';
@@ -33,6 +34,8 @@ class RouteGenerator {
   static const String editProfile = '/profile/edit';
 
   static const String organizationsProfile = 'profile/organizations';
+
+  static const String warehouseDetails = '/warehouse/details';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
@@ -70,6 +73,11 @@ class RouteGenerator {
 
       case organizationsProfile:
         return MaterialPageRoute(builder: (_) => OrganizationsProfileScreen());
+
+      case warehouseDetails:
+        return MaterialPageRoute(
+            builder: (_) =>
+                WarehouseDetailsScreen(warehouseId: args as String));
 
       default:
         return _errorRoute();
