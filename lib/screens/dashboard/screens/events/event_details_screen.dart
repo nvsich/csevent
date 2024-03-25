@@ -125,6 +125,9 @@ class EventDetailsScreen extends StatelessWidget {
 
   Widget _buildOrganizatorsButton(BuildContext context) {
     return CustomElevatedButton(
+      onPressed: () {
+        Navigator.of(context).pushNamed(RouteGenerator.eventMembers);
+      },
       text: "Организаторы",
       margin: EdgeInsets.only(
         left: 43.h,

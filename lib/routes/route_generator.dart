@@ -2,9 +2,11 @@ import 'package:csevent/screens/create_organization_screen.dart';
 import 'package:csevent/screens/dashboard/profile/edit_profile_screen.dart';
 import 'package:csevent/screens/dashboard/profile/organizations_profile_screen.dart';
 import 'package:csevent/screens/dashboard/screens/dashboard.dart';
+import 'package:csevent/screens/dashboard/screens/events/add_member_to_event_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/add_new_event_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/edit_event_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/event_details_screen.dart';
+import 'package:csevent/screens/dashboard/screens/events/event_members_screen.dart';
 import 'package:csevent/screens/dashboard/screens/products/add_product_screen.dart';
 import 'package:csevent/screens/dashboard/screens/products/filter_products_screen.dart';
 import 'package:csevent/screens/dashboard/screens/products/warehouses_with_product.dart';
@@ -36,6 +38,11 @@ class RouteGenerator {
   static const String eventDetails = '/dashboard/events/details';
 
   static const String editEvent = '/dashboard/events/details/edit';
+
+  static const String eventMembers = '/dashboard/events/details/members';
+
+  static const String addNewMemberToEvent =
+      '/dashboard/events/details/members/new';
 
   static const String addNewProduct = '/dashboard/products/add-new';
 
@@ -122,6 +129,13 @@ class RouteGenerator {
 
       case editEvent:
         return MaterialPageRoute(builder: (_) => const EditEventScreen());
+
+      case eventMembers:
+        return MaterialPageRoute(builder: (_) => const EventMembersScreen());
+
+      case addNewMemberToEvent:
+        return MaterialPageRoute(
+            builder: (_) => const AddMemberToEventScreen());
 
       default:
         return _errorRoute();
