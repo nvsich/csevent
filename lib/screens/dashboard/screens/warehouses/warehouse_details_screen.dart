@@ -1,7 +1,9 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/routes/route_generator.dart';
 import 'package:csevent/widgets/app_bar/appbar_leading_image.dart';
 import 'package:csevent/widgets/app_bar/appbar_title.dart';
 import 'package:csevent/widgets/app_bar/custom_app_bar_image.dart';
+import 'package:csevent/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 
 class WarehouseDetailsScreen extends StatelessWidget {
@@ -19,95 +21,116 @@ class WarehouseDetailsScreen extends StatelessWidget {
         context: context,
         name: warehouseId,
       ),
-      body: SizedBox(
-        width: double.maxFinite,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _buildProduct(
-                context: context,
-                productName: "productName",
-                productType: "productType",
-                productAmount: "productAmount",
+      body: Stack(
+        children: [
+          Container(
+            width: double.maxFinite,
+            padding: EdgeInsets.symmetric(
+              vertical: 11.v,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _buildProduct(
+                    context: context,
+                    productName: "productName",
+                    productType: "productType",
+                    productAmount: "productAmount",
+                  ),
+                  SizedBox(
+                    height: 4.v,
+                  ),
+                  _buildProduct(
+                    context: context,
+                    productName: "productName",
+                    productType: "productType",
+                    productAmount: "productAmount",
+                  ),
+                  SizedBox(
+                    height: 4.v,
+                  ),
+                  _buildProduct(
+                    context: context,
+                    productName: "productName",
+                    productType: "productType",
+                    productAmount: "productAmount",
+                  ),
+                  SizedBox(
+                    height: 4.v,
+                  ),
+                  _buildProduct(
+                    context: context,
+                    productName: "productName",
+                    productType: "productType",
+                    productAmount: "productAmount",
+                  ),
+                  SizedBox(
+                    height: 4.v,
+                  ),
+                  _buildProduct(
+                    context: context,
+                    productName: "productName",
+                    productType: "productType",
+                    productAmount: "productAmount",
+                  ),
+                  SizedBox(
+                    height: 4.v,
+                  ),
+                  _buildProduct(
+                    context: context,
+                    productName: "productName",
+                    productType: "productType",
+                    productAmount: "productAmount",
+                  ),
+                  SizedBox(
+                    height: 4.v,
+                  ),
+                  _buildProduct(
+                    context: context,
+                    productName: "productName",
+                    productType: "productType",
+                    productAmount: "productAmount",
+                  ),
+                  SizedBox(
+                    height: 4.v,
+                  ),
+                  _buildProduct(
+                    context: context,
+                    productName: "productName",
+                    productType: "productType",
+                    productAmount: "productAmount",
+                  ),
+                  SizedBox(
+                    height: 4.v,
+                  ),
+                  _buildProduct(
+                    context: context,
+                    productName: "productName",
+                    productType: "productType",
+                    productAmount: "productAmount",
+                  ),
+                  SizedBox(
+                    height: 4.v,
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 4.v,
-              ),
-              _buildProduct(
-                context: context,
-                productName: "productName",
-                productType: "productType",
-                productAmount: "productAmount",
-              ),
-              SizedBox(
-                height: 4.v,
-              ),
-              _buildProduct(
-                context: context,
-                productName: "productName",
-                productType: "productType",
-                productAmount: "productAmount",
-              ),
-              SizedBox(
-                height: 4.v,
-              ),
-              _buildProduct(
-                context: context,
-                productName: "productName",
-                productType: "productType",
-                productAmount: "productAmount",
-              ),
-              SizedBox(
-                height: 4.v,
-              ),
-              _buildProduct(
-                context: context,
-                productName: "productName",
-                productType: "productType",
-                productAmount: "productAmount",
-              ),
-              SizedBox(
-                height: 4.v,
-              ),
-              _buildProduct(
-                context: context,
-                productName: "productName",
-                productType: "productType",
-                productAmount: "productAmount",
-              ),
-              SizedBox(
-                height: 4.v,
-              ),
-              _buildProduct(
-                context: context,
-                productName: "productName",
-                productType: "productType",
-                productAmount: "productAmount",
-              ),
-              SizedBox(
-                height: 4.v,
-              ),
-              _buildProduct(
-                context: context,
-                productName: "productName",
-                productType: "productType",
-                productAmount: "productAmount",
-              ),
-              SizedBox(
-                height: 4.v,
-              ),
-              _buildProduct(
-                context: context,
-                productName: "productName",
-                productType: "productType",
-                productAmount: "productAmount",
-              ),
-              SizedBox(
-                height: 4.v,
-              ),
-            ],
+            ),
           ),
-        ),
+          Positioned(
+            bottom: 20.0,
+            left: 50,
+            right: 50,
+            child: Center(
+              child: CustomElevatedButton(
+                text: "Добавить новый продукт",
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamed(RouteGenerator.addProductToWarehouse);
+                },
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
