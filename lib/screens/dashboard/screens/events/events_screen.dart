@@ -16,23 +16,43 @@ class EventsScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 3.v),
             child: SingleChildScrollView(
               child: Column(children: [
-                _buildEventCardsListItemWidget(context),
+                _buildEventCardsListItemWidget(
+                  context,
+                  eventName: "Экватор 23",
+                  eventTheme: "Barbie",
+                  eventDate: "1 июля 23:00",
+                  eventPlace: "Hawaii House",
+                ),
                 SizedBox(
                   height: 18.v,
                 ),
-                _buildEventCardsListItemWidget(context),
+                _buildEventCardsListItemWidget(
+                  context,
+                  eventName: "Экватор 23",
+                  eventTheme: "Barbie",
+                  eventDate: "1 июля 23:00",
+                  eventPlace: "Hawaii House",
+                ),
                 SizedBox(
                   height: 18.v,
                 ),
-                _buildEventCardsListItemWidget(context),
+                _buildEventCardsListItemWidget(
+                  context,
+                  eventName: "Экватор 23",
+                  eventTheme: "Barbie",
+                  eventDate: "1 июля 23:00",
+                  eventPlace: "Hawaii House",
+                ),
                 SizedBox(
                   height: 18.v,
                 ),
-                _buildEventCardsListItemWidget(context),
-                SizedBox(
-                  height: 18.v,
+                _buildEventCardsListItemWidget(
+                  context,
+                  eventName: "Экватор 23",
+                  eventTheme: "Barbie",
+                  eventDate: "1 июля 23:00",
+                  eventPlace: "Hawaii House",
                 ),
-                _buildEventCardsListItemWidget(context),
                 SizedBox(
                   height: 18.v,
                 ),
@@ -57,44 +77,58 @@ class EventsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildEventCardsListItemWidget(context) {
-    return Container(
-      width: MediaQuery.of(context).size.width - 45,
-      padding: EdgeInsets.symmetric(
-        horizontal: 62.h,
-        vertical: 22.v,
-      ),
-      decoration: AppDecoration.shadow.copyWith(
-        borderRadius: BorderRadiusStyle.roundedBorder20,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Экватор 23",
-            style: CustomTextStyles.titleLargeRegular,
-          ),
-          Text(
-            "Barbie",
-            style: CustomTextStyles.bodyLargeLight,
-          ),
-          SizedBox(
-            height: 11.v,
-          ),
-          Text(
-            "1 июля 23:00",
-            style: theme.textTheme.bodyLarge,
-          ),
-          SizedBox(
-            height: 7.v,
-          ),
-          Text(
-            "Hawaii House",
-            style: theme.textTheme.bodyLarge,
-          ),
-        ],
+  Widget _buildEventCardsListItemWidget(
+    context, {
+    required String eventName,
+    required String eventTheme,
+    required String eventDate,
+    required String eventPlace,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(
+          RouteGenerator.eventDetails,
+          arguments: eventName,
+        );
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width - 45,
+        padding: EdgeInsets.symmetric(
+          horizontal: 62.h,
+          vertical: 22.v,
+        ),
+        decoration: AppDecoration.shadow.copyWith(
+          borderRadius: BorderRadiusStyle.roundedBorder20,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              eventName,
+              style: CustomTextStyles.titleLargeRegular,
+            ),
+            Text(
+              eventTheme,
+              style: CustomTextStyles.bodyLargeLight,
+            ),
+            SizedBox(
+              height: 11.v,
+            ),
+            Text(
+              eventDate,
+              style: theme.textTheme.bodyLarge,
+            ),
+            SizedBox(
+              height: 7.v,
+            ),
+            Text(
+              eventPlace,
+              style: theme.textTheme.bodyLarge,
+            ),
+          ],
+        ),
       ),
     );
   }
