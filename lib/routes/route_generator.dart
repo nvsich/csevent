@@ -2,6 +2,7 @@ import 'package:csevent/screens/create_organization_screen.dart';
 import 'package:csevent/screens/dashboard/profile/edit_profile_screen.dart';
 import 'package:csevent/screens/dashboard/profile/organizations_profile_screen.dart';
 import 'package:csevent/screens/dashboard/screens/dashboard.dart';
+import 'package:csevent/screens/dashboard/screens/events/add_cocktail_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/add_member_to_event_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/add_new_event_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/edit_event_screen.dart';
@@ -9,7 +10,6 @@ import 'package:csevent/screens/dashboard/screens/events/event_bar_card_screen.d
 import 'package:csevent/screens/dashboard/screens/events/event_details_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/event_members_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/event_shopping_screen.dart';
-import 'package:csevent/screens/dashboard/screens/products/add_product_screen.dart';
 import 'package:csevent/screens/dashboard/screens/products/filter_products_screen.dart';
 import 'package:csevent/screens/dashboard/screens/products/warehouses_with_product.dart';
 import 'package:csevent/screens/dashboard/screens/warehouses/add_new_warehouse_screen.dart';
@@ -48,9 +48,10 @@ class RouteGenerator {
 
   static const String eventBarCard = '/dashboard/events/details/barcard';
 
-  static const String eventShopping = '/dashboard/events/details/shopping';
+  static const String addCocktail =
+      '/dashboard/events/details/barcard/add-cocktail';
 
-  static const String addNewProduct = '/dashboard/products/add-new';
+  static const String eventShopping = '/dashboard/events/details/shopping';
 
   static const String filterProducts = '/dashboard/products/filter';
 
@@ -94,9 +95,6 @@ class RouteGenerator {
 
       case addNewEvent:
         return MaterialPageRoute(builder: (_) => const AddNewEventScreen());
-
-      case addNewProduct:
-        return MaterialPageRoute(builder: (_) => const AddProductScreen());
 
       case profile:
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
@@ -148,6 +146,9 @@ class RouteGenerator {
 
       case eventShopping:
         return MaterialPageRoute(builder: (_) => const EventShoppingScreen());
+
+      case addCocktail:
+        return MaterialPageRoute(builder: (_) => const AddCocktailScreen());
 
       default:
         return _errorRoute();

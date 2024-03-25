@@ -41,7 +41,7 @@ class EventBarCardScreen extends StatelessWidget {
               child: CustomElevatedButton(
                 text: "Добавить коктейль",
                 onPressed: () {
-                  Navigator.of(context).pushNamed("default");
+                  Navigator.of(context).pushNamed(RouteGenerator.addCocktail);
                 },
               ),
             ),

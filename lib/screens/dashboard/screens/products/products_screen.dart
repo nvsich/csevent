@@ -1,6 +1,5 @@
 import 'package:csevent/core/app_export.dart';
 import 'package:csevent/routes/route_generator.dart';
-import 'package:csevent/widgets/custom_elevated_button.dart';
 import 'package:csevent/widgets/custom_search_view.dart';
 import 'package:flutter/material.dart';
 
