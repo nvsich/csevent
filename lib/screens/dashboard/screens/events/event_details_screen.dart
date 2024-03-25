@@ -157,6 +157,9 @@ class EventDetailsScreen extends StatelessWidget {
 
   Widget _buildBuyingsButton(BuildContext context) {
     return CustomElevatedButton(
+      onPressed: () {
+        Navigator.of(context).pushNamed(RouteGenerator.eventShopping);
+      },
       text: "Закупки",
       margin: EdgeInsets.only(
         left: 43.h,
