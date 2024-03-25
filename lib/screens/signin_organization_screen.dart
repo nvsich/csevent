@@ -131,6 +131,9 @@ class SignInOrganization extends StatelessWidget {
               ),
               AppbarTrailingImage(
                 imagePath: ImageConstant.imgNotFound,
+                onTap: () {
+                  Navigator.of(context).pushNamed(RouteGenerator.profile);
+                },
               ),
             ],
           ),
