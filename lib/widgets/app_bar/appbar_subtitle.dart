@@ -2,7 +2,7 @@ import 'package:csevent/core/app_export.dart';
 import 'package:flutter/material.dart';
 
 class AppbarSubtitle extends StatelessWidget {
-  AppbarSubtitle({
+  const AppbarSubtitle({
     Key? key,
     required this.text,
     this.margin,
@@ -11,11 +11,11 @@ class AppbarSubtitle extends StatelessWidget {
           key: key,
         );
 
-  String text;
+  final String text;
 
-  EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? margin;
 
-  Function? onTap;
+  final Function? onTap;
 
   @override
   Widget build(BuildContext context) {

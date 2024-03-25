@@ -3,7 +3,6 @@ import 'package:csevent/widgets/app_bar/appbar_leading_image.dart';
 import 'package:csevent/widgets/app_bar/appbar_subtitle.dart';
 import 'package:csevent/widgets/app_bar/custom_app_bar_image.dart';
 import 'package:csevent/widgets/custom_elevated_button.dart';
-import 'package:csevent/widgets/custom_pin_code_text_field.dart';
 import 'package:csevent/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
@@ -111,7 +110,7 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
         ),
       ),
       centerTitle: true,
-      title: AppbarSubtitle(text: "Добавить мероприятие"),
+      title: const AppbarSubtitle(text: "Добавить мероприятие"),
     );
   }
 
@@ -147,37 +146,6 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
     return CustomTextFormField(
       controller: guestsController,
       hintText: "например, 200",
-    );
-  }
-
-  Widget _buildColors(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: colors.length,
-      itemBuilder: (context, index) {
-        return GestureDetector(
-          onTap: () {
-            setState(() {
-              selectedColor = colors[index];
-            });
-          },
-          child: Container(
-            width: 100,
-            height: 100,
-            margin: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: colors[index],
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: selectedColor == colors[index]
-                    ? Colors.black
-                    : Colors.transparent,
-                width: 3,
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 

@@ -9,11 +9,11 @@ import 'package:flutter/material.dart';
 class EditProfileScreen extends StatelessWidget {
   EditProfileScreen({super.key});
 
-  TextEditingController nameController = TextEditingController();
+  final nameController = TextEditingController();
 
-  TextEditingController emailController = TextEditingController();
+  final emailController = TextEditingController();
 
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +107,7 @@ class EditProfileScreen extends StatelessWidget {
         ),
       ),
       centerTitle: true,
-      title: AppbarSubtitle(
+      title: const AppbarSubtitle(
         text: "Редактировать аккаунт",
       ),
     );

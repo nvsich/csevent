@@ -21,9 +21,9 @@ class _DashboardState extends State<Dashboard> {
 
   List<Widget> body = [
     ProductsScreen(),
-    WarehousesScreen(),
-    EventsScreen(),
-    MembersScreen(),
+    const WarehousesScreen(),
+    const EventsScreen(),
+    const MembersScreen(),
   ];
 
   @override
@@ -65,7 +65,7 @@ class _DashboardState extends State<Dashboard> {
     return CustomAppBar(
       height: 53.v,
       centerTitle: true,
-      title: AppbarTitle(text: "CSTATI"),
+      title: const AppbarTitle(text: "CSTATI"),
       actions: [
         AppbarTrailingImage(
           imagePath: ImageConstant.imgNotFound,

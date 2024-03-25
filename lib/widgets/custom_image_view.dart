@@ -5,20 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomImageView extends StatelessWidget {
-  String? imagePath;
-
-  double? height;
-  double? width;
-  Color? color;
-  BoxFit? fit;
-  final String placeHolder;
-  Alignment? alignment;
-  VoidCallback? onTap;
-  EdgeInsetsGeometry? margin;
-  BorderRadius? radius;
-  BoxBorder? border;
-
-  CustomImageView({
+  const CustomImageView({
     Key? key,
     this.imagePath,
     this.height,
@@ -34,6 +21,19 @@ class CustomImageView extends StatelessWidget {
   }) : super(
           key: key,
         );
+
+  final String? imagePath;
+
+  final double? height;
+  final double? width;
+  final Color? color;
+  final BoxFit? fit;
+  final String placeHolder;
+  final Alignment? alignment;
+  final VoidCallback? onTap;
+  final EdgeInsetsGeometry? margin;
+  final BorderRadius? radius;
+  final BoxBorder? border;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ class CustomImageView extends StatelessWidget {
     if (imagePath != null) {
       switch (imagePath!.imageType) {
         case ImageType.svg:
-          return Container(
+          return SizedBox(
             height: height,
             width: width,
             child: SvgPicture.asset(
@@ -117,7 +117,7 @@ class CustomImageView extends StatelessWidget {
             fit: fit,
             imageUrl: imagePath!,
             color: color,
-            placeholder: (context, url) => Container(
+            placeholder: (context, url) => SizedBox(
               height: 30,
               width: 30,
               child: LinearProgressIndicator(

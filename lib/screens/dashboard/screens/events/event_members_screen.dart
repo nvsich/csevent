@@ -71,7 +71,7 @@ class EventMembersScreen extends StatelessWidget {
         ),
       ),
       centerTitle: true,
-      title: AppbarTitle(
+      title: const AppbarTitle(
         text: "Организаторы",
       ),
     );

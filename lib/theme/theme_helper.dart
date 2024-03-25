@@ -1,20 +1,19 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:csevent/core/utils/size_utils.dart';
 
 String _appTheme = "primary";
 
 class ThemeHelper {
-  Map<String, PrimaryColors> _supportedCustomColor = {
+  final Map<String, PrimaryColors> _supportedCustomColor = {
     'primary': PrimaryColors()
   };
 
-  Map<String, ColorScheme> _supportedColorScheme = {
+  final Map<String, ColorScheme> _supportedColorScheme = {
     'primary': ColorSchemes.primaryColorScheme
   };
 
-  void changeTheme(String _newTheme) {
-    _appTheme = _newTheme;
+  void changeTheme(String newTheme) {
+    _appTheme = newTheme;
   }
 
   PrimaryColors _getThemeColors() {

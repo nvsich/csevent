@@ -115,7 +115,7 @@ class OrganizationsProfileScreen extends StatelessWidget {
         ),
       ),
       centerTitle: true,
-      title: AppbarSubtitle(
+      title: const AppbarSubtitle(
         text: "Мои организации",
       ),
     );

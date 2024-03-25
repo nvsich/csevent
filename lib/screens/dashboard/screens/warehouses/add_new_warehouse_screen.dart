@@ -9,9 +9,9 @@ import 'package:flutter/material.dart';
 class AddNewWarehouseScreen extends StatelessWidget {
   AddNewWarehouseScreen({super.key});
 
-  TextEditingController labelController = TextEditingController();
+  final labelController = TextEditingController();
 
-  TextEditingController labelController1 = TextEditingController();
+  final labelController1 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +94,7 @@ class AddNewWarehouseScreen extends StatelessWidget {
         ),
       ),
       centerTitle: true,
-      title: AppbarSubtitle(text: "Добавить новый склад"),
+      title: const AppbarSubtitle(text: "Добавить новый склад"),
     );
   }
 

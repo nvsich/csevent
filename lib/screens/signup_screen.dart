@@ -7,15 +7,15 @@ import 'package:flutter/material.dart';
 class SignupScreen extends StatelessWidget {
   SignupScreen({super.key});
 
-  TextEditingController labelController = TextEditingController();
+  final labelController = TextEditingController();
 
-  TextEditingController emailController = TextEditingController();
+  final emailController = TextEditingController();
 
-  TextEditingController passwordController = TextEditingController();
+  final passwordController = TextEditingController();
 
-  TextEditingController passwordController1 = TextEditingController();
+  final passwordController1 = TextEditingController();
 
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {

@@ -2,7 +2,7 @@ import 'package:csevent/core/app_export.dart';
 import 'package:flutter/material.dart';
 
 class AppbarTrailingImage extends StatelessWidget {
-  AppbarTrailingImage({
+  const AppbarTrailingImage({
     Key? key,
     this.imagePath,
     this.margin,
@@ -11,11 +11,11 @@ class AppbarTrailingImage extends StatelessWidget {
           key: key,
         );
 
-  String? imagePath;
+  final String? imagePath;
 
-  EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? margin;
 
-  Function? onTap;
+  final Function? onTap;
 
   @override
   Widget build(BuildContext context) {

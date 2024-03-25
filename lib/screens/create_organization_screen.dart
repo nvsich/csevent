@@ -10,9 +10,9 @@ import 'package:flutter/material.dart';
 class CreateOrganization extends StatelessWidget {
   CreateOrganization({super.key});
 
-  TextEditingController labelController = TextEditingController();
+  final labelController = TextEditingController();
 
-  TextEditingController labelController1 = TextEditingController();
+  final labelController1 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

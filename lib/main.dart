@@ -12,10 +12,12 @@ void main() {
   ]);
   ThemeHelper().changeTheme('primary');
 
-  runApp(MainApp());
+  runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Sizer(

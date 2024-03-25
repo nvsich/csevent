@@ -113,7 +113,7 @@ class _EditEventScreen extends State<EditEventScreen> {
         ),
       ),
       centerTitle: true,
-      title: AppbarSubtitle(text: "Изменить мероприятие"),
+      title: const AppbarSubtitle(text: "Изменить мероприятие"),
     );
   }
 
@@ -149,37 +149,6 @@ class _EditEventScreen extends State<EditEventScreen> {
     return CustomTextFormField(
       controller: guestsController,
       hintText: "200",
-    );
-  }
-
-  Widget _buildColors(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: colors.length,
-      itemBuilder: (context, index) {
-        return GestureDetector(
-          onTap: () {
-            setState(() {
-              selectedColor = colors[index];
-            });
-          },
-          child: Container(
-            width: 100,
-            height: 100,
-            margin: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: colors[index],
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: selectedColor == colors[index]
-                    ? Colors.black
-                    : Colors.transparent,
-                width: 3,
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 

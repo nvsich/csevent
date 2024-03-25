@@ -226,7 +226,7 @@ class _EditProductInWarehouse extends State<EditProductInWarehouse> {
         ),
       ),
       centerTitle: true,
-      title: AppbarSubtitle(
+      title: const AppbarSubtitle(
         text: "Изменить продукт",
       ),
     );

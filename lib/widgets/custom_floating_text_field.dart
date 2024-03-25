@@ -2,35 +2,33 @@ import 'package:csevent/core/app_export.dart';
 import 'package:flutter/material.dart';
 
 class CustomFloatingTextField extends StatelessWidget {
-  CustomFloatingTextField(
-      {Key? key,
-      this.alignment,
-      this.width,
-      this.scrollPadding,
-      this.controller,
-      this.focusNode,
-      this.autofocus = true,
-      this.textStyle,
-      this.obscureText = false,
-      this.textInputAction = TextInputAction.next,
-      this.textInputType = TextInputType.text,
-      this.maxLines,
-      this.hintText,
-      this.hintStyle,
-      this.labelText,
-      this.labelStyle,
-      this.prefix,
-      this.prefixConstraints,
-      this.suffix,
-      this.suffixConstraints,
-      this.contentPadding,
-      this.borderDecoration,
-      this.fillColor,
-      this.filled = false,
-      this.validator})
-      : super(
-          key: key,
-        );
+  const CustomFloatingTextField({
+    super.key,
+    this.alignment,
+    this.width,
+    this.scrollPadding,
+    this.controller,
+    this.focusNode,
+    this.autofocus = true,
+    this.textStyle,
+    this.obscureText = false,
+    this.textInputAction = TextInputAction.next,
+    this.textInputType = TextInputType.text,
+    this.maxLines,
+    this.hintText,
+    this.hintStyle,
+    this.labelText,
+    this.labelStyle,
+    this.prefix,
+    this.prefixConstraints,
+    this.suffix,
+    this.suffixConstraints,
+    this.contentPadding,
+    this.borderDecoration,
+    this.fillColor,
+    this.filled = false,
+    this.validator,
+  });
 
   final Alignment? alignment;
 

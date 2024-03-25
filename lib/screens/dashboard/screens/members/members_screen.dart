@@ -1,5 +1,4 @@
 import 'package:csevent/core/app_export.dart';
-import 'package:csevent/routes/route_generator.dart';
 import 'package:flutter/material.dart';
 
 class MembersScreen extends StatelessWidget {

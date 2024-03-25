@@ -177,7 +177,7 @@ class _FilterProductsScreenState extends State<FilterProductsScreen> {
         ),
       ),
       centerTitle: true,
-      title: AppbarSubtitle(
+      title: const AppbarSubtitle(
         text: "Фильтровать продукты",
       ),
     );

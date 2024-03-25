@@ -10,11 +10,11 @@ class LoginScreen extends StatelessWidget {
           key: key,
         );
 
-  TextEditingController emailController = TextEditingController();
+  final emailController = TextEditingController();
 
-  TextEditingController passwordController = TextEditingController();
+  final passwordController = TextEditingController();
 
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {

@@ -1,9 +1,8 @@
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
-const num FIGMA_DESIGN_WIDTH = 376;
-const num FIGMA_DESIGN_HEIGHT = 812;
-const num FIGMA_DESIGN_STATUS_BAR = 0;
+const num figmaDesignWidth = 376;
+const num figmaDesignHeight = 812;
+const num figmaDesignStatusBar = 0;
 
 typedef ResponsiveBuild = Widget Function(
   BuildContext context,
@@ -50,12 +49,11 @@ class SizeUtils {
     orientation = currentOrientation;
 
     if (orientation == Orientation.portrait) {
-      width =
-          boxConstraints.maxWidth.isNonZero(defaultValue: FIGMA_DESIGN_WIDTH);
+      width = boxConstraints.maxWidth.isNonZero(defaultValue: figmaDesignWidth);
       height = boxConstraints.maxHeight.isNonZero();
     } else {
       width =
-          boxConstraints.maxHeight.isNonZero(defaultValue: FIGMA_DESIGN_WIDTH);
+          boxConstraints.maxHeight.isNonZero(defaultValue: figmaDesignWidth);
       height = boxConstraints.maxWidth.isNonZero();
     }
     deviceType = DeviceType.mobile;
@@ -67,10 +65,9 @@ extension ResponsiveExtension on num {
 
   double get _height => SizeUtils.height;
 
-  double get h => ((this * _width) / FIGMA_DESIGN_WIDTH);
+  double get h => ((this * _width) / figmaDesignWidth);
 
-  double get v =>
-      (this * _height) / (FIGMA_DESIGN_HEIGHT - FIGMA_DESIGN_STATUS_BAR);
+  double get v => (this * _height) / (figmaDesignHeight - figmaDesignStatusBar);
 
   double get adaptSize {
     var height = v;

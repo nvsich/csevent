@@ -89,7 +89,7 @@ class ProfileScreen extends StatelessWidget {
         ),
       ),
       centerTitle: true,
-      title: AppbarSubtitle(text: "Аккаунт"),
+      title: const AppbarSubtitle(text: "Аккаунт"),
       actions: [
         AppbarTrailingImage(
           imagePath: ImageConstant.imgNotFound,

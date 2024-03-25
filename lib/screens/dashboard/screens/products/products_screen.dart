@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class ProductsScreen extends StatelessWidget {
   ProductsScreen({super.key});
 
-  TextEditingController searchController = TextEditingController();
+  final searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class SignInOrganization extends StatelessWidget {
   SignInOrganization({super.key});
 
-  TextEditingController labelController = TextEditingController();
+  final labelController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
