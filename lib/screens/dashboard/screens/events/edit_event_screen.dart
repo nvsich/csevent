@@ -24,14 +24,7 @@ class _EditEventScreen extends State<EditEventScreen> {
 
   TextEditingController guestsController = TextEditingController();
 
-  Color selectedColor = Colors.red;
-
-  final List<Color> colors = [
-    Colors.red,
-    Colors.green,
-    Colors.blue,
-    Colors.yellow,
-  ];
+  int _selectedColor = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -88,14 +81,19 @@ class _EditEventScreen extends State<EditEventScreen> {
                 style: theme.textTheme.bodySmall,
               ),
               SizedBox(height: 8.v),
-              //_buildColors(),
-              SizedBox(height: 5.v),
+              _buildColorsRow(),
             ],
           ),
         ),
         bottomNavigationBar: _buildSaveButton(context),
       ),
     );
+  }
+
+  void _selectCategory(int color) {
+    setState(() {
+      _selectedColor = color;
+    });
   }
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
@@ -149,6 +147,55 @@ class _EditEventScreen extends State<EditEventScreen> {
     return CustomTextFormField(
       controller: guestsController,
       hintText: "200",
+    );
+  }
+
+  Widget _buildColorsRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _buildColorSelectorBox(context, appTheme.purple50, 1),
+        _buildColorSelectorBox(context, appTheme.red10001, 2),
+        _buildColorSelectorBox(context, appTheme.orange50, 3),
+        _buildColorSelectorBox(context, appTheme.cyan50, 4),
+        _buildColorSelectorBox(context, appTheme.lightBlue50, 5),
+        _buildColorSelectorBox(context, appTheme.blue50, 6),
+        _buildColorSelectorBox(context, appTheme.gray200, 7),
+      ],
+    );
+  }
+
+  Widget _buildColorSelectorBox(
+    BuildContext context,
+    Color colorBox,
+    int colorNum,
+  ) {
+    return GestureDetector(
+      onTap: () => _selectCategory(colorNum),
+      child: Container(
+        height: 25.adaptSize,
+        width: 25.adaptSize,
+        margin: EdgeInsets.symmetric(
+          vertical: 2.v,
+        ),
+        decoration: BoxDecoration(
+          color: colorBox,
+          borderRadius: BorderRadius.circular(4.h),
+          border: Border.all(
+            color: appTheme.black900.withOpacity(0.4),
+            width: 1.h,
+          ),
+          boxShadow: _selectedColor == colorNum
+              ? [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.8),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                  )
+                ]
+              : [],
+        ),
+      ),
     );
   }
 
