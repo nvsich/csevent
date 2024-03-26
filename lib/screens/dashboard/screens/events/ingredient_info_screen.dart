@@ -43,9 +43,17 @@ class IngredientInforScreen extends StatelessWidget {
             SizedBox(
               height: 4.v,
             ),
-            Text(
-              "На каких складах?",
-              style: theme.textTheme.labelLarge,
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  RouteGenerator.warehousesWithIngredient,
+                  arguments: ingredientId,
+                );
+              },
+              child: Text(
+                "На каких складах?",
+                style: theme.textTheme.labelLarge,
+              ),
             ),
             SizedBox(
               height: 20.v,
