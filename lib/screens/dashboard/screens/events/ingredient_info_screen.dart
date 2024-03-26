@@ -1,4 +1,5 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/routes/route_generator.dart';
 import 'package:csevent/widgets/app_bar/appbar_leading_image.dart';
 import 'package:csevent/widgets/app_bar/appbar_subtitle.dart';
 import 'package:csevent/widgets/app_bar/custom_app_bar_image.dart';
@@ -83,9 +84,17 @@ class IngredientInforScreen extends StatelessWidget {
             SizedBox(
               height: 8.v,
             ),
-            Text(
-              "Узнать стоимость",
-              style: theme.textTheme.labelLarge,
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  RouteGenerator.shopsWithIngredient,
+                  arguments: ingredientId,
+                );
+              },
+              child: Text(
+                "Узнать стоимость",
+                style: theme.textTheme.labelLarge,
+              ),
             ),
             SizedBox(
               height: 18.v,

@@ -13,6 +13,7 @@ import 'package:csevent/screens/dashboard/screens/events/event_details_screen.da
 import 'package:csevent/screens/dashboard/screens/events/event_members_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/event_shopping_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/ingredient_info_screen.dart';
+import 'package:csevent/screens/dashboard/screens/events/shops_with_ingredient_screen.dart';
 import 'package:csevent/screens/dashboard/screens/products/filter_products_screen.dart';
 import 'package:csevent/screens/dashboard/screens/products/warehouses_with_product.dart';
 import 'package:csevent/screens/dashboard/screens/warehouses/add_new_warehouse_screen.dart';
@@ -62,6 +63,9 @@ class RouteGenerator {
 
   static const String ingredientInfo =
       '/dashboard/events/details/barcard/cocktail/ingredient-info';
+
+  static const String shopsWithIngredient =
+      '/dashboard/events/details/barcard/cocktail/ingredient-info/shops';
 
   static const String eventShopping = '/dashboard/events/details/shopping';
 
@@ -173,6 +177,12 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) =>
                 IngredientInforScreen(ingredientId: args as String));
+
+      case shopsWithIngredient:
+        return MaterialPageRoute(
+            builder: (_) => ShopsWithIngredientScreen(
+                  ingredientName: args as String,
+                ));
 
       default:
         return _errorRoute();
