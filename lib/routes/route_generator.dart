@@ -5,6 +5,7 @@ import 'package:csevent/screens/dashboard/screens/dashboard.dart';
 import 'package:csevent/screens/dashboard/screens/events/add_cocktail_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/add_member_to_event_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/add_new_event_screen.dart';
+import 'package:csevent/screens/dashboard/screens/events/cocktail_details_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/edit_event_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/event_bar_card_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/event_details_screen.dart';
@@ -47,6 +48,9 @@ class RouteGenerator {
       '/dashboard/events/details/members/new';
 
   static const String eventBarCard = '/dashboard/events/details/barcard';
+
+  static const String cocktailDetails =
+      'dashboard/events/details/barcart/cocktail';
 
   static const String addCocktail =
       '/dashboard/events/details/barcard/add-cocktail';
@@ -149,6 +153,10 @@ class RouteGenerator {
 
       case addCocktail:
         return MaterialPageRoute(builder: (_) => const AddCocktailScreen());
+
+      case cocktailDetails:
+        return MaterialPageRoute(
+            builder: (_) => CocktailDetailsScreen(cocktailId: args as String));
 
       default:
         return _errorRoute();

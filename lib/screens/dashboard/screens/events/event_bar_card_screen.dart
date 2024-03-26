@@ -22,22 +22,27 @@ class EventBarCardScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  _buildDrink(context),
-                  _buildDrink(context),
-                  _buildDrink(context),
-                  _buildDrink(context),
-                  _buildDrink(context),
-                  _buildDrink(context),
-                  _buildDrink(context),
+                  _buildDrink(context, "Джин тоник"),
+                  _buildDrink(context, "Лонг-Айленд"),
+                  _buildDrink(context, "Отвертка"),
+                  _buildDrink(context, "Джин тоник"),
+                  _buildDrink(context, "Лонг-Айленд"),
+                  _buildDrink(context, "Отвертка"),
+                  _buildDrink(context, "Джин тоник"),
+                  _buildDrink(context, "Лонг-Айленд"),
+                  _buildDrink(context, "Отвертка"),
                 ],
               ),
             ),
           ),
-          Positioned(
-            bottom: 20.0,
-            left: 50,
-            right: 50,
-            child: Center(
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                bottom: 20.0,
+                left: 50,
+                right: 50,
+              ),
               child: CustomElevatedButton(
                 text: "Добавить коктейль",
                 onPressed: () {
@@ -72,49 +77,57 @@ class EventBarCardScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDrink(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(right: 1.h),
-      padding: EdgeInsets.symmetric(vertical: 11.v),
-      decoration: AppDecoration.outlineBlack900,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CustomImageView(
-            imagePath: ImageConstant.imgNotFound,
-            height: 66.adaptSize,
-            width: 66.adaptSize,
-            margin: EdgeInsets.only(bottom: 6.v),
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: 15.h,
-                top: 9.v,
-                bottom: 9.v,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Джин Тоник",
-                    style: theme.textTheme.titleLarge,
-                  ),
-                  SizedBox(
-                    height: 7.v,
-                  ),
-                  Wrap(
-                    runSpacing: 10.v,
-                    spacing: 10.h,
-                    children: List<Widget>.generate(
-                        3, (index) => _buildTagsrowItemWidget()),
-                  ),
-                ],
+  Widget _buildDrink(BuildContext context, String drinkName) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(
+          RouteGenerator.cocktailDetails,
+          arguments: drinkName,
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.only(right: 1.h),
+        padding: EdgeInsets.symmetric(vertical: 11.v),
+        decoration: AppDecoration.outlineBlack900,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomImageView(
+              imagePath: ImageConstant.imgNotFound,
+              height: 66.adaptSize,
+              width: 66.adaptSize,
+              margin: EdgeInsets.only(bottom: 6.v),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: 15.h,
+                  top: 9.v,
+                  bottom: 9.v,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      drinkName,
+                      style: theme.textTheme.titleLarge,
+                    ),
+                    SizedBox(
+                      height: 7.v,
+                    ),
+                    Wrap(
+                      runSpacing: 10.v,
+                      spacing: 10.h,
+                      children: List<Widget>.generate(
+                          3, (index) => _buildTagsrowItemWidget()),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

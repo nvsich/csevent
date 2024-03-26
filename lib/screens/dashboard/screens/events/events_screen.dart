@@ -59,11 +59,14 @@ class EventsScreen extends StatelessWidget {
               ]),
             ),
           ),
-          Positioned(
-            bottom: 20.0,
-            left: 50,
-            right: 50,
-            child: Center(
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                bottom: 20.0,
+                left: 50,
+                right: 50,
+              ),
               child: CustomElevatedButton(
                 text: "Добавить новое мероприятие",
                 onPressed: () {
