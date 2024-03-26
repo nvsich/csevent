@@ -1,4 +1,5 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/routes/route_generator.dart';
 import 'package:csevent/widgets/app_bar/appbar_leading_image.dart';
 import 'package:csevent/widgets/app_bar/appbar_title.dart';
 import 'package:csevent/widgets/app_bar/custom_app_bar_image.dart';
@@ -112,13 +113,17 @@ class _CocktailDetailsScreenState extends State<CocktailDetailsScreen> {
                     amount: "10 л",
                   ),
                   SizedBox(
-                    height: 6.v,
+                    height: 10.v,
                   ),
                   _buildIngr(
                     context,
                     tag: "Джин",
                     amount: "10 л",
                   ),
+                  SizedBox(
+                    height: 10.v,
+                  ),
+                  _buildAddIngrButton(context),
                 ],
               ),
             ),
@@ -133,7 +138,9 @@ class _CocktailDetailsScreenState extends State<CocktailDetailsScreen> {
               ),
               child: CustomElevatedButton(
                 text: "Сохранить",
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
             ),
           ),
@@ -251,6 +258,23 @@ class _CocktailDetailsScreenState extends State<CocktailDetailsScreen> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAddIngrButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(RouteGenerator.addIngredient);
+      },
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: 2.h,
+        ),
+        child: Text(
+          "Добавить ингредиент",
+          style: theme.textTheme.labelLarge,
         ),
       ),
     );

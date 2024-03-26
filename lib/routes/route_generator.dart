@@ -3,6 +3,7 @@ import 'package:csevent/screens/dashboard/profile/edit_profile_screen.dart';
 import 'package:csevent/screens/dashboard/profile/organizations_profile_screen.dart';
 import 'package:csevent/screens/dashboard/screens/dashboard.dart';
 import 'package:csevent/screens/dashboard/screens/events/add_cocktail_screen.dart';
+import 'package:csevent/screens/dashboard/screens/events/add_ingredient_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/add_member_to_event_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/add_new_event_screen.dart';
 import 'package:csevent/screens/dashboard/screens/events/cocktail_details_screen.dart';
@@ -50,7 +51,10 @@ class RouteGenerator {
   static const String eventBarCard = '/dashboard/events/details/barcard';
 
   static const String cocktailDetails =
-      'dashboard/events/details/barcart/cocktail';
+      '/dashboard/events/details/barcard/cocktail';
+
+  static const String addIngredient =
+      '/dashboard/events/details/barcard/cocktail/add-ingredient';
 
   static const String addCocktail =
       '/dashboard/events/details/barcard/add-cocktail';
@@ -157,6 +161,9 @@ class RouteGenerator {
       case cocktailDetails:
         return MaterialPageRoute(
             builder: (_) => CocktailDetailsScreen(cocktailId: args as String));
+
+      case addIngredient:
+        return MaterialPageRoute(builder: (_) => const AddIngredientScreen());
 
       default:
         return _errorRoute();
