@@ -223,6 +223,10 @@ class _CocktailDetailsScreenState extends State<CocktailDetailsScreen> {
     required String amount,
   }) {
     return GestureDetector(
+      onTap: () {
+        Navigator.of(context)
+            .pushNamed(RouteGenerator.ingredientInfo, arguments: tag);
+      },
       child: Padding(
         padding: EdgeInsets.only(
           left: 2.h,
