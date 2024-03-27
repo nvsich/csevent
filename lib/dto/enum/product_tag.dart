@@ -1,0 +1,8 @@
+enum ProductTag {
+  STRONG_ALCO,
+  LIGHT_ALCO,
+  NON_ALCO,
+  SYRUP,
+  FOOD,
+  EQUIPMENT
+}

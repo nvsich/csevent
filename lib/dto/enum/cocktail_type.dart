@@ -1,0 +1,4 @@
+enum CocktailType {
+  SHOT,
+  HIGHBALL
+}
