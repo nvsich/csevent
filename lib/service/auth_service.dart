@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:csevent/dto/api_response.dart';
 import 'package:csevent/dto/jwt_authentication_response.dart';
 import 'package:csevent/dto/sign_in_request.dart';
+import 'package:csevent/dto/sign_up_request.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
@@ -14,16 +15,32 @@ class AuthService {
   static const ok = 200;
   static const parsingError = 'Не удалось обработать данные сервера';
 
-  Future<ApiResponse<JwtAuthenticationResponse>> signIn(SignInRequest request) async {
+  Future<ApiResponse<JwtAuthenticationResponse>> signIn(
+      SignInRequest request) async {
     final response = await http.post(
-      Uri.parse(apiUrl + '/sign-in'),
+      Uri.parse('$apiUrl/sign-in'),
       headers: headers,
       body: jsonEncode(request.toJson()),
     );
 
+    return _handleJwtAuthenticationResponse(response);
+  }
+
+  Future<ApiResponse<JwtAuthenticationResponse>> signUp(SignUpRequest request) async {
+    final response = await http.post(
+      Uri.parse('$apiUrl/sign-up'),
+      headers: headers,
+      body: jsonEncode(request.toJson()),
+    );
+
+    return _handleJwtAuthenticationResponse(response);
+  }
+
+  ApiResponse<JwtAuthenticationResponse> _handleJwtAuthenticationResponse(http.Response response) {
     if (response.statusCode == ok) {
       try {
-        final data = JwtAuthenticationResponse.fromJson(jsonDecode(response.body));
+        final data = JwtAuthenticationResponse
+            .fromJson(jsonDecode(response.body));
         return ApiResponse<JwtAuthenticationResponse>(data: data);
       } catch (e) {
         return ApiResponse<JwtAuthenticationResponse>(

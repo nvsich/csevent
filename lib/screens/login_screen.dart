@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:csevent/core/app_export.dart';
 import 'package:csevent/routes/route_generator.dart';
 import 'package:csevent/service/auth_service.dart';
@@ -9,6 +7,8 @@ import 'package:csevent/dto/api_response.dart';
 import 'package:csevent/dto/jwt_authentication_response.dart';
 import 'package:csevent/widgets/custom_elevated_button.dart';
 import 'package:csevent/widgets/custom_text_form_field.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 
 class LoginScreen extends StatelessWidget {
