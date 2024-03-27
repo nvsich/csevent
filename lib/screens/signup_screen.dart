@@ -1,19 +1,29 @@
 import 'package:csevent/core/app_export.dart';
 import 'package:csevent/routes/route_generator.dart';
+import 'package:csevent/service/auth_service.dart';
+import 'package:csevent/service/cash_service.dart';
 import 'package:csevent/widgets/custom_elevated_button.dart';
 import 'package:csevent/widgets/custom_text_form_field.dart';
+import 'package:csevent/dto/sign_up_request.dart';
+import 'package:csevent/dto/api_response.dart';
+import 'package:csevent/dto/jwt_authentication_response.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_it/get_it.dart';
 
 class SignupScreen extends StatelessWidget {
+  final AuthService authService = GetIt.I<AuthService>();
+  final CashService cashService = GetIt.I<CashService>();
+
   SignupScreen({super.key});
 
-  final labelController = TextEditingController();
+  final nameController = TextEditingController();
 
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
 
-  final passwordController1 = TextEditingController();
+  final repeatPasswordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -86,7 +96,7 @@ class SignupScreen extends StatelessWidget {
                     SizedBox(
                       height: 5.v,
                     ),
-                    _buildPassword1(context),
+                    _buildRepeatPassword(context),
                     SizedBox(
                       height: 38.v,
                     ),
@@ -129,7 +139,7 @@ class SignupScreen extends StatelessWidget {
 
   Widget _buildLabel(BuildContext context) {
     return CustomTextFormField(
-      controller: labelController,
+      controller: nameController,
       hintText: "например, Иван Иванов",
     );
   }
@@ -150,23 +160,45 @@ class SignupScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildPassword1(BuildContext context) {
+  Widget _buildRepeatPassword(BuildContext context) {
     return CustomTextFormField(
-      controller: passwordController1,
+      controller: repeatPasswordController,
       hintText: "например, my_password123",
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.visiblePassword,
+      obscureText: true,
     );
   }
 
   Widget _buildTf(BuildContext context) {
     return CustomElevatedButton(
-      onPressed: () {
-        Navigator.of(context)
-            .pushNamed(RouteGenerator.signInOrganizationScreen);
+      onPressed: () async {
+        if (_checkPasswordsAreNotEquals()) {
+          Fluttertoast.showToast(msg: "Пароли не совпадают");
+          return;
+        }
+        if (_formKey.currentState!.validate()) {
+          SignUpRequest request = SignUpRequest(
+            name: nameController.text,
+            email: emailController.text,
+            password: passwordController.text,
+          );
+          final ApiResponse<JwtAuthenticationResponse> response = await authService.signUp(request);
+          if (response.error) {
+            Fluttertoast.showToast(msg: response.message ?? "Ошибка аутентификации");
+          } else {
+            cashService.saveAuthToken(response.data!.token);
+            print(response.data!.token);
+            Navigator.of(context).pushNamed(RouteGenerator.createOrganizationScreen);
+          }
+        }
       },
       text: "Продолжить",
       buttonStyle: CustomButtonStyles.fillPrimaryTL23,
     );
+  }
+
+  bool _checkPasswordsAreNotEquals() {
+    return passwordController.text != repeatPasswordController.text;
   }
 }
