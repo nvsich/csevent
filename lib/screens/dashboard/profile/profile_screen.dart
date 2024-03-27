@@ -1,6 +1,6 @@
 import 'package:csevent/core/app_export.dart';
 import 'package:csevent/routes/route_generator.dart';
-import 'package:csevent/service/cash_service.dart';
+import 'package:csevent/service/cache_service.dart';
 import 'package:csevent/widgets/app_bar/appbar_leading_image.dart';
 import 'package:csevent/widgets/app_bar/appbar_subtitle.dart';
 import 'package:csevent/widgets/app_bar/appbar_trailing_image.dart';
@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 class ProfileScreen extends StatelessWidget {
-  final CashService cashService = GetIt.I<CashService>();
+  final CacheService cacheService = GetIt.I<CacheService>();
   ProfileScreen({super.key});
 
   @override
@@ -70,7 +70,7 @@ class ProfileScreen extends StatelessWidget {
               CustomElevatedButton(
                 text: "Выйти",
                 onPressed: () {
-                  cashService.deleteAuthToken();
+                  cacheService.deleteAuthToken();
                   Navigator.of(context).pushNamed(RouteGenerator.loginScreen);
                 },
               )

@@ -1,7 +1,7 @@
 import 'package:csevent/core/app_export.dart';
 import 'package:csevent/routes/route_generator.dart';
 import 'package:csevent/service/auth_service.dart';
-import 'package:csevent/service/cash_service.dart';
+import 'package:csevent/service/cache_service.dart';
 import 'package:csevent/dto/sign_in_request.dart';
 import 'package:csevent/dto/api_response.dart';
 import 'package:csevent/dto/jwt_authentication_response.dart';
@@ -13,7 +13,7 @@ import 'package:get_it/get_it.dart';
 
 class LoginScreen extends StatelessWidget {
   final AuthService authService = GetIt.I<AuthService>();
-  final CashService cashService = GetIt.I<CashService>();
+  final CacheService cacheService = GetIt.I<CacheService>();
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -80,7 +80,7 @@ class LoginScreen extends StatelessWidget {
                           if (response.error) {
                             Fluttertoast.showToast(msg: response.message ?? "Ошибка аутентификации");
                           } else {
-                            cashService.saveAuthToken(response.data!.token);
+                            cacheService.saveAuthToken(response.data!.token);
                             Navigator.of(context).pushNamed(RouteGenerator.profile);
                           }
                         }

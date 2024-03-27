@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CashService {
+class CacheService {
   static const authTokenKey = 'authToken';
   static const noToken = "Пожалуйста, войдите заново!";
 
