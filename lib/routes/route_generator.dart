@@ -117,7 +117,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const AddNewEventScreen());
 
       case profile:
-        return MaterialPageRoute(builder: (_) => const ProfileScreen());
+        return MaterialPageRoute(builder: (_) => ProfileScreen());
 
       case editProfile:
         return MaterialPageRoute(builder: (_) => EditProfileScreen());

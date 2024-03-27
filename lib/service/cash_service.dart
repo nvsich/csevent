@@ -13,4 +13,9 @@ class CashService {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(authTokenKey) ?? noToken;
   }
+
+  Future<void> deleteAuthToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+  }
 }

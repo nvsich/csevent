@@ -22,24 +22,35 @@ void main() {
   ]);
   ThemeHelper().changeTheme('primary');
 
-  runApp(const MainApp());
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
+  final CashService cashService = GetIt.I<CashService>();
+  static const noToken = "Пожалуйста, войдите заново!";
 
-
-  const MainApp({super.key});
+  MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Sizer(
       builder: (context, orientation, deviceType) {
-        return MaterialApp(
-          theme: theme,
-          title: 'csevent',
-          debugShowCheckedModeBanner: false,
-          initialRoute: '/login',
-          onGenerateRoute: RouteGenerator.generateRoute,
+        return FutureBuilder<String>(
+          future: cashService.loadAuthToken(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              final initialRoute = snapshot.data == noToken ? RouteGenerator.loginScreen : RouteGenerator.dashboard;
+              return MaterialApp(
+                theme: theme,
+                title: 'csevent',
+                debugShowCheckedModeBanner: false,
+                initialRoute: initialRoute,
+                onGenerateRoute: RouteGenerator.generateRoute,
+              );
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
         );
       },
     );
