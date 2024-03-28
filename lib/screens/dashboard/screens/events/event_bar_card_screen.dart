@@ -1,4 +1,5 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/dto/enum/cocktail_type.dart';
 import 'package:csevent/routes/route_generator.dart';
 import 'package:csevent/widgets/app_bar/appbar_leading_image.dart';
 import 'package:csevent/widgets/app_bar/appbar_title.dart';
@@ -22,15 +23,15 @@ class EventBarCardScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  _buildDrink(context, "Джин тоник"),
-                  _buildDrink(context, "Лонг-Айленд"),
-                  _buildDrink(context, "Отвертка"),
-                  _buildDrink(context, "Джин тоник"),
-                  _buildDrink(context, "Лонг-Айленд"),
-                  _buildDrink(context, "Отвертка"),
-                  _buildDrink(context, "Джин тоник"),
-                  _buildDrink(context, "Лонг-Айленд"),
-                  _buildDrink(context, "Отвертка"),
+                  _buildDrink(context, "Джин тоник", CocktailType.SHOT),
+                  _buildDrink(context, "Лонг-Айленд", CocktailType.HIGHBALL),
+                  _buildDrink(context, "Отвертка", CocktailType.HIGHBALL),
+                  _buildDrink(context, "Джин тоник", CocktailType.SHOT),
+                  _buildDrink(context, "Лонг-Айленд", CocktailType.HIGHBALL),
+                  _buildDrink(context, "Отвертка", CocktailType.HIGHBALL),
+                  _buildDrink(context, "Джин тоник", CocktailType.SHOT),
+                  _buildDrink(context, "Лонг-Айленд", CocktailType.HIGHBALL),
+                  _buildDrink(context, "Отвертка", CocktailType.HIGHBALL),
                 ],
               ),
             ),
@@ -77,7 +78,11 @@ class EventBarCardScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDrink(BuildContext context, String drinkName) {
+  Widget _buildDrink(
+    BuildContext context,
+    String drinkName,
+    CocktailType cocktailType,
+  ) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pushNamed(
@@ -94,10 +99,14 @@ class EventBarCardScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomImageView(
-              imagePath: ImageConstant.imgNotFound,
+              imagePath: switch (cocktailType) {
+                CocktailType.SHOT => ImageConstant.shotDrink,
+                CocktailType.HIGHBALL => ImageConstant.longDrink,
+                _ => ImageConstant.imgNotFound,
+              },
               height: 66.adaptSize,
               width: 66.adaptSize,
-              margin: EdgeInsets.only(bottom: 6.v),
+              margin: EdgeInsets.only(left: 17.h),
             ),
             Expanded(
               child: Padding(

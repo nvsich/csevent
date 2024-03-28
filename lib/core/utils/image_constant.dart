@@ -3,9 +3,13 @@ class ImageConstant {
 
   static const String imgNotFound = '$_imagePath/image_not_found.png';
 
+  // Appbar
+
   static const String backButton = '$_imagePath/back_button.svg';
 
   static const String profileButton = '$_imagePath/profile_button.svg';
+
+  // Dashboard
 
   static const String offProductsScreenButton =
       '$_imagePath/off_products_screen_button.png';
@@ -30,4 +34,10 @@ class ImageConstant {
 
   static const String onMembersScreenButton =
       '$_imagePath/on_members_screen_button.png';
+
+  // Barcard
+
+  static const String longDrink = '$_imagePath/long_drink.svg';
+
+  static const String shotDrink = '$_imagePath/shot_drink.svg';
 }
