@@ -100,7 +100,7 @@ class _AddNewEventScreenState extends State<AddNewEventScreen> {
     return CustomAppBar(
       leadingWidth: 45.h,
       leading: AppbarLeadingImage(
-        imagePath: ImageConstant.imgBackIconButton,
+        imagePath: ImageConstant.imgNotFound,
         margin: EdgeInsets.only(
           left: 18.h,
           top: 17.v,

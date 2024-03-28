@@ -86,7 +86,7 @@ class AddNewWarehouseScreen extends StatelessWidget {
         onTap: () {
           Navigator.of(context).pop();
         },
-        imagePath: ImageConstant.imgBackIconButton,
+        imagePath: ImageConstant.imgNotFound,
         margin: EdgeInsets.only(
           left: 18.h,
           top: 17.v,
