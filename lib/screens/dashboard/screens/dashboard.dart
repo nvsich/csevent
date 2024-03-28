@@ -68,12 +68,12 @@ class _DashboardState extends State<Dashboard> {
       title: const AppbarTitle(text: "CSTATI"),
       actions: [
         AppbarTrailingImage(
-          imagePath: ImageConstant.imgNotFound,
+          imagePath: ImageConstant.profileButton,
           margin: EdgeInsets.symmetric(
             horizontal: 9.h,
             vertical: 3.v,
           ),
-          onTap: () {
+          onTap: () async {
             Navigator.of(context).pushNamed(RouteGenerator.profile);
           },
         ),

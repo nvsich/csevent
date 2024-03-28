@@ -30,8 +30,7 @@ class LoginScreen extends StatelessWidget {
           width: SizeUtils.width,
           child: SingleChildScrollView(
             padding: EdgeInsets.only(
-              bottom:
-              MediaQuery.of(context).viewInsets.bottom,
+              bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
             child: Form(
               key: _formKey,
@@ -76,12 +75,16 @@ class LoginScreen extends StatelessWidget {
                             email: emailController.text,
                             password: passwordController.text,
                           );
-                          final ApiResponse<JwtAuthenticationResponse> response = await authService.signIn(request);
+                          final ApiResponse<JwtAuthenticationResponse>
+                              response = await authService.signIn(request);
                           if (response.error) {
-                            Fluttertoast.showToast(msg: response.message ?? "Ошибка аутентификации");
+                            Fluttertoast.showToast(
+                                msg: response.message ??
+                                    "Ошибка аутентификации");
                           } else {
                             cacheService.saveAuthToken(response.data!.token);
-                            Navigator.of(context).pushNamed(RouteGenerator.profile);
+                            Navigator.of(context)
+                                .pushNamed(RouteGenerator.profile);
                           }
                         }
                       },
@@ -91,16 +94,19 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(height: 17.v),
                     Align(
                       alignment: Alignment.center,
-                      child: Text("Еще нет аккаунта?", style: theme.textTheme.bodySmall),
+                      child: Text("Еще нет аккаунта?",
+                          style: theme.textTheme.bodySmall),
                     ),
                     SizedBox(height: 1.v),
                     Align(
                       alignment: Alignment.center,
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pushNamed(RouteGenerator.signupScreen);
+                          Navigator.of(context)
+                              .pushNamed(RouteGenerator.signupScreen);
                         },
-                        child: Text("Зарегистрироваться", style: theme.textTheme.labelLarge),
+                        child: Text("Зарегистрироваться",
+                            style: theme.textTheme.labelLarge),
                       ),
                     ),
                     SizedBox(height: 5.v),
