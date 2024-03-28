@@ -7,7 +7,7 @@ import 'package:csevent/dto/sign_up_request.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  static const apiUrl = 'http://localhost:8080/auth';
+  static const apiUrl = 'http://10.0.2.2:8080/auth';
   static const headers = {
     'Authorization': '',
     'Content-Type': 'application/json'
@@ -26,7 +26,8 @@ class AuthService {
     return _handleJwtAuthenticationResponse(response);
   }
 
-  Future<ApiResponse<JwtAuthenticationResponse>> signUp(SignUpRequest request) async {
+  Future<ApiResponse<JwtAuthenticationResponse>> signUp(
+      SignUpRequest request) async {
     final response = await http.post(
       Uri.parse('$apiUrl/sign-up'),
       headers: headers,
@@ -36,11 +37,12 @@ class AuthService {
     return _handleJwtAuthenticationResponse(response);
   }
 
-  ApiResponse<JwtAuthenticationResponse> _handleJwtAuthenticationResponse(http.Response response) {
+  ApiResponse<JwtAuthenticationResponse> _handleJwtAuthenticationResponse(
+      http.Response response) {
     if (response.statusCode == ok) {
       try {
-        final data = JwtAuthenticationResponse
-            .fromJson(jsonDecode(response.body));
+        final data =
+            JwtAuthenticationResponse.fromJson(jsonDecode(response.body));
         return ApiResponse<JwtAuthenticationResponse>(data: data);
       } catch (e) {
         return ApiResponse<JwtAuthenticationResponse>(
