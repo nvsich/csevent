@@ -3,5 +3,5 @@ class ImageConstant {
 
   static String imgNotFound = '$imagePath/image_not_found.png';
 
-  static String backButton = '$imagePath/back_button.png';
+  static String backButton = '$imagePath/back_button.svg';
 }
