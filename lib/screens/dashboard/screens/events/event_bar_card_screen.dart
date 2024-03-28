@@ -60,10 +60,10 @@ class EventBarCardScreen extends StatelessWidget {
     return CustomAppBar(
       leadingWidth: 45.h,
       leading: AppbarLeadingImage(
-        onTap: () {
+        onTap: () async {
           Navigator.of(context).pop();
         },
-        imagePath: ImageConstant.imgNotFound,
+        imagePath: ImageConstant.backButton,
         margin: EdgeInsets.only(
           left: 18.h,
           top: 16.v,
