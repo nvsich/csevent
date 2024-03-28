@@ -1,18 +1,30 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/dto/create_organization_request.dart';
 import 'package:csevent/routes/route_generator.dart';
+import 'package:csevent/service/organization_service.dart';
 import 'package:csevent/widgets/app_bar/appbar_trailing_image.dart';
 import 'package:csevent/widgets/app_bar/custom_app_bar_image.dart';
 import 'package:csevent/widgets/custom_elevated_button.dart';
 import 'package:csevent/widgets/custom_pin_code_text_field.dart';
 import 'package:csevent/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_it/get_it.dart';
+
+import '../dto/api_response.dart';
+import '../dto/organization.dart';
+import '../service/cache_service.dart';
 
 class CreateOrganization extends StatelessWidget {
   CreateOrganization({super.key});
 
-  final labelController = TextEditingController();
+  final titleController = TextEditingController();
+  final nicknameController = TextEditingController();
+  final CacheService cacheService = GetIt.I<CacheService>();
+  final OrganizationService organizationService = GetIt.I<
+      OrganizationService>();
 
-  final labelController1 = TextEditingController();
+  String secretCode = "";
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +66,7 @@ class CreateOrganization extends StatelessWidget {
               SizedBox(
                 height: 6.v,
               ),
-              _buildLabel(context),
+              _buildTitleLabel(context),
               SizedBox(
                 height: 16.v,
               ),
@@ -65,7 +77,7 @@ class CreateOrganization extends StatelessWidget {
               SizedBox(
                 height: 6.v,
               ),
-              _buildLabel1(context),
+              _buildNicknameLabel(context),
               SizedBox(
                 height: 17.v,
               ),
@@ -97,9 +109,26 @@ class CreateOrganization extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushNamed(RouteGenerator.signInOrganizationScreen);
+                  onTap: () async {
+                    String token = await cacheService.loadAuthToken();
+                    if (token == CacheService.noToken) {
+                      Fluttertoast.showToast(msg: "Ошибка аутентификации");
+                    }
+                    CreateOrganizationRequest request = CreateOrganizationRequest(
+                        title: titleController.text,
+                        nickname: nicknameController.text,
+                        secretCode: secretCode
+                    );
+                    final ApiResponse<
+                        Organization> response = await organizationService
+                        .create(token, request);
+                    if (response.error) {
+                      Fluttertoast.showToast(
+                          msg: response.message ?? "Ошибка сервера");
+                    } else {
+                      Navigator.of(context).pushNamed(
+                          RouteGenerator.dashboard);
+                    }
                   },
                   child: Text(
                     "Войти",
@@ -135,16 +164,16 @@ class CreateOrganization extends StatelessWidget {
     );
   }
 
-  Widget _buildLabel(BuildContext context) {
+  Widget _buildTitleLabel(BuildContext context) {
     return CustomTextFormField(
-      controller: labelController,
+      controller: titleController,
       hintText: "например, Моя организация",
     );
   }
 
-  Widget _buildLabel1(BuildContext context) {
+  Widget _buildNicknameLabel(BuildContext context) {
     return CustomTextFormField(
-      controller: labelController1,
+      controller: nicknameController,
       hintText: "только a-z0-9_.",
     );
   }
@@ -156,7 +185,7 @@ class CreateOrganization extends StatelessWidget {
       ),
       child: CustomPinCodeTextField(
         context: context,
-        onChanged: (value) {},
+        onChanged: (value) => secretCode,
       ),
     );
   }
