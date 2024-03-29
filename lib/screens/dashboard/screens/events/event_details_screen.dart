@@ -126,8 +126,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
           Container(
             height: 114.v,
             width: double.maxFinite,
-            decoration: BoxDecoration(
-              color: appTheme.red10001,
+            decoration: AppDecoration.getDecorationByColor(eventColor).copyWith(
               borderRadius: BorderRadius.vertical(
                 bottom: Radius.circular(20.h),
               ),
@@ -173,13 +172,13 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
             ),
           ),
           SizedBox(height: 37.v),
-          _buildEditButton(context),
+          _buildEditButton(context, color: eventColor),
           SizedBox(height: 14.v),
-          _buildOrganizatorsButton(context),
+          _buildOrganizatorsButton(context, color: eventColor),
           SizedBox(height: 14.v),
-          _buildBarCardButton(context),
+          _buildBarCardButton(context, color: eventColor),
           SizedBox(height: 14.v),
-          _buildBuyingsButton(context),
+          _buildBuyingsButton(context, color: eventColor),
         ],
       ),
     );
@@ -209,7 +208,10 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
     );
   }
 
-  Widget _buildEditButton(BuildContext context) {
+  Widget _buildEditButton(
+    BuildContext context, {
+    required String color,
+  }) {
     return CustomElevatedButton(
       onPressed: () {
         Navigator.of(context).pushNamed(RouteGenerator.editEvent);
@@ -219,13 +221,23 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
         left: 43.h,
         right: 51.h,
       ),
-      buttonStyle: CustomButtonStyles.outlineBlackTL23,
+      buttonStyle: ElevatedButton.styleFrom(
+        backgroundColor: AppDecoration.getColorByString(color),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(23.h),
+        ),
+        shadowColor: appTheme.black900.withOpacity(0.15),
+        elevation: 4,
+      ),
       buttonTextStyle: CustomTextStyles.bodyMediumBlack900,
       alignment: Alignment.center,
     );
   }
 
-  Widget _buildOrganizatorsButton(BuildContext context) {
+  Widget _buildOrganizatorsButton(
+    BuildContext context, {
+    required String color,
+  }) {
     return CustomElevatedButton(
       onPressed: () {
         Navigator.of(context).pushNamed(RouteGenerator.eventMembers);
@@ -235,13 +247,23 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
         left: 43.h,
         right: 51.h,
       ),
-      buttonStyle: CustomButtonStyles.outlineBlackTL23,
+      buttonStyle: ElevatedButton.styleFrom(
+        backgroundColor: AppDecoration.getColorByString(color),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(23.h),
+        ),
+        shadowColor: appTheme.black900.withOpacity(0.15),
+        elevation: 4,
+      ),
       buttonTextStyle: CustomTextStyles.bodyMediumBlack900,
       alignment: Alignment.center,
     );
   }
 
-  Widget _buildBarCardButton(BuildContext context) {
+  Widget _buildBarCardButton(
+    BuildContext context, {
+    required String color,
+  }) {
     return CustomElevatedButton(
       onPressed: () {
         Navigator.of(context).pushNamed(RouteGenerator.eventBarCard);
@@ -251,13 +273,23 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
         left: 43.h,
         right: 51.h,
       ),
-      buttonStyle: CustomButtonStyles.outlineBlackTL23,
+      buttonStyle: ElevatedButton.styleFrom(
+        backgroundColor: AppDecoration.getColorByString(color),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(23.h),
+        ),
+        shadowColor: appTheme.black900.withOpacity(0.15),
+        elevation: 4,
+      ),
       buttonTextStyle: CustomTextStyles.bodyMediumBlack900,
       alignment: Alignment.center,
     );
   }
 
-  Widget _buildBuyingsButton(BuildContext context) {
+  Widget _buildBuyingsButton(
+    BuildContext context, {
+    required String color,
+  }) {
     return CustomElevatedButton(
       onPressed: () {
         Navigator.of(context).pushNamed(RouteGenerator.eventShopping);
@@ -267,7 +299,14 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
         left: 43.h,
         right: 51.h,
       ),
-      buttonStyle: CustomButtonStyles.outlineBlackTL23,
+      buttonStyle: ElevatedButton.styleFrom(
+        backgroundColor: AppDecoration.getColorByString(color),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(23.h),
+        ),
+        shadowColor: appTheme.black900.withOpacity(0.15),
+        elevation: 4,
+      ),
       buttonTextStyle: CustomTextStyles.bodyMediumBlack900,
       alignment: Alignment.center,
     );
