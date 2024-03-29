@@ -40,4 +40,10 @@ class ImageConstant {
   static const String longDrink = '$_imagePath/long_drink.svg';
 
   static const String shotDrink = '$_imagePath/shot_drink.svg';
+
+  // Products
+
+  static const String searchButton = '$_imagePath/search_button.svg';
+
+  static const String filterButton = '$_imagePath/filter_button.svg';
 }

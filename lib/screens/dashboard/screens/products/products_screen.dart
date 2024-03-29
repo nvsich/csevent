@@ -98,7 +98,7 @@ class ProductsScreen extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pushNamed(RouteGenerator.filterProducts);
             },
-            imagePath: ImageConstant.imgNotFound,
+            imagePath: ImageConstant.filterButton,
             height: 21.v,
             width: 24.h,
             margin: EdgeInsets.only(
