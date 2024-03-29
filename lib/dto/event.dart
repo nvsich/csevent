@@ -13,6 +13,7 @@ class Event {
   final String color;
   @JsonKey(name: 'organization_id')
   final String organizationId;
+  final String theme;
 
   Event({
     required this.id,
@@ -22,6 +23,7 @@ class Event {
     required this.dateTime,
     required this.color,
     required this.organizationId,
+    required this.theme,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);

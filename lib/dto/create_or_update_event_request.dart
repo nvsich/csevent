@@ -10,6 +10,7 @@ class CreateOrUpdateEventRequest {
   @JsonKey(name: 'date_time')
   final String dateTime;
   final String? color;
+  final String? theme;
 
   CreateOrUpdateEventRequest({
     required this.name,
@@ -17,6 +18,7 @@ class CreateOrUpdateEventRequest {
     required this.guests,
     required this.dateTime,
     this.color,
+    this.theme,
   });
 
   factory CreateOrUpdateEventRequest.fromJson(Map<String, dynamic> json) =>

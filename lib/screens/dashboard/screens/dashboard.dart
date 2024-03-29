@@ -33,7 +33,7 @@ class _DashboardState extends State<Dashboard> {
     body = [
       ProductsScreen(),
       WarehousesScreen(organizationId: widget.organizationId),
-      const EventsScreen(),
+      EventsScreen(organizationId: widget.organizationId),
       const MembersScreen(),
     ];
   }

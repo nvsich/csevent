@@ -13,6 +13,7 @@ ShortEventResponse _$ShortEventResponseFromJson(Map<String, dynamic> json) =>
       address: json['address'] as String,
       dateTime: json['date_time'] as String,
       color: json['color'] as String,
+      theme: json['theme'] as String,
     );
 
 Map<String, dynamic> _$ShortEventResponseToJson(ShortEventResponse instance) =>
@@ -22,4 +23,5 @@ Map<String, dynamic> _$ShortEventResponseToJson(ShortEventResponse instance) =>
       'address': instance.address,
       'date_time': instance.dateTime,
       'color': instance.color,
+      'theme': instance.theme,
     };

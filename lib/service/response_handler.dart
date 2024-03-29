@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:csevent/dto/api_response.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ResponseHandler {
@@ -13,6 +14,7 @@ class ResponseHandler {
       http.Response response, T Function(Map<String, dynamic>) fromJsonT) {
     if (response.statusCode == ok) {
       try {
+        debugPrint(response.body);
         final data = fromJsonT(jsonDecode(response.body));
         return ApiResponse<T>(data: data);
       } catch (e) {

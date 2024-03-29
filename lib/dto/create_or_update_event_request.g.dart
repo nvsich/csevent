@@ -14,6 +14,7 @@ CreateOrUpdateEventRequest _$CreateOrUpdateEventRequestFromJson(
       guests: json['guests'] as int,
       dateTime: json['date_time'] as String,
       color: json['color'] as String?,
+      theme: json['theme'] as String?,
     );
 
 Map<String, dynamic> _$CreateOrUpdateEventRequestToJson(
@@ -24,4 +25,5 @@ Map<String, dynamic> _$CreateOrUpdateEventRequestToJson(
       'guests': instance.guests,
       'date_time': instance.dateTime,
       'color': instance.color,
+      'theme': instance.theme,
     };

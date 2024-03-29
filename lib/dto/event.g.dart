@@ -14,6 +14,7 @@ Event _$EventFromJson(Map<String, dynamic> json) => Event(
       dateTime: json['date_time'] as String,
       color: json['color'] as String,
       organizationId: json['organization_id'] as String,
+      theme: json['theme'] as String,
     );
 
 Map<String, dynamic> _$EventToJson(Event instance) => <String, dynamic>{
@@ -24,4 +25,5 @@ Map<String, dynamic> _$EventToJson(Event instance) => <String, dynamic>{
       'date_time': instance.dateTime,
       'color': instance.color,
       'organization_id': instance.organizationId,
+      'theme': instance.theme,
     };

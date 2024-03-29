@@ -72,6 +72,74 @@ class AppDecoration {
           ),
         ],
       );
+
+  static BoxDecoration getShadowDecorationByColor(String color) {
+    return BoxDecoration(
+      color: getColorByString(color),
+      boxShadow: [
+        BoxShadow(
+          color: appTheme.black900.withOpacity(0.15),
+          spreadRadius: 2.h,
+          blurRadius: 2.h,
+          offset: const Offset(
+            0,
+            4,
+          ),
+        ),
+      ],
+    );
+  }
+
+  static Color getColorByString(String color) {
+    final colorMap = {
+      "fillPurple": appTheme.purple50,
+      "fillRed": appTheme.red100,
+      "fillOrange": appTheme.orange5001,
+      "fillCyan": appTheme.cyan50,
+      "fillLightBlue": appTheme.lightBlue50,
+      "fillBlue": appTheme.blue50,
+      "fillGray": appTheme.gray200,
+    };
+
+    return colorMap[color] ?? appTheme.red10001;
+  }
+
+  static BoxDecoration getDecorationByColor(String color) {
+    switch (color) {
+      case "fillBlue":
+        return fillBlue;
+
+      case "fillCyan":
+        return fillCyan;
+
+      case "fillGray":
+        return fillGray;
+
+      case "fillLightBlue":
+        return fillLightBlue;
+
+      case "fillOnPrimary":
+        return fillOnPrimary;
+
+      case "fillOrange":
+        return fillOrange;
+
+      case "fillPurple":
+        return fillPurple;
+
+      case "fillRed":
+        return fillRed;
+
+      case "outlineBlack":
+        return outlineBlack;
+
+      case "outlineBlack900":
+        return outlineBlack900;
+
+      default:
+        return fillBlue;
+    }
+  }
 }
 
 class BorderRadiusStyle {

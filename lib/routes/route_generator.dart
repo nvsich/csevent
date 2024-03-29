@@ -122,7 +122,11 @@ class RouteGenerator {
         );
 
       case addNewEvent:
-        return MaterialPageRoute(builder: (_) => const AddNewEventScreen());
+        return MaterialPageRoute(
+          builder: (_) => AddNewEventScreen(
+            organizationid: args as String,
+          ),
+        );
 
       case profile:
         return MaterialPageRoute(builder: (_) => ProfileScreen());

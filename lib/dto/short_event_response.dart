@@ -10,6 +10,7 @@ class ShortEventResponse {
   @JsonKey(name: 'date_time')
   final String dateTime;
   final String color;
+  final String theme;
 
   ShortEventResponse({
     required this.id,
@@ -17,6 +18,7 @@ class ShortEventResponse {
     required this.address,
     required this.dateTime,
     required this.color,
+    required this.theme
   });
 
   factory ShortEventResponse.fromJson(Map<String, dynamic> json) =>
