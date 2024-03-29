@@ -108,9 +108,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => CreateOrganization());
 
       case dashboard:
+        var organizationId = (args as Map<String, String>)['organizationId']!;
+        var organizationName = args['organizationName']!;
         return MaterialPageRoute(
           builder: (_) => Dashboard(
-            organizationId: args as String,
+            organizationId: organizationId,
+            organizationName: organizationName,
           ),
         );
 

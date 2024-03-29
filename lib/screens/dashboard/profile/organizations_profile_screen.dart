@@ -8,6 +8,7 @@ import 'package:csevent/service/user_service.dart';
 import 'package:csevent/widgets/app_bar/appbar_leading_image.dart';
 import 'package:csevent/widgets/app_bar/appbar_subtitle.dart';
 import 'package:csevent/widgets/app_bar/custom_app_bar_image.dart';
+import 'package:csevent/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
@@ -24,50 +25,72 @@ class OrganizationsProfileScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(context),
-        body: SizedBox(
-          width: double.maxFinite,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                FutureBuilder(
-                  future: fetchOrganizations(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else if (snapshot.hasError) {
-                      return const Center(
-                        child: Text('Ошибка загрузки'),
-                      );
-                    } else if (snapshot.hasData) {
-                      List<ShortOrganizationResponse> events =
-                          snapshot.data!.data!;
-                      return ListView.builder(
-                        primary: false,
-                        shrinkWrap: true,
-                        itemCount: events.length,
-                        itemBuilder: (context, index) {
-                          ShortOrganizationResponse organization =
-                              events[index];
-                          return _buildOrganization(
-                            context,
-                            organizationId: organization.id,
-                            name: organization.title,
-                            role: organization.role,
+        body: Stack(
+          children: [
+            SizedBox(
+              width: double.maxFinite,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    FutureBuilder(
+                      future: fetchOrganizations(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
                           );
-                        },
-                      );
-                    } else {
-                      return const Center(
-                        child: Text('Нет данных'),
-                      );
-                    }
+                        } else if (snapshot.hasError) {
+                          return const Center(
+                            child: Text('Ошибка загрузки'),
+                          );
+                        } else if (snapshot.hasData) {
+                          List<ShortOrganizationResponse> events =
+                              snapshot.data!.data!;
+                          return ListView.builder(
+                            primary: false,
+                            shrinkWrap: true,
+                            itemCount: events.length,
+                            itemBuilder: (context, index) {
+                              ShortOrganizationResponse organization =
+                                  events[index];
+                              return _buildOrganization(
+                                context,
+                                organizationId: organization.id,
+                                name: organization.title,
+                                role: organization.role,
+                              );
+                            },
+                          );
+                        } else {
+                          return const Center(
+                            child: Text('Нет данных'),
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 20.0,
+                  left: 50,
+                  right: 50,
+                ),
+                child: CustomElevatedButton(
+                  text: "Создать новую организацию",
+                  onPressed: () async {
+                    Navigator.of(context)
+                        .pushNamed(RouteGenerator.createOrganizationScreen);
                   },
                 ),
-              ],
-            ),
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -113,7 +136,10 @@ class OrganizationsProfileScreen extends StatelessWidget {
       onTap: () async {
         Navigator.of(context).pushNamed(
           RouteGenerator.dashboard,
-          arguments: organizationId,
+          arguments: <String, String>{
+            'organizationId': organizationId,
+            'organizationName': name,
+          },
         );
       },
       child: Padding(

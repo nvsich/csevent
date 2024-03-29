@@ -103,7 +103,10 @@ class SignInOrganization extends StatelessWidget {
                   } else {
                     Navigator.of(context).pushNamed(
                       RouteGenerator.dashboard,
-                      arguments: response.data!.id,
+                      arguments: <String, String>{
+                        'organizationId': response.data!.id,
+                        'organizationName': response.data!.title,
+                      },
                     );
                   }
                 },

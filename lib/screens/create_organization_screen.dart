@@ -38,87 +38,91 @@ class CreateOrganization extends StatelessWidget {
             horizontal: 47.h,
             vertical: 33.v,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
             children: [
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  width: 204.h,
-                  margin: EdgeInsets.only(
-                    left: 39.h,
-                    right: 38.h,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      width: 204.h,
+                      margin: EdgeInsets.only(
+                        left: 39.h,
+                        right: 38.h,
+                      ),
+                      child: Text(
+                        "СОЗДАТЬ ОРГАНИЗАЦИЮ",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.headlineSmall,
+                      ),
+                    ),
                   ),
-                  child: Text(
-                    "СОЗДАТЬ ОРГАНИЗАЦИЮ",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.headlineSmall,
+                  SizedBox(height: 16.v),
+                  Text(
+                    "Название",
+                    style: theme.textTheme.bodySmall,
                   ),
-                ),
-              ),
-              SizedBox(height: 16.v),
-              Text(
-                "Название",
-                style: theme.textTheme.bodySmall,
-              ),
-              SizedBox(
-                height: 6.v,
-              ),
-              _buildTitleLabel(context),
-              SizedBox(
-                height: 16.v,
-              ),
-              Text(
-                "Никнейм",
-                style: theme.textTheme.bodySmall,
-              ),
-              SizedBox(
-                height: 6.v,
-              ),
-              _buildNicknameLabel(context),
-              SizedBox(
-                height: 17.v,
-              ),
-              Text(
-                "Секретный код",
-                style: theme.textTheme.bodySmall,
-              ),
-              SizedBox(
-                height: 5.v,
-              ),
-              _buildOtpView(context),
-              SizedBox(
-                height: 38.v,
-              ),
-              _buildTf(context),
-              SizedBox(
-                height: 17.v,
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  "Уже есть организация?",
-                  style: theme.textTheme.bodySmall,
-                ),
-              ),
-              SizedBox(
-                height: 5.v,
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: GestureDetector(
-                  onTap: () async {
-                    Navigator.of(context)
-                        .pushNamed(RouteGenerator.signInOrganizationScreen);
-                  },
-                  child: Text(
-                    "Войти",
-                    style: theme.textTheme.labelLarge,
+                  SizedBox(
+                    height: 6.v,
                   ),
-                ),
-              ),
+                  _buildTitleLabel(context),
+                  SizedBox(
+                    height: 16.v,
+                  ),
+                  Text(
+                    "Никнейм",
+                    style: theme.textTheme.bodySmall,
+                  ),
+                  SizedBox(
+                    height: 6.v,
+                  ),
+                  _buildNicknameLabel(context),
+                  SizedBox(
+                    height: 17.v,
+                  ),
+                  Text(
+                    "Секретный код",
+                    style: theme.textTheme.bodySmall,
+                  ),
+                  SizedBox(
+                    height: 5.v,
+                  ),
+                  _buildOtpView(context),
+                  SizedBox(
+                    height: 38.v,
+                  ),
+                  _buildTf(context),
+                  SizedBox(
+                    height: 17.v,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Уже есть организация?",
+                      style: theme.textTheme.bodySmall,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5.v,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: GestureDetector(
+                      onTap: () async {
+                        Navigator.of(context)
+                            .pushNamed(RouteGenerator.signInOrganizationScreen);
+                      },
+                      child: Text(
+                        "Войти",
+                        style: theme.textTheme.labelLarge,
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),
@@ -190,14 +194,16 @@ class CreateOrganization extends StatelessWidget {
             secretCode: secretCode);
         final ApiResponse<Organization> response =
             await organizationService.create(token, request);
-        debugPrint("HERE");
 
         if (response.error) {
           Fluttertoast.showToast(msg: response.message ?? "Ошибка сервера");
         } else {
           Navigator.of(context).pushNamed(
             RouteGenerator.dashboard,
-            arguments: response.data!.id,
+            arguments: <String, String>{
+              'organizationId': response.data!.id,
+              'organizationName': response.data!.title,
+            },
           );
         }
       },

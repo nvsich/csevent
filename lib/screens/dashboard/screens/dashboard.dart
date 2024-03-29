@@ -14,9 +14,12 @@ class Dashboard extends StatefulWidget {
   const Dashboard({
     super.key,
     required this.organizationId,
+    required this.organizationName,
   });
 
   final String organizationId;
+
+  final String organizationName;
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -93,7 +96,7 @@ class _DashboardState extends State<Dashboard> {
     return CustomAppBar(
       height: 53.v,
       centerTitle: true,
-      title: const AppbarTitle(text: "CSTATI"),
+      title: AppbarTitle(text: widget.organizationName),
       actions: [
         AppbarTrailingImage(
           imagePath: ImageConstant.profileButton,
