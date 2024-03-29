@@ -58,4 +58,15 @@ class ResponseHandler {
       );
     }
   }
+
+  Future<ApiResponse<void>> handleVoidResponse(http.Response response) async {
+    final ApiResponse<dynamic> apiResponse = handleResponse<dynamic>(
+      response,
+      (_) => null,
+    );
+    return ApiResponse<void>(
+      error: apiResponse.error,
+      message: apiResponse.message,
+    );
+  }
 }

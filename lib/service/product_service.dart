@@ -22,11 +22,11 @@ class ProductService {
       String token, String organizationId) async {
     final newHeaders = _getHeadersWithToken(token);
     final response = await http.get(
-      Uri.parse('$apiUrl/$organizationId/products'),
-      headers: newHeaders
-    );
+        Uri.parse('$apiUrl/$organizationId/products'),
+        headers: newHeaders);
 
-    return responseHandler.handleListResponse(response, ShortProductResponse.fromJson);
+    return responseHandler.handleListResponse(
+        response, ShortProductResponse.fromJson);
   }
 
   Future<ApiResponse<List<ShortProductResponse>>> getAllSearched(
@@ -35,10 +35,10 @@ class ProductService {
     final response = await http.patch(
         Uri.parse('$apiUrl/$organizationId/products/search'),
         headers: newHeaders,
-        body: jsonEncode(request.toJson())
-    );
+        body: jsonEncode(request.toJson()));
 
-    return responseHandler.handleListResponse(response, ShortProductResponse.fromJson);
+    return responseHandler.handleListResponse(
+        response, ShortProductResponse.fromJson);
   }
 
   Future<ApiResponse<List<ShortProductResponse>>> getAllFiltered(
@@ -47,21 +47,21 @@ class ProductService {
     final response = await http.patch(
         Uri.parse('$apiUrl/$organizationId/products/filter'),
         headers: newHeaders,
-        body: jsonEncode(request.map((tag) => productTagToJson(tag)))
-    );
+        body: jsonEncode(request.map((tag) => productTagToJson(tag))));
 
-    return responseHandler.handleListResponse(response, ShortProductResponse.fromJson);
+    return responseHandler.handleListResponse(
+        response, ShortProductResponse.fromJson);
   }
 
   Future<ApiResponse<ProductWithWarehousesResponse>> get(
       String token, String organizationId, String productId) async {
     final newHeaders = _getHeadersWithToken(token);
     final response = await http.get(
-      Uri.parse('$apiUrl/$organizationId/products/$productId'),
-      headers: newHeaders
-    );
+        Uri.parse('$apiUrl/$organizationId/products/$productId'),
+        headers: newHeaders);
 
-    return responseHandler.handleResponse(response, ProductWithWarehousesResponse.fromJson);
+    return responseHandler.handleResponse(
+        response, ProductWithWarehousesResponse.fromJson);
   }
 
   Future<ApiResponse<Product>> delete(
@@ -69,8 +69,7 @@ class ProductService {
     final newHeaders = _getHeadersWithToken(token);
     final response = await http.delete(
         Uri.parse('$apiUrl/$organizationId/products/$productId'),
-        headers: newHeaders
-    );
+        headers: newHeaders);
 
     return responseHandler.handleResponse(response, Product.fromJson);
   }
