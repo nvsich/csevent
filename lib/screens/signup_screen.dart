@@ -183,13 +183,16 @@ class SignupScreen extends StatelessWidget {
             email: emailController.text,
             password: passwordController.text,
           );
-          final ApiResponse<JwtAuthenticationResponse> response = await authService.signUp(request);
+          final ApiResponse<JwtAuthenticationResponse> response =
+              await authService.signUp(request);
           if (response.error) {
-            Fluttertoast.showToast(msg: response.message ?? "Ошибка аутентификации");
+            Fluttertoast.showToast(
+                msg: response.message ?? "Ошибка аутентификации");
           } else {
             cacheService.saveAuthToken(response.data!.token);
             print(response.data!.token);
-            Navigator.of(context).pushNamed(RouteGenerator.createOrganizationScreen);
+            Navigator.of(context)
+                .pushNamed(RouteGenerator.createOrganizationScreen);
           }
         }
       },

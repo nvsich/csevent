@@ -146,10 +146,10 @@ class WarehouseDetailsScreen extends StatelessWidget {
       height: 53.v,
       leadingWidth: 45.h,
       leading: AppbarLeadingImage(
-        onTap: () {
+        onTap: () async {
           Navigator.of(context).pop();
         },
-        imagePath: ImageConstant.imgNotFound,
+        imagePath: ImageConstant.backButton,
         margin: EdgeInsets.only(
           left: 18.h,
           top: 16.v,
@@ -238,7 +238,7 @@ class WarehouseDetailsScreen extends StatelessWidget {
           height: 6.v,
         ),
         Text(
-          "На каких складах?",
+          "Изменить",
           style: theme.textTheme.labelLarge!.copyWith(
             color: theme.colorScheme.primary,
           ),

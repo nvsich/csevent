@@ -64,8 +64,8 @@ class WarehousesWithIngredientScreen extends StatelessWidget {
       height: 53.v,
       leadingWidth: 45.h,
       leading: AppbarLeadingImage(
-        imagePath: ImageConstant.imgNotFound,
-        onTap: () {
+        imagePath: ImageConstant.backButton,
+        onTap: () async {
           Navigator.of(context).pop();
         },
         margin: EdgeInsets.only(

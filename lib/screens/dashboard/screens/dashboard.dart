@@ -1,4 +1,5 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/core/utils/image_constant.dart';
 import 'package:csevent/routes/route_generator.dart';
 import 'package:csevent/screens/dashboard/screens/events/events_screen.dart';
 import 'package:csevent/screens/dashboard/screens/members/members_screen.dart';
@@ -39,21 +40,37 @@ class _DashboardState extends State<Dashboard> {
         },
         showSelectedLabels: false,
         currentIndex: currentIndex,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.abc, color: Colors.black),
+            icon: CustomImageView(
+              imagePath: currentIndex == 0
+                  ? ImageConstant.onProductsScreenButton
+                  : ImageConstant.offProductsScreenButton,
+            ),
             label: "Products",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.safety_check, color: Colors.black),
+            icon: CustomImageView(
+              imagePath: currentIndex == 1
+                  ? ImageConstant.onWarehousesScreenButton
+                  : ImageConstant.offWarehousesScreenButton,
+            ),
             label: "Warehouses",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.g_mobiledata, color: Colors.black),
+            icon: CustomImageView(
+              imagePath: currentIndex == 2
+                  ? ImageConstant.onEventsScreenButton
+                  : ImageConstant.offEventsScreenButton,
+            ),
             label: "Events",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.cabin, color: Colors.black),
+            icon: CustomImageView(
+              imagePath: currentIndex == 3
+                  ? ImageConstant.onMembersScreenButton
+                  : ImageConstant.offMembersScreenButton,
+            ),
             label: "Members",
           ),
         ],
@@ -68,12 +85,12 @@ class _DashboardState extends State<Dashboard> {
       title: const AppbarTitle(text: "CSTATI"),
       actions: [
         AppbarTrailingImage(
-          imagePath: ImageConstant.imgNotFound,
+          imagePath: ImageConstant.profileButton,
           margin: EdgeInsets.symmetric(
             horizontal: 9.h,
             vertical: 3.v,
           ),
-          onTap: () {
+          onTap: () async {
             Navigator.of(context).pushNamed(RouteGenerator.profile);
           },
         ),

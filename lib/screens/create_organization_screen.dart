@@ -152,7 +152,7 @@ class CreateOrganization extends StatelessWidget {
           child: Column(
             children: [
               AppbarTrailingImage(
-                imagePath: ImageConstant.imgNotFound,
+                imagePath: ImageConstant.profileButton,
                 onTap: () {
                   Navigator.of(context).pushNamed(RouteGenerator.profile);
                 },

@@ -1,17 +1,43 @@
 class ImageConstant {
-  static String imagePath = 'assets/images';
+  static const String _imagePath = 'assets/images';
 
-  static String imgSearch1 = '$imagePath/img_search_1.svg';
+  static const String imgNotFound = '$_imagePath/image_not_found.png';
 
-  static String imgVector = '$imagePath/img_vector.svg';
+  // Appbar
 
-  static String imgVectorPrimary = '$imagePath/img_vector_primary.svg';
+  static const String backButton = '$_imagePath/back_button.svg';
 
-  static String imgProfileIconButton = '$imagePath/img_profile_icon_button.svg';
+  static const String profileButton = '$_imagePath/profile_button.svg';
 
-  static String imgBackIconButton = '$imagePath/img_back_icon_button.svg';
+  // Dashboard
 
-  static String imgFilter = '$imagePath/img_filter.svg';
+  static const String offProductsScreenButton =
+      '$_imagePath/off_products_screen_button.png';
 
-  static String imgNotFound = '$imagePath/image_not_found.png';
+  static const String offWarehousesScreenButton =
+      '$_imagePath/off_warehouses_screen_button.png';
+
+  static const String offEventsScreenButton =
+      '$_imagePath/off_events_screen_button.png';
+
+  static const String offMembersScreenButton =
+      '$_imagePath/off_members_screen_button.png';
+
+  static const String onProductsScreenButton =
+      '$_imagePath/on_products_screen_button.png';
+
+  static const String onWarehousesScreenButton =
+      '$_imagePath/on_warehouses_screen_button.png';
+
+  static const String onEventsScreenButton =
+      '$_imagePath/on_events_screen_button.png';
+
+  static const String onMembersScreenButton =
+      '$_imagePath/on_members_screen_button.png';
+
+  // Barcard
+
+  static const String longDrink = '$_imagePath/long_drink.svg';
+
+  static const String shotDrink = '$_imagePath/shot_drink.svg';
 }

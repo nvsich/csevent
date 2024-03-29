@@ -72,8 +72,8 @@ class ShopsWithIngredientScreen extends StatelessWidget {
     return CustomAppBar(
       leadingWidth: 45.h,
       leading: AppbarLeadingImage(
-        imagePath: ImageConstant.imgNotFound,
-        onTap: () {
+        imagePath: ImageConstant.backButton,
+        onTap: () async {
           Navigator.of(context).pop();
         },
         margin: EdgeInsets.only(

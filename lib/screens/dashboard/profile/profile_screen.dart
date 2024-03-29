@@ -85,7 +85,10 @@ class ProfileScreen extends StatelessWidget {
     return CustomAppBar(
       leadingWidth: 45.h,
       leading: AppbarLeadingImage(
-        imagePath: ImageConstant.imgNotFound,
+        onTap: () async {
+          Navigator.of(context).pop();
+        },
+        imagePath: ImageConstant.backButton,
         margin: EdgeInsets.only(
           left: 18.h,
           top: 16.v,
@@ -94,12 +97,6 @@ class ProfileScreen extends StatelessWidget {
       ),
       centerTitle: true,
       title: const AppbarSubtitle(text: "Аккаунт"),
-      actions: [
-        AppbarTrailingImage(
-          imagePath: ImageConstant.imgNotFound,
-          margin: EdgeInsets.fromLTRB(49.h, 5.v, 52.h, 5.v),
-        )
-      ],
     );
   }
 }
