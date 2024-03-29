@@ -1,16 +1,28 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/dto/organization.dart';
+import 'package:csevent/dto/sign_in_organization_request.dart';
 import 'package:csevent/routes/route_generator.dart';
+import 'package:csevent/service/cache_service.dart';
+import 'package:csevent/service/organization_service.dart';
 import 'package:csevent/widgets/app_bar/appbar_trailing_image.dart';
 import 'package:csevent/widgets/app_bar/custom_app_bar_image.dart';
 import 'package:csevent/widgets/custom_elevated_button.dart';
 import 'package:csevent/widgets/custom_pin_code_text_field.dart';
 import 'package:csevent/widgets/custom_text_form_field.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
+
+import '../dto/api_response.dart';
 
 class SignInOrganization extends StatelessWidget {
   SignInOrganization({super.key});
 
   final labelController = TextEditingController();
+  String secretCode = "";
+  final CacheService cacheService = GetIt.I<CacheService>();
+  final OrganizationService organizationService = GetIt.I<
+      OrganizationService>();
 
   @override
   Widget build(BuildContext context) {
@@ -69,15 +81,32 @@ class SignInOrganization extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 6.h),
                 child: CustomPinCodeTextField(
                   context: context,
-                  onChanged: (value) {},
+                  onChanged: (value) => secretCode = value,
                 ),
               ),
               SizedBox(
                 height: 38.v,
               ),
               CustomElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(RouteGenerator.dashboard);
+                onPressed: () async {
+                  String token = await cacheService.loadAuthToken();
+                  if (token == CacheService.noToken) {
+                    Fluttertoast.showToast(msg: "Ошибка аутентификации");
+                  }
+                  SignInOrganizationRequest request = SignInOrganizationRequest(
+                      nickname: labelController.text,
+                      secretCode: secretCode
+                  );
+                  final ApiResponse<
+                      Organization> response = await organizationService
+                      .signIn(token, request);
+                  if (response.error) {
+                    Fluttertoast.showToast(
+                        msg: response.message ?? "Ошибка сервера");
+                  } else {
+                    Navigator.of(context).pushNamed(
+                        RouteGenerator.dashboard);
+                  }
                 },
                 text: "Продолжить",
                 buttonStyle: CustomButtonStyles.fillPrimaryTL23,

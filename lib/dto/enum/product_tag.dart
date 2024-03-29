@@ -6,3 +6,7 @@ enum ProductTag {
   FOOD,
   EQUIPMENT
 }
+
+String productTagToJson(ProductTag tag) {
+  return tag.toString().split('.').last;
+}

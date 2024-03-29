@@ -2,6 +2,8 @@ import 'package:csevent/core/app_export.dart';
 import 'package:csevent/routes/route_generator.dart';
 import 'package:csevent/service/auth_service.dart';
 import 'package:csevent/service/cache_service.dart';
+import 'package:csevent/service/organization_service.dart';
+import 'package:csevent/service/response_handler.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +13,8 @@ var globalMessangerKey = GlobalKey<ScaffoldMessengerState>();
 void setupLocator() {
   GetIt.I.registerLazySingleton(() => AuthService());
   GetIt.I.registerLazySingleton(() => CacheService());
+  GetIt.I.registerLazySingleton(() => OrganizationService());
+  GetIt.I.registerLazySingleton(() => ResponseHandler());
 }
 
 void main() {
