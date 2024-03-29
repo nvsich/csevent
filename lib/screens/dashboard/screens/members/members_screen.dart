@@ -1,8 +1,37 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/dto/api_response.dart';
+import 'package:csevent/dto/short_user_response.dart';
+import 'package:csevent/service/cache_service.dart';
+import 'package:csevent/service/organization_service.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_it/get_it.dart';
 
-class MembersScreen extends StatelessWidget {
-  const MembersScreen({super.key});
+class MembersScreen extends StatefulWidget {
+  const MembersScreen({
+    super.key,
+    required this.organizationId,
+  });
+
+  final String organizationId;
+
+  @override
+  State<MembersScreen> createState() => _MembersScreenState();
+}
+
+class _MembersScreenState extends State<MembersScreen> {
+  final CacheService cacheService = GetIt.I<CacheService>();
+
+  final OrganizationService organizationService =
+      GetIt.I<OrganizationService>();
+
+  late Future<ApiResponse<List<ShortUserResponse>>> usersFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    usersFuture = fetchUsers(widget.organizationId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,16 +42,37 @@ class MembersScreen extends StatelessWidget {
             width: double.maxFinite,
             padding: EdgeInsets.symmetric(vertical: 3.v),
             child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  _buildMember(context),
-                  _buildMember(context),
-                  _buildMember(context),
-                  _buildMember(context),
-                  _buildMember(context),
-                  _buildMember(context),
-                  _buildMember(context),
-                ],
+              child: FutureBuilder(
+                future: usersFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Center(
+                      child: Text('Ошибка загрузки'),
+                    );
+                  } else if (snapshot.hasData) {
+                    List<ShortUserResponse> users = snapshot.data!.data!;
+                    return ListView.builder(
+                      primary: false,
+                      shrinkWrap: true,
+                      itemCount: users.length,
+                      itemBuilder: (context, index) {
+                        ShortUserResponse user = users[index];
+                        return _buildMember(
+                          context,
+                          name: user.name,
+                        );
+                      },
+                    );
+                  } else {
+                    return const Center(
+                      child: Text('Нет данных'),
+                    );
+                  }
+                },
               ),
             ),
           ),
@@ -31,7 +81,22 @@ class MembersScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMember(BuildContext context) {
+  Future<ApiResponse<List<ShortUserResponse>>> fetchUsers(
+      String organizationId) async {
+    String token = await cacheService.loadAuthToken();
+    if (token == CacheService.noToken) {
+      Fluttertoast.showToast(msg: "Ошибка аутентификации");
+    }
+    return await organizationService.getAllMembers(
+      token,
+      organizationId,
+    );
+  }
+
+  Widget _buildMember(
+    BuildContext context, {
+    required String name,
+  }) {
     return Container(
       margin: EdgeInsets.only(right: 1.h),
       padding: EdgeInsets.symmetric(vertical: 11.v),
@@ -57,7 +122,7 @@ class MembersScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Иван Иванов",
+                    name,
                     style: theme.textTheme.titleLarge,
                   ),
                   SizedBox(

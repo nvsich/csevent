@@ -37,7 +37,7 @@ class _DashboardState extends State<Dashboard> {
       ProductsScreen(),
       WarehousesScreen(organizationId: widget.organizationId),
       EventsScreen(organizationId: widget.organizationId),
-      const MembersScreen(),
+      MembersScreen(organizationId: widget.organizationId),
     ];
   }
 
