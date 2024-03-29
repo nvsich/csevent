@@ -11,7 +11,12 @@ import 'package:csevent/widgets/app_bar/custom_app_bar_image.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({super.key});
+  const Dashboard({
+    super.key,
+    required this.organizationId,
+  });
+
+  final String organizationId;
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -20,12 +25,18 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   int currentIndex = 2;
 
-  List<Widget> body = [
-    ProductsScreen(),
-    const WarehousesScreen(),
-    const EventsScreen(),
-    const MembersScreen(),
-  ];
+  late List<Widget> body;
+
+  @override
+  void initState() {
+    super.initState();
+    body = [
+      ProductsScreen(),
+      WarehousesScreen(organizationId: widget.organizationId),
+      const EventsScreen(),
+      const MembersScreen(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {

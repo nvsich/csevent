@@ -1,17 +1,32 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/dto/create_warehouse_request.dart';
+import 'package:csevent/routes/route_generator.dart';
+import 'package:csevent/service/cache_service.dart';
+import 'package:csevent/service/warehouse_service.dart';
 import 'package:csevent/widgets/app_bar/appbar_leading_image.dart';
 import 'package:csevent/widgets/app_bar/appbar_subtitle.dart';
 import 'package:csevent/widgets/app_bar/custom_app_bar_image.dart';
 import 'package:csevent/widgets/custom_elevated_button.dart';
 import 'package:csevent/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_it/get_it.dart';
 
 class AddNewWarehouseScreen extends StatelessWidget {
-  AddNewWarehouseScreen({super.key});
+  AddNewWarehouseScreen({
+    super.key,
+    required this.organizationId,
+  });
 
-  final labelController = TextEditingController();
+  final String organizationId;
 
-  final labelController1 = TextEditingController();
+  final nameController = TextEditingController();
+
+  final addressController = TextEditingController();
+
+  final WarehouseService warehouseService = GetIt.I<WarehouseService>();
+
+  final CacheService cacheService = GetIt.I<CacheService>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +56,7 @@ class AddNewWarehouseScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 7.h),
                 child: CustomTextFormField(
-                  controller: labelController,
+                  controller: nameController,
                   hintText: "например, Склад Ивана",
                 ),
               ),
@@ -61,7 +76,7 @@ class AddNewWarehouseScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 7.h),
                 child: CustomTextFormField(
-                  controller: labelController1,
+                  controller: addressController,
                   hintText: "например, Мясницкая, д. 11",
                   textInputAction: TextInputAction.done,
                 ),
@@ -106,8 +121,28 @@ class AddNewWarehouseScreen extends StatelessWidget {
         right: 47.h,
         bottom: 47.v,
       ),
-      onPressed: () {
-        Navigator.of(context).pop();
+      onPressed: () async {
+        String token = await cacheService.loadAuthToken();
+        if (token == CacheService.noToken) {
+          Fluttertoast.showToast(msg: "Ошибка аутентификации");
+        }
+
+        CreateWarehouseRequest createWarehouseRequest = CreateWarehouseRequest(
+          name: nameController.text,
+          address: addressController.text,
+        );
+
+        var response = await warehouseService.create(
+          token,
+          organizationId,
+          createWarehouseRequest,
+        );
+
+        if (response.error) {
+          Fluttertoast.showToast(msg: response.message!);
+        } else {
+          Navigator.of(context).pop(true);
+        }
       },
     );
   }

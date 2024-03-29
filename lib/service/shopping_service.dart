@@ -9,7 +9,7 @@ import 'package:csevent/service/response_handler.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
-class WarehouseService {
+class ShoppingService {
   static const apiUrl = 'http://localhost:8080/organizations';
   static const authorizationHeader = 'Authorization';
   static const headers = {'Content-Type': 'application/json'};
@@ -51,26 +51,29 @@ class WarehouseService {
     return responseHandler.handleVoidResponse(response);
   }
 
-  Future<ApiResponse<ProductWithWarehousesResponse>> getWithWarehouses(String token,
-      String organizationId, String eventId, String productId) async {
+  Future<ApiResponse<ProductWithWarehousesResponse>> getWithWarehouses(
+      String token,
+      String organizationId,
+      String eventId,
+      String productId) async {
     final newHeaders = _getHeadersWithToken(token);
     final response = await http.get(
-        Uri.parse('$apiUrl/$organizationId/events/$eventId/shopping/$productId/warehouses'),
+        Uri.parse(
+            '$apiUrl/$organizationId/events/$eventId/shopping/$productId/warehouses'),
         headers: newHeaders);
 
     return responseHandler.handleResponse(
         response, ProductWithWarehousesResponse.fromJson);
   }
 
-  Future<ApiResponse<void>> update(String token,
-      String organizationId, String eventId, String productId, ShoppingItemRequest request) async {
+  Future<ApiResponse<void>> update(String token, String organizationId,
+      String eventId, String productId, ShoppingItemRequest request) async {
     final newHeaders = _getHeadersWithToken(token);
     final response = await http.put(
         Uri.parse(
             '$apiUrl/$organizationId/events/$eventId/shopping/$productId'),
         headers: newHeaders,
-        body: jsonEncode(request.toJson())
-    );
+        body: jsonEncode(request.toJson()));
 
     return responseHandler.handleVoidResponse(response);
   }

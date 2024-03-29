@@ -108,10 +108,18 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => CreateOrganization());
 
       case dashboard:
-        return MaterialPageRoute(builder: (_) => const Dashboard());
+        return MaterialPageRoute(
+          builder: (_) => Dashboard(
+            organizationId: args as String,
+          ),
+        );
 
       case addNewWarehouse:
-        return MaterialPageRoute(builder: (_) => AddNewWarehouseScreen());
+        return MaterialPageRoute(
+          builder: (_) => AddNewWarehouseScreen(
+            organizationId: args as String,
+          ),
+        );
 
       case addNewEvent:
         return MaterialPageRoute(builder: (_) => const AddNewEventScreen());

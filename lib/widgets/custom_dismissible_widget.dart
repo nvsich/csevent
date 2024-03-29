@@ -17,9 +17,21 @@ class CustomDismissibleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
+      background: Container(
+        color: Colors.red,
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Icon(
+              Icons.delete,
+              color: Colors.white,
+            )
+          ],
+        ),
+      ),
       key: keyDismiss,
       direction: direction ?? DismissDirection.endToStart,
-      onDismissed: (_) => onDismissed,
+      onDismissed: (direction) => onDismissed?.call(direction),
       child: child,
     );
   }

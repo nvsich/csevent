@@ -4,6 +4,7 @@ import 'package:csevent/service/auth_service.dart';
 import 'package:csevent/service/cache_service.dart';
 import 'package:csevent/service/organization_service.dart';
 import 'package:csevent/service/response_handler.dart';
+import 'package:csevent/service/warehouse_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,6 +16,7 @@ void setupLocator() {
   GetIt.I.registerLazySingleton(() => CacheService());
   GetIt.I.registerLazySingleton(() => OrganizationService());
   GetIt.I.registerLazySingleton(() => ResponseHandler());
+  GetIt.I.registerLazySingleton(() => WarehouseService());
 }
 
 void main() {
@@ -43,7 +45,10 @@ class MainApp extends StatelessWidget {
           future: cacheService.loadAuthToken(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              final initialRoute = snapshot.data == noToken ? RouteGenerator.loginScreen : RouteGenerator.dashboard;
+              // final initialRoute = snapshot.data == noToken
+              //     ? RouteGenerator.loginScreen
+              //     : RouteGenerator.dashboard;
+              const initialRoute = RouteGenerator.loginScreen;
               return MaterialApp(
                 theme: theme,
                 title: 'csevent',

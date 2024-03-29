@@ -12,7 +12,7 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
 class WarehouseService {
-  static const apiUrl = 'http://localhost:8080/organizations';
+  static const apiUrl = 'http://10.0.2.2:8080/organizations';
   static const authorizationHeader = 'Authorization';
   static const headers = {'Content-Type': 'application/json'};
   static const bearer = 'Bearer ';
@@ -35,8 +35,7 @@ class WarehouseService {
     final response = await http.post(
         Uri.parse('$apiUrl/$organizationId/warehouses'),
         headers: newHeaders,
-        body: jsonEncode(request.toJson())
-    );
+        body: jsonEncode(request.toJson()));
 
     return responseHandler.handleResponse(response, Warehouse.fromJson);
   }

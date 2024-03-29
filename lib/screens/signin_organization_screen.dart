@@ -21,8 +21,8 @@ class SignInOrganization extends StatelessWidget {
   final labelController = TextEditingController();
   String secretCode = "";
   final CacheService cacheService = GetIt.I<CacheService>();
-  final OrganizationService organizationService = GetIt.I<
-      OrganizationService>();
+  final OrganizationService organizationService =
+      GetIt.I<OrganizationService>();
 
   @override
   Widget build(BuildContext context) {
@@ -94,18 +94,17 @@ class SignInOrganization extends StatelessWidget {
                     Fluttertoast.showToast(msg: "Ошибка аутентификации");
                   }
                   SignInOrganizationRequest request = SignInOrganizationRequest(
-                      nickname: labelController.text,
-                      secretCode: secretCode
-                  );
-                  final ApiResponse<
-                      Organization> response = await organizationService
-                      .signIn(token, request);
+                      nickname: labelController.text, secretCode: secretCode);
+                  final ApiResponse<Organization> response =
+                      await organizationService.signIn(token, request);
                   if (response.error) {
                     Fluttertoast.showToast(
                         msg: response.message ?? "Ошибка сервера");
                   } else {
                     Navigator.of(context).pushNamed(
-                        RouteGenerator.dashboard);
+                      RouteGenerator.dashboard,
+                      arguments: response.data!.id,
+                    );
                   }
                 },
                 text: "Продолжить",

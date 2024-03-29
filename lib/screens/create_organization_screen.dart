@@ -21,8 +21,8 @@ class CreateOrganization extends StatelessWidget {
   final titleController = TextEditingController();
   final nicknameController = TextEditingController();
   final CacheService cacheService = GetIt.I<CacheService>();
-  final OrganizationService organizationService = GetIt.I<
-      OrganizationService>();
+  final OrganizationService organizationService =
+      GetIt.I<OrganizationService>();
 
   String secretCode = "";
 
@@ -110,25 +110,8 @@ class CreateOrganization extends StatelessWidget {
                 alignment: Alignment.center,
                 child: GestureDetector(
                   onTap: () async {
-                    String token = await cacheService.loadAuthToken();
-                    if (token == CacheService.noToken) {
-                      Fluttertoast.showToast(msg: "Ошибка аутентификации");
-                    }
-                    CreateOrganizationRequest request = CreateOrganizationRequest(
-                        title: titleController.text,
-                        nickname: nicknameController.text,
-                        secretCode: secretCode
-                    );
-                    final ApiResponse<
-                        Organization> response = await organizationService
-                        .create(token, request);
-                    if (response.error) {
-                      Fluttertoast.showToast(
-                          msg: response.message ?? "Ошибка сервера");
-                    } else {
-                      Navigator.of(context).pushNamed(
-                          RouteGenerator.dashboard);
-                    }
+                    Navigator.of(context)
+                        .pushNamed(RouteGenerator.signInOrganizationScreen);
                   },
                   child: Text(
                     "Войти",
@@ -153,6 +136,10 @@ class CreateOrganization extends StatelessWidget {
             children: [
               AppbarTrailingImage(
                 imagePath: ImageConstant.profileButton,
+                margin: EdgeInsets.symmetric(
+                  horizontal: 9.h,
+                  vertical: 3.v,
+                ),
                 onTap: () {
                   Navigator.of(context).pushNamed(RouteGenerator.profile);
                 },
@@ -185,15 +172,34 @@ class CreateOrganization extends StatelessWidget {
       ),
       child: CustomPinCodeTextField(
         context: context,
-        onChanged: (value) => secretCode,
+        onChanged: (value) => secretCode = value,
       ),
     );
   }
 
   Widget _buildTf(BuildContext context) {
     return CustomElevatedButton(
-      onPressed: () {
-        Navigator.of(context).pushNamed(RouteGenerator.dashboard);
+      onPressed: () async {
+        String token = await cacheService.loadAuthToken();
+        if (token == CacheService.noToken) {
+          Fluttertoast.showToast(msg: "Ошибка аутентификации");
+        }
+        CreateOrganizationRequest request = CreateOrganizationRequest(
+            title: titleController.text,
+            nickname: nicknameController.text,
+            secretCode: secretCode);
+        final ApiResponse<Organization> response =
+            await organizationService.create(token, request);
+        debugPrint("HERE");
+
+        if (response.error) {
+          Fluttertoast.showToast(msg: response.message ?? "Ошибка сервера");
+        } else {
+          Navigator.of(context).pushNamed(
+            RouteGenerator.dashboard,
+            arguments: response.data!.id,
+          );
+        }
       },
       text: "Продолжить",
       buttonStyle: CustomButtonStyles.fillPrimaryTL23,
