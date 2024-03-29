@@ -5,6 +5,7 @@ import 'package:csevent/service/cache_service.dart';
 import 'package:csevent/service/event_service.dart';
 import 'package:csevent/service/organization_service.dart';
 import 'package:csevent/service/response_handler.dart';
+import 'package:csevent/service/user_service.dart';
 import 'package:csevent/service/warehouse_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ void setupLocator() {
   GetIt.I.registerLazySingleton(() => ResponseHandler());
   GetIt.I.registerLazySingleton(() => WarehouseService());
   GetIt.I.registerLazySingleton(() => EventService());
+  GetIt.I.registerLazySingleton(() => UserService());
 }
 
 void main() {

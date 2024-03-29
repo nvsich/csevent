@@ -135,8 +135,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => EditProfileScreen());
 
       case organizationsProfile:
-        return MaterialPageRoute(
-            builder: (_) => const OrganizationsProfileScreen());
+        return MaterialPageRoute(builder: (_) => OrganizationsProfileScreen());
 
       case warehouseDetails:
         return MaterialPageRoute(
