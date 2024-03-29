@@ -162,8 +162,14 @@ class RouteGenerator {
             builder: (_) => WarehousesWithProduct(productId: args as String));
 
       case eventDetails:
+        var organizationId = (args as Map<String, String>)['organizationId']!;
+        var eventId = args['eventId']!;
         return MaterialPageRoute(
-            builder: (_) => EventDetailsScreen(eventId: args as String));
+          builder: (_) => EventDetailsScreen(
+            eventId: eventId,
+            organizationId: organizationId,
+          ),
+        );
 
       case editEvent:
         return MaterialPageRoute(builder: (_) => const EditEventScreen());

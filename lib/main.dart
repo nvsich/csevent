@@ -21,6 +21,7 @@ void setupLocator() {
   GetIt.I.registerLazySingleton(() => WarehouseService());
   GetIt.I.registerLazySingleton(() => EventService());
   GetIt.I.registerLazySingleton(() => UserService());
+  GetIt.I.registerLazySingleton(() => EventService());
 }
 
 void main() {

@@ -161,6 +161,7 @@ class _EventsScreenState extends State<EventsScreen> {
       },
       child: _buildEventCardsListItemWidget(
         context,
+        eventId: eventId,
         eventName: eventName,
         eventDate: eventDate,
         eventPlace: eventPlace,
@@ -172,6 +173,7 @@ class _EventsScreenState extends State<EventsScreen> {
 
   Widget _buildEventCardsListItemWidget(
     context, {
+    required String eventId,
     required String eventName,
     required String eventTheme,
     required String eventDate,
@@ -182,7 +184,10 @@ class _EventsScreenState extends State<EventsScreen> {
       onTap: () {
         Navigator.of(context).pushNamed(
           RouteGenerator.eventDetails,
-          arguments: eventName,
+          arguments: <String, String>{
+            'eventId': eventId,
+            'organizationId': widget.organizationId,
+          },
         );
       },
       child: Container(
