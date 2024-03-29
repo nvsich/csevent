@@ -172,7 +172,13 @@ class RouteGenerator {
         );
 
       case editEvent:
-        return MaterialPageRoute(builder: (_) => const EditEventScreen());
+        var organizationId = (args as Map<String, String>)['organizationId']!;
+        var eventId = args['eventId']!;
+        return MaterialPageRoute(
+            builder: (_) => EditEventScreen(
+                  eventId: eventId,
+                  organizationId: organizationId,
+                ));
 
       case eventMembers:
         return MaterialPageRoute(builder: (_) => const EventMembersScreen());

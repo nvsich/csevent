@@ -1,30 +1,60 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/dto/api_response.dart';
+import 'package:csevent/dto/create_or_update_event_request.dart';
+import 'package:csevent/dto/event.dart';
+import 'package:csevent/service/cache_service.dart';
+import 'package:csevent/service/event_service.dart';
 import 'package:csevent/widgets/app_bar/appbar_leading_image.dart';
 import 'package:csevent/widgets/app_bar/appbar_subtitle.dart';
 import 'package:csevent/widgets/app_bar/custom_app_bar_image.dart';
 import 'package:csevent/widgets/custom_elevated_button.dart';
 import 'package:csevent/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_it/get_it.dart';
 
 class EditEventScreen extends StatefulWidget {
-  const EditEventScreen({super.key});
+  const EditEventScreen({
+    super.key,
+    required this.organizationId,
+    required this.eventId,
+  });
+
+  final String organizationId;
+
+  final String eventId;
 
   @override
   State<EditEventScreen> createState() => _EditEventScreen();
 }
 
 class _EditEventScreen extends State<EditEventScreen> {
-  TextEditingController nameController = TextEditingController();
+  final CacheService cacheService = GetIt.I<CacheService>();
 
-  TextEditingController themeController = TextEditingController();
+  final EventService eventService = GetIt.I<EventService>();
 
-  TextEditingController addressController = TextEditingController();
+  late TextEditingController nameController;
 
-  TextEditingController dateController = TextEditingController();
+  late TextEditingController themeController;
 
-  TextEditingController guestsController = TextEditingController();
+  late TextEditingController addressController;
 
-  int _selectedColor = 0;
+  late TextEditingController dateController;
+
+  late TextEditingController guestsController;
+
+  late Future<ApiResponse<Event>> eventFuture;
+
+  int _selectedColor = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    eventFuture = fetchEvent(
+      organizationId: widget.organizationId,
+      eventId: widget.eventId,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,55 +68,104 @@ class _EditEventScreen extends State<EditEventScreen> {
             horizontal: 47.h,
             vertical: 18.v,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Название",
-                style: theme.textTheme.bodySmall,
-              ),
-              SizedBox(height: 6.v),
-              _buildName(context),
-              SizedBox(height: 16.v),
-              Text(
-                "Тематика",
-                style: theme.textTheme.bodySmall,
-              ),
-              SizedBox(height: 6.v),
-              _buildTheme(context),
-              SizedBox(height: 16.v),
-              Text(
-                "Адрес",
-                style: theme.textTheme.bodySmall,
-              ),
-              SizedBox(height: 6.v),
-              _buildAddress(context),
-              SizedBox(height: 16.v),
-              Text(
-                "Дата",
-                style: theme.textTheme.bodySmall,
-              ),
-              SizedBox(height: 6.v),
-              _buildDate(context),
-              SizedBox(height: 16.v),
-              Text(
-                "Количество гостей",
-                style: theme.textTheme.bodySmall,
-              ),
-              SizedBox(height: 6.v),
-              _buildGuests(context),
-              SizedBox(height: 16.v),
-              Text(
-                "Цвет",
-                style: theme.textTheme.bodySmall,
-              ),
-              SizedBox(height: 8.v),
-              _buildColorsRow(),
-            ],
+          child: FutureBuilder(
+            future: eventFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasError) {
+                return const Center(
+                  child: Text('Ошибка загрузки'),
+                );
+              } else if (snapshot.hasData) {
+                Event event = snapshot.data!.data!;
+                return _buildPage(
+                  context,
+                  eventName: event.name,
+                  eventTheme: event.theme,
+                  eventAddress: event.address,
+                  eventDate: event.dateTime,
+                  eventGuests: event.guests.toString(),
+                );
+              } else {
+                return const Center(
+                  child: Text('Нет данных'),
+                );
+              }
+            },
           ),
         ),
         bottomNavigationBar: _buildSaveButton(context),
       ),
+    );
+  }
+
+  Future<ApiResponse<Event>> fetchEvent({
+    required String organizationId,
+    required String eventId,
+  }) async {
+    String token = await cacheService.loadAuthToken();
+    if (token == CacheService.noToken) {
+      Fluttertoast.showToast(msg: "Ошибка аутентификации");
+    }
+    return await eventService.get(token, organizationId, eventId);
+  }
+
+  Widget _buildPage(
+    BuildContext context, {
+    required String eventName,
+    required String eventTheme,
+    required String eventAddress,
+    required String eventDate,
+    required String eventGuests,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Название",
+          style: theme.textTheme.bodySmall,
+        ),
+        SizedBox(height: 6.v),
+        _buildName(context, eventName),
+        SizedBox(height: 16.v),
+        Text(
+          "Тематика",
+          style: theme.textTheme.bodySmall,
+        ),
+        SizedBox(height: 6.v),
+        _buildTheme(context, eventTheme),
+        SizedBox(height: 16.v),
+        Text(
+          "Адрес",
+          style: theme.textTheme.bodySmall,
+        ),
+        SizedBox(height: 6.v),
+        _buildAddress(context, eventAddress),
+        SizedBox(height: 16.v),
+        Text(
+          "Дата",
+          style: theme.textTheme.bodySmall,
+        ),
+        SizedBox(height: 6.v),
+        _buildDate(context, eventDate),
+        SizedBox(height: 16.v),
+        Text(
+          "Количество гостей",
+          style: theme.textTheme.bodySmall,
+        ),
+        SizedBox(height: 6.v),
+        _buildGuests(context, eventGuests),
+        SizedBox(height: 16.v),
+        Text(
+          "Цвет",
+          style: theme.textTheme.bodySmall,
+        ),
+        SizedBox(height: 8.v),
+        _buildColorsRow(),
+      ],
     );
   }
 
@@ -115,38 +194,38 @@ class _EditEventScreen extends State<EditEventScreen> {
     );
   }
 
-  Widget _buildName(BuildContext context) {
+  Widget _buildName(BuildContext context, String eventName) {
+    nameController = TextEditingController(text: eventName);
     return CustomTextFormField(
       controller: nameController,
-      hintText: "Экватор`23",
     );
   }
 
-  Widget _buildTheme(BuildContext context) {
+  Widget _buildTheme(BuildContext context, String eventTheme) {
+    themeController = TextEditingController(text: eventTheme);
     return CustomTextFormField(
       controller: themeController,
-      hintText: "Barbie",
     );
   }
 
-  Widget _buildAddress(BuildContext context) {
+  Widget _buildAddress(BuildContext context, String eventAddress) {
+    addressController = TextEditingController(text: eventAddress);
     return CustomTextFormField(
-      controller: nameController,
-      hintText: "Hawaii House",
+      controller: addressController,
     );
   }
 
-  Widget _buildDate(BuildContext context) {
+  Widget _buildDate(BuildContext context, String eventDate) {
+    dateController = TextEditingController(text: eventDate);
     return CustomTextFormField(
       controller: dateController,
-      hintText: "1 июля 23:00",
     );
   }
 
-  Widget _buildGuests(BuildContext context) {
+  Widget _buildGuests(BuildContext context, String eventGuests) {
+    guestsController = TextEditingController(text: eventGuests);
     return CustomTextFormField(
       controller: guestsController,
-      hintText: "200",
     );
   }
 
@@ -207,8 +286,70 @@ class _EditEventScreen extends State<EditEventScreen> {
         right: 47.h,
         bottom: 47.v,
       ),
-      onPressed: () {
-        Navigator.of(context).pop();
+      onPressed: () async {
+        String token = await cacheService.loadAuthToken();
+        if (token == CacheService.noToken) {
+          Fluttertoast.showToast(msg: "Ошибка аутентификации");
+        }
+
+        int? guests = int.tryParse(guestsController.text);
+        if (guests == null) {
+          Fluttertoast.showToast(msg: "Неверное количество гостей");
+          return;
+        }
+
+        String color = "purple50";
+        switch (_selectedColor) {
+          case 1:
+            color = "fillPurple";
+            break;
+
+          case 2:
+            color = "fillRed";
+            break;
+
+          case 3:
+            color = "fillOrange";
+            break;
+
+          case 4:
+            color = "fillCyan";
+            break;
+
+          case 5:
+            color = "fillLightBlue";
+            break;
+
+          case 6:
+            color = "fillBlue";
+            break;
+
+          case 7:
+            color = "fillGray";
+            break;
+        }
+
+        CreateOrUpdateEventRequest request = CreateOrUpdateEventRequest(
+          name: nameController.text,
+          guests: guests,
+          dateTime: dateController.text,
+          color: color,
+          theme: themeController.text,
+          address: addressController.text,
+        );
+
+        var response = await eventService.update(
+          token,
+          widget.organizationId,
+          widget.eventId,
+          request,
+        );
+
+        if (response.error) {
+          Fluttertoast.showToast(msg: response.message!);
+        } else {
+          Navigator.of(context).pop(true);
+        }
       },
     );
   }

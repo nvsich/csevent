@@ -43,6 +43,15 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
     );
   }
 
+  void refreshState() {
+    setState(() {
+      eventFuture = fetchEvent(
+        organizationId: widget.organizationId,
+        eventId: widget.eventId,
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -89,7 +98,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
       body: _buildEventDetails(
         context,
         eventName: eventName,
-        eventTheme: eventAddress,
+        eventTheme: eventTheme,
         eventDate: eventDate,
         eventColor: eventColor,
         eventGuests: eventGuests,
@@ -192,7 +201,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
       leadingWidth: 45.h,
       leading: AppbarLeadingImage(
         onTap: () async {
-          Navigator.of(context).pop();
+          Navigator.of(context).pop(true);
         },
         imagePath: ImageConstant.backButton,
         margin: EdgeInsets.only(
@@ -213,8 +222,17 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
     required String color,
   }) {
     return CustomElevatedButton(
-      onPressed: () {
-        Navigator.of(context).pushNamed(RouteGenerator.editEvent);
+      onPressed: () async {
+        var result = await Navigator.of(context).pushNamed(
+          RouteGenerator.editEvent,
+          arguments: <String, String>{
+            'organizationId': widget.organizationId,
+            'eventId': widget.eventId,
+          },
+        );
+        if (result == true) {
+          refreshState();
+        }
       },
       text: "Редактировать",
       margin: EdgeInsets.only(

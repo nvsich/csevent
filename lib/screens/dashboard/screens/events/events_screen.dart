@@ -181,14 +181,18 @@ class _EventsScreenState extends State<EventsScreen> {
     required String eventColor,
   }) {
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).pushNamed(
+      onTap: () async {
+        var result = await Navigator.of(context).pushNamed(
           RouteGenerator.eventDetails,
           arguments: <String, String>{
             'eventId': eventId,
             'organizationId': widget.organizationId,
           },
         );
+
+        if (result == true) {
+          refreshState();
+        }
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
