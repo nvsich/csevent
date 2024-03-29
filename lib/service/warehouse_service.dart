@@ -11,7 +11,7 @@ import 'package:csevent/service/response_handler.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
-class ProductService {
+class WarehouseService {
   static const apiUrl = 'http://localhost:8080/organizations';
   static const authorizationHeader = 'Authorization';
   static const headers = {'Content-Type': 'application/json'};
@@ -32,9 +32,11 @@ class ProductService {
   Future<ApiResponse<Warehouse>> create(String token, String organizationId,
       CreateWarehouseRequest request) async {
     final newHeaders = _getHeadersWithToken(token);
-    final response = await http.get(
+    final response = await http.post(
         Uri.parse('$apiUrl/$organizationId/warehouses'),
-        headers: newHeaders);
+        headers: newHeaders,
+        body: jsonEncode(request.toJson())
+    );
 
     return responseHandler.handleResponse(response, Warehouse.fromJson);
   }
