@@ -257,8 +257,12 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
     required String color,
   }) {
     return CustomElevatedButton(
-      onPressed: () {
-        Navigator.of(context).pushNamed(RouteGenerator.eventMembers);
+      onPressed: () async {
+        await Navigator.of(context)
+            .pushNamed(RouteGenerator.eventMembers, arguments: <String, String>{
+          'organizationId': widget.organizationId,
+          'eventId': widget.eventId,
+        });
       },
       text: "Организаторы",
       margin: EdgeInsets.only(

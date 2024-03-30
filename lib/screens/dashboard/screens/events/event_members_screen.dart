@@ -1,13 +1,56 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/dto/api_response.dart';
+import 'package:csevent/dto/short_user_response.dart';
 import 'package:csevent/routes/route_generator.dart';
+import 'package:csevent/service/cache_service.dart';
+import 'package:csevent/service/event_service.dart';
 import 'package:csevent/widgets/app_bar/appbar_leading_image.dart';
 import 'package:csevent/widgets/app_bar/appbar_title.dart';
 import 'package:csevent/widgets/app_bar/custom_app_bar_image.dart';
 import 'package:csevent/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_it/get_it.dart';
 
-class EventMembersScreen extends StatelessWidget {
-  const EventMembersScreen({super.key});
+class EventMembersScreen extends StatefulWidget {
+  const EventMembersScreen({
+    super.key,
+    required this.organizationid,
+    required this.eventId,
+  });
+
+  final String organizationid;
+
+  final String eventId;
+
+  @override
+  State<EventMembersScreen> createState() => _EventMembersScreenState();
+}
+
+class _EventMembersScreenState extends State<EventMembersScreen> {
+  final EventService eventService = GetIt.I<EventService>();
+
+  final CacheService cacheService = GetIt.I<CacheService>();
+
+  late Future<ApiResponse<List<ShortUserResponse>>> membersFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    membersFuture = fetchMembers(
+      organizationId: widget.organizationid,
+      eventId: widget.eventId,
+    );
+  }
+
+  void refreshState() {
+    setState(() {
+      membersFuture = fetchMembers(
+        organizationId: widget.organizationid,
+        eventId: widget.eventId,
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +65,38 @@ class EventMembersScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  _buildMember(context),
-                  _buildMember(context),
-                  _buildMember(context),
-                  _buildMember(context),
-                  _buildMember(context),
-                  _buildMember(context),
-                  _buildMember(context),
-                  _buildMember(context),
-                  _buildMember(context),
-                  _buildMember(context),
-                  _buildMember(context),
-                  _buildMember(context),
+                  FutureBuilder(
+                    future: membersFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (snapshot.hasError) {
+                        return const Center(
+                          child: Text('Ошибка загрузки'),
+                        );
+                      } else if (snapshot.hasData) {
+                        List<ShortUserResponse> users = snapshot.data!.data!;
+                        return ListView.builder(
+                          primary: false,
+                          shrinkWrap: true,
+                          itemCount: users.length,
+                          itemBuilder: (context, index) {
+                            ShortUserResponse user = users[index];
+                            return _buildMember(
+                              context,
+                              name: user.name,
+                            );
+                          },
+                        );
+                      } else {
+                        return const Center(
+                          child: Text('Нет данных'),
+                        );
+                      }
+                    },
+                  )
                 ],
               ),
             ),
@@ -48,9 +111,12 @@ class EventMembersScreen extends StatelessWidget {
               ),
               child: CustomElevatedButton(
                 text: "Добавить организаторов",
-                onPressed: () {
-                  Navigator.of(context)
+                onPressed: () async {
+                  var result = await Navigator.of(context)
                       .pushNamed(RouteGenerator.addNewMemberToEvent);
+                  if (result == true) {
+                    refreshState();
+                  }
                 },
               ),
             ),
@@ -60,12 +126,23 @@ class EventMembersScreen extends StatelessWidget {
     );
   }
 
+  Future<ApiResponse<List<ShortUserResponse>>> fetchMembers({
+    required String organizationId,
+    required String eventId,
+  }) async {
+    String token = await cacheService.loadAuthToken();
+    if (token == CacheService.noToken) {
+      Fluttertoast.showToast(msg: "Ошибка аутентификации");
+    }
+    return await eventService.getOrganizers(token, organizationId, eventId);
+  }
+
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       leadingWidth: 45.h,
       leading: AppbarLeadingImage(
         onTap: () async {
-          Navigator.of(context).pop();
+          Navigator.of(context).pop(true);
         },
         imagePath: ImageConstant.backButton,
         margin: EdgeInsets.only(
@@ -81,7 +158,10 @@ class EventMembersScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMember(BuildContext context) {
+  Widget _buildMember(
+    BuildContext context, {
+    required String name,
+  }) {
     return Container(
       margin: EdgeInsets.only(right: 1.h),
       padding: EdgeInsets.symmetric(vertical: 11.v),
@@ -107,7 +187,7 @@ class EventMembersScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Иван Иванов",
+                    name,
                     style: theme.textTheme.titleLarge,
                   ),
                   SizedBox(

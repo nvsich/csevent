@@ -96,16 +96,24 @@ class RouteGenerator {
 
     switch (settings.name) {
       case loginScreen:
-        return MaterialPageRoute(builder: (_) => LoginScreen());
+        return MaterialPageRoute(
+          builder: (_) => LoginScreen(),
+        );
 
       case signupScreen:
-        return MaterialPageRoute(builder: (_) => SignupScreen());
+        return MaterialPageRoute(
+          builder: (_) => SignupScreen(),
+        );
 
       case signInOrganizationScreen:
-        return MaterialPageRoute(builder: (_) => SignInOrganization());
+        return MaterialPageRoute(
+          builder: (_) => SignInOrganization(),
+        );
 
       case createOrganizationScreen:
-        return MaterialPageRoute(builder: (_) => CreateOrganization());
+        return MaterialPageRoute(
+          builder: (_) => CreateOrganization(),
+        );
 
       case dashboard:
         var organizationId = (args as Map<String, String>)['organizationId']!;
@@ -132,34 +140,44 @@ class RouteGenerator {
         );
 
       case profile:
-        return MaterialPageRoute(builder: (_) => ProfileScreen());
+        return MaterialPageRoute(
+          builder: (_) => ProfileScreen(),
+        );
 
       case editProfile:
-        return MaterialPageRoute(builder: (_) => EditProfileScreen());
+        return MaterialPageRoute(
+          builder: (_) => EditProfileScreen(),
+        );
 
       case organizationsProfile:
-        return MaterialPageRoute(builder: (_) => OrganizationsProfileScreen());
+        return MaterialPageRoute(
+          builder: (_) => OrganizationsProfileScreen(),
+        );
 
       case warehouseDetails:
         return MaterialPageRoute(
-            builder: (_) =>
-                WarehouseDetailsScreen(warehouseId: args as String));
+          builder: (_) => WarehouseDetailsScreen(warehouseId: args as String),
+        );
 
       case addProductToWarehouse:
         return MaterialPageRoute(
-            builder: (_) => const AddProductToWarehouseScreen());
+          builder: (_) => const AddProductToWarehouseScreen(),
+        );
 
       case editProductInWarehouse:
         return MaterialPageRoute(
-            builder: (_) =>
-                EditProductInWarehouse(warehouseId: args as String));
+          builder: (_) => EditProductInWarehouse(warehouseId: args as String),
+        );
 
       case filterProducts:
-        return MaterialPageRoute(builder: (_) => const FilterProductsScreen());
+        return MaterialPageRoute(
+          builder: (_) => const FilterProductsScreen(),
+        );
 
       case warehousesWithProduct:
         return MaterialPageRoute(
-            builder: (_) => WarehousesWithProduct(productId: args as String));
+          builder: (_) => WarehousesWithProduct(productId: args as String),
+        );
 
       case eventDetails:
         var organizationId = (args as Map<String, String>)['organizationId']!;
@@ -175,49 +193,69 @@ class RouteGenerator {
         var organizationId = (args as Map<String, String>)['organizationId']!;
         var eventId = args['eventId']!;
         return MaterialPageRoute(
-            builder: (_) => EditEventScreen(
-                  eventId: eventId,
-                  organizationId: organizationId,
-                ));
+          builder: (_) => EditEventScreen(
+            eventId: eventId,
+            organizationId: organizationId,
+          ),
+        );
 
       case eventMembers:
-        return MaterialPageRoute(builder: (_) => const EventMembersScreen());
+        var organizationId = (args as Map<String, String>)['organizationId']!;
+        var eventId = args['eventId']!;
+        return MaterialPageRoute(
+          builder: (_) => EventMembersScreen(
+            organizationid: organizationId,
+            eventId: eventId,
+          ),
+        );
 
       case addNewMemberToEvent:
         return MaterialPageRoute(
-            builder: (_) => const AddMemberToEventScreen());
+          builder: (_) => const AddMemberToEventScreen(),
+        );
 
       case eventBarCard:
-        return MaterialPageRoute(builder: (_) => const EventBarCardScreen());
+        return MaterialPageRoute(
+          builder: (_) => const EventBarCardScreen(),
+        );
 
       case eventShopping:
-        return MaterialPageRoute(builder: (_) => const EventShoppingScreen());
+        return MaterialPageRoute(
+          builder: (_) => const EventShoppingScreen(),
+        );
 
       case addCocktail:
-        return MaterialPageRoute(builder: (_) => const AddCocktailScreen());
+        return MaterialPageRoute(
+          builder: (_) => const AddCocktailScreen(),
+        );
 
       case cocktailDetails:
         return MaterialPageRoute(
-            builder: (_) => CocktailDetailsScreen(cocktailId: args as String));
+          builder: (_) => CocktailDetailsScreen(cocktailId: args as String),
+        );
 
       case addIngredient:
-        return MaterialPageRoute(builder: (_) => const AddIngredientScreen());
+        return MaterialPageRoute(
+          builder: (_) => const AddIngredientScreen(),
+        );
 
       case ingredientInfo:
         return MaterialPageRoute(
-            builder: (_) =>
-                IngredientInforScreen(ingredientId: args as String));
+          builder: (_) => IngredientInforScreen(ingredientId: args as String),
+        );
 
       case warehousesWithIngredient:
         return MaterialPageRoute(
-            builder: (_) =>
-                WarehousesWithIngredientScreen(ingredientId: args as String));
+          builder: (_) =>
+              WarehousesWithIngredientScreen(ingredientId: args as String),
+        );
 
       case shopsWithIngredient:
         return MaterialPageRoute(
-            builder: (_) => ShopsWithIngredientScreen(
-                  ingredientName: args as String,
-                ));
+          builder: (_) => ShopsWithIngredientScreen(
+            ingredientName: args as String,
+          ),
+        );
 
       default:
         return _errorRoute();
