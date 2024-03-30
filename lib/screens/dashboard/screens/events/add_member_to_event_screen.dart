@@ -1,12 +1,28 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/dto/add_organizers_request.dart';
+import 'package:csevent/dto/api_response.dart';
+import 'package:csevent/dto/short_user_response.dart';
+import 'package:csevent/service/cache_service.dart';
+import 'package:csevent/service/event_service.dart';
+import 'package:csevent/service/organization_service.dart';
 import 'package:csevent/widgets/app_bar/appbar_leading_image.dart';
 import 'package:csevent/widgets/app_bar/appbar_title.dart';
 import 'package:csevent/widgets/app_bar/custom_app_bar_image.dart';
 import 'package:csevent/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_it/get_it.dart';
 
 class AddMemberToEventScreen extends StatefulWidget {
-  const AddMemberToEventScreen({super.key});
+  const AddMemberToEventScreen({
+    super.key,
+    required this.organizationId,
+    required this.eventId,
+  });
+
+  final String organizationId;
+
+  final String eventId;
 
   @override
   State<AddMemberToEventScreen> createState() => _AddMemberToEventScreenState();
@@ -14,6 +30,21 @@ class AddMemberToEventScreen extends StatefulWidget {
 
 class _AddMemberToEventScreenState extends State<AddMemberToEventScreen> {
   final Set<String> selectedMembers = {};
+
+  final EventService eventService = GetIt.I<EventService>();
+
+  final CacheService cacheService = GetIt.I<CacheService>();
+
+  final OrganizationService organizationService =
+      GetIt.I<OrganizationService>();
+
+  late Future<ApiResponse<List<ShortUserResponse>>> membersFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    membersFuture = fetchUsers(widget.organizationId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +58,39 @@ class _AddMemberToEventScreenState extends State<AddMemberToEventScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  _buildMember(context, memberName: "1"),
-                  _buildMember(context, memberName: "2"),
-                  _buildMember(context, memberName: "3"),
-                  _buildMember(context, memberName: "4"),
-                  _buildMember(context, memberName: "5"),
-                  _buildMember(context, memberName: "6"),
-                  _buildMember(context, memberName: "7"),
+                  FutureBuilder(
+                    future: membersFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (snapshot.hasError) {
+                        return const Center(
+                          child: Text('Ошибка загрузки'),
+                        );
+                      } else if (snapshot.hasData) {
+                        List<ShortUserResponse> users = snapshot.data!.data!;
+                        return ListView.builder(
+                          primary: false,
+                          shrinkWrap: true,
+                          itemCount: users.length,
+                          itemBuilder: (context, index) {
+                            ShortUserResponse user = users[index];
+                            return _buildMember(
+                              context,
+                              memberName: user.name,
+                              memberId: user.id,
+                            );
+                          },
+                        );
+                      } else {
+                        return const Center(
+                          child: Text('Нет данных'),
+                        );
+                      }
+                    },
+                  )
                 ],
               ),
             ),
@@ -48,8 +105,34 @@ class _AddMemberToEventScreenState extends State<AddMemberToEventScreen> {
               ),
               child: CustomElevatedButton(
                 text: "Добавить",
-                onPressed: () {
-                  Navigator.of(context).pop();
+                onPressed: () async {
+                  if (selectedMembers.isEmpty) {
+                    Fluttertoast.showToast(msg: "Выберите участников");
+                    return;
+                  }
+
+                  String token = await cacheService.loadAuthToken();
+                  if (token == CacheService.noToken) {
+                    Fluttertoast.showToast(msg: "Ошибка аутентификации");
+                    return;
+                  }
+
+                  var request = AddOrganizersRequest(
+                    organizerIds: selectedMembers.toList(),
+                  );
+
+                  var response = await eventService.addOrganizers(
+                    token,
+                    widget.organizationId,
+                    widget.eventId,
+                    request,
+                  );
+
+                  if (response.error) {
+                    Fluttertoast.showToast(msg: response.message!);
+                  } else {
+                    Navigator.of(context).pop(true);
+                  }
                 },
               ),
             ),
@@ -59,12 +142,21 @@ class _AddMemberToEventScreenState extends State<AddMemberToEventScreen> {
     );
   }
 
+  Future<ApiResponse<List<ShortUserResponse>>> fetchUsers(
+      String organizationId) async {
+    String token = await cacheService.loadAuthToken();
+    if (token == CacheService.noToken) {
+      Fluttertoast.showToast(msg: "Ошибка аутентификации");
+    }
+    return await organizationService.getAllMembers(token, organizationId);
+  }
+
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       leadingWidth: 45.h,
       leading: AppbarLeadingImage(
         onTap: () async {
-          Navigator.of(context).pop();
+          Navigator.of(context).pop(true);
         },
         imagePath: ImageConstant.backButton,
         margin: EdgeInsets.only(
@@ -83,21 +175,22 @@ class _AddMemberToEventScreenState extends State<AddMemberToEventScreen> {
   Widget _buildMember(
     BuildContext context, {
     required String memberName,
+    required String memberId,
   }) {
     return GestureDetector(
       onTap: () {
         setState(() {
-          if (selectedMembers.contains(memberName)) {
-            selectedMembers.remove(memberName);
+          if (selectedMembers.contains(memberId)) {
+            selectedMembers.remove(memberId);
           } else {
-            selectedMembers.add(memberName);
+            selectedMembers.add(memberId);
           }
         });
       },
       child: Container(
         margin: EdgeInsets.only(right: 1.h),
         padding: EdgeInsets.symmetric(vertical: 11.v),
-        decoration: selectedMembers.contains(memberName)
+        decoration: selectedMembers.contains(memberId)
             ? AppDecoration.fillGray
             : AppDecoration.outlineBlack900,
         child: Row(

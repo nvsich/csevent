@@ -112,8 +112,13 @@ class _EventMembersScreenState extends State<EventMembersScreen> {
               child: CustomElevatedButton(
                 text: "Добавить организаторов",
                 onPressed: () async {
-                  var result = await Navigator.of(context)
-                      .pushNamed(RouteGenerator.addNewMemberToEvent);
+                  var result = await Navigator.of(context).pushNamed(
+                    RouteGenerator.addNewMemberToEvent,
+                    arguments: <String, String>{
+                      'organizationId': widget.organizationid,
+                      'eventId': widget.eventId,
+                    },
+                  );
                   if (result == true) {
                     refreshState();
                   }

@@ -210,8 +210,13 @@ class RouteGenerator {
         );
 
       case addNewMemberToEvent:
+        var organizationId = (args as Map<String, String>)['organizationId']!;
+        var eventId = args['eventId']!;
         return MaterialPageRoute(
-          builder: (_) => const AddMemberToEventScreen(),
+          builder: (_) => AddMemberToEventScreen(
+            organizationId: organizationId,
+            eventId: eventId,
+          ),
         );
 
       case eventBarCard:
