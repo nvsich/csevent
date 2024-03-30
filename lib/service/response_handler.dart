@@ -15,7 +15,7 @@ class ResponseHandler {
     if (response.statusCode == ok) {
       try {
         debugPrint(response.body);
-        final data = fromJsonT(jsonDecode(response.body));
+        final data = fromJsonT(jsonDecode(utf8.decode(response.bodyBytes)));
         return ApiResponse<T>(data: data);
       } catch (e) {
         return ApiResponse<T>(
@@ -39,7 +39,7 @@ class ResponseHandler {
     if (response.statusCode == ok) {
       try {
         final List<dynamic> jsonList =
-            json.decode(response.body) as List<dynamic>;
+            json.decode(utf8.decode(response.bodyBytes)) as List<dynamic>;
         final List<T> dataList = jsonList
             .map((jsonItem) => fromJsonT(jsonItem as Map<String, dynamic>))
             .toList();
