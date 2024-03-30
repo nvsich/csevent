@@ -9,7 +9,7 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
 class UserService {
-  static const apiUrl = 'http://10.0.2.2:8080/user';
+  static const apiUrl = 'http://localhost:8080/user';
   static const authorizationHeader = 'Authorization';
   static const headers = {'Content-Type': 'application/json'};
   static const bearer = 'Bearer ';

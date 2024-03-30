@@ -139,34 +139,37 @@ class _EventsScreenState extends State<EventsScreen> {
   }) {
     final Key dismissKey = ValueKey(eventId);
 
-    return CustomDismissibleWidget(
-      keyDismiss: dismissKey,
-      direction: DismissDirection.endToStart,
-      onDismissed: (direction) async {
-        String token = await cacheService.loadAuthToken();
-        if (token == CacheService.noToken) {
-          Fluttertoast.showToast(msg: "Ошибка аутентификации");
-        }
-        final result = await eventService.delete(
-          token,
-          widget.organizationId,
-          eventId,
-        );
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      child: CustomDismissibleWidget(
+        keyDismiss: dismissKey,
+        direction: DismissDirection.endToStart,
+        onDismissed: (direction) async {
+          String token = await cacheService.loadAuthToken();
+          if (token == CacheService.noToken) {
+            Fluttertoast.showToast(msg: "Ошибка аутентификации");
+          }
+          final result = await eventService.delete(
+            token,
+            widget.organizationId,
+            eventId,
+          );
 
-        if (result.error) {
-          Fluttertoast.showToast(msg: result.message!);
-        }
+          if (result.error) {
+            Fluttertoast.showToast(msg: result.message!);
+          }
 
-        refreshState();
-      },
-      child: _buildEventCardsListItemWidget(
-        context,
-        eventId: eventId,
-        eventName: eventName,
-        eventDate: eventDate,
-        eventPlace: eventPlace,
-        eventColor: eventColor,
-        eventTheme: eventTheme,
+          refreshState();
+        },
+        child: _buildEventCardsListItemWidget(
+          context,
+          eventId: eventId,
+          eventName: eventName,
+          eventDate: eventDate,
+          eventPlace: eventPlace,
+          eventColor: eventColor,
+          eventTheme: eventTheme,
+        ),
       ),
     );
   }
@@ -195,10 +198,10 @@ class _EventsScreenState extends State<EventsScreen> {
         }
       },
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.8,
+        width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.symmetric(
-          horizontal: 62.h,
-          vertical: 22.v,
+          horizontal: 32.h,
+          vertical: 26.v,
         ),
         decoration:
             AppDecoration.getShadowDecorationByColor(eventColor).copyWith(

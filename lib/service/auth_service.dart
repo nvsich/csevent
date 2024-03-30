@@ -9,7 +9,7 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  static const apiUrl = 'http://10.0.2.2:8080/auth';
+  static const apiUrl = 'http://localhost:8080/auth';
   static const headers = {
     'Authorization': '',
     'Content-Type': 'application/json'

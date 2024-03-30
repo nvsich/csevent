@@ -99,11 +99,11 @@ class ProductsScreen extends StatelessWidget {
               Navigator.of(context).pushNamed(RouteGenerator.filterProducts);
             },
             imagePath: ImageConstant.filterButton,
-            height: 21.v,
-            width: 24.h,
+            height: 28.v,
+            width: 28.h,
             margin: EdgeInsets.only(
               left: 16.h,
-              top: 12.v,
+              top: 11.v,
               bottom: 13.v,
             ),
           )

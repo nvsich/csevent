@@ -51,10 +51,10 @@ class MainApp extends StatelessWidget {
           future: cacheService.loadAuthToken(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              // final initialRoute = snapshot.data == noToken
-              //     ? RouteGenerator.loginScreen
-              //     : RouteGenerator.dashboard;
-              const initialRoute = RouteGenerator.loginScreen;
+              final initialRoute = snapshot.data == noToken
+                  ? RouteGenerator.loginScreen
+                  : RouteGenerator.profile;
+              // const initialRoute = RouteGenerator.loginScreen;
               return MaterialApp(
                 theme: theme,
                 title: 'csevent',
