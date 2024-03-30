@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:csevent/dto/api_response.dart';
+import 'package:csevent/dto/parsing_response.dart';
 import 'package:csevent/dto/shopping_item_response.dart';
 import 'package:csevent/dto/shopping_item_info_response.dart';
 import 'package:csevent/dto/product_with_warehouses_response.dart';
@@ -18,7 +19,10 @@ class ShoppingService {
   final ResponseHandler responseHandler = GetIt.I<ResponseHandler>();
 
   Future<ApiResponse<List<ShoppingItemResponse>>> getAll(
-      String token, String organizationId, String eventId) async {
+      String token,
+      String organizationId,
+      String eventId,
+      ) async {
     final newHeaders = _getHeadersWithToken(token);
     final response = await http.get(
         Uri.parse('$apiUrl/$organizationId/events/$eventId/shopping'),
@@ -28,8 +32,12 @@ class ShoppingService {
         response, ShoppingItemResponse.fromJson);
   }
 
-  Future<ApiResponse<ShoppingItemInfoResponse>> get(String token,
-      String organizationId, String eventId, String productId) async {
+  Future<ApiResponse<ShoppingItemInfoResponse>> get(
+      String token,
+      String organizationId,
+      String eventId,
+      String productId,
+      ) async {
     final newHeaders = _getHeadersWithToken(token);
     final response = await http.get(
         Uri.parse(
@@ -40,8 +48,12 @@ class ShoppingService {
         response, ShoppingItemInfoResponse.fromJson);
   }
 
-  Future<ApiResponse<void>> updateIsPurchased(String token,
-      String organizationId, String eventId, String productId) async {
+  Future<ApiResponse<void>> updateIsPurchased(
+      String token,
+      String organizationId,
+      String eventId,
+      String productId,
+      ) async {
     final newHeaders = _getHeadersWithToken(token);
     final response = await http.patch(
         Uri.parse(
@@ -55,7 +67,7 @@ class ShoppingService {
       String token,
       String organizationId,
       String eventId,
-      String productId) async {
+      String productId,) async {
     final newHeaders = _getHeadersWithToken(token);
     final response = await http.get(
         Uri.parse(
@@ -66,8 +78,13 @@ class ShoppingService {
         response, ProductWithWarehousesResponse.fromJson);
   }
 
-  Future<ApiResponse<void>> update(String token, String organizationId,
-      String eventId, String productId, ShoppingItemRequest request) async {
+  Future<ApiResponse<void>> update(
+      String token,
+      String organizationId,
+      String eventId,
+      String productId,
+      ShoppingItemRequest request,
+      ) async {
     final newHeaders = _getHeadersWithToken(token);
     final response = await http.put(
         Uri.parse(
@@ -76,6 +93,22 @@ class ShoppingService {
         body: jsonEncode(request.toJson()));
 
     return responseHandler.handleVoidResponse(response);
+  }
+
+  Future<ApiResponse<List<ParsingResponse>>> getShops(
+      String token,
+      String organizationId,
+      String eventId,
+      String productId,
+      ) async {
+    final newHeaders = _getHeadersWithToken(token);
+    final response = await http.get(
+        Uri.parse(
+            '$apiUrl/$organizationId/events/$eventId/shopping/$productId/shops'),
+        headers: newHeaders
+    );
+
+    return responseHandler.handleListResponse(response, ParsingResponse.fromJson);
   }
 
   Map<String, String> _getHeadersWithToken(String token) {
