@@ -76,6 +76,7 @@ class _DashboardState extends State<Dashboard> {
               imagePath: currentIndex == 2
                   ? ImageConstant.onEventsScreenButton
                   : ImageConstant.offEventsScreenButton,
+
             ),
             label: "Events",
           ),

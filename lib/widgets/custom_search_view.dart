@@ -105,11 +105,11 @@ class CustomSearchView extends StatelessWidget {
         hintStyle: hintStyle ?? theme.textTheme.bodyMedium,
         prefixIcon: prefix ??
             Container(
-              margin: EdgeInsets.fromLTRB(7.h, 9.v, 8.h, 10.v),
+              margin: EdgeInsets.fromLTRB(10.h, 9.v, 8.h, 10.v),
               child: CustomImageView(
                 imagePath: ImageConstant.searchButton,
-                height: 28.v,
-                width: 29.h,
+                height: 24.v,
+                width: 25.h,
               ),
             ),
         prefixIconConstraints: prefixConstraints ??
@@ -119,7 +119,7 @@ class CustomSearchView extends StatelessWidget {
         suffixIcon: suffix ??
             Padding(
               padding: EdgeInsets.only(
-                right: 15.h,
+                right: 0.v,
               ),
               child: IconButton(
                 onPressed: () => controller!.clear(),
