@@ -1,14 +1,58 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/dto/api_response.dart';
+import 'package:csevent/dto/cocktail_with_ingredients_response.dart';
 import 'package:csevent/dto/enum/cocktail_type.dart';
 import 'package:csevent/routes/route_generator.dart';
+import 'package:csevent/service/cache_service.dart';
+import 'package:csevent/service/cocktail_service.dart';
 import 'package:csevent/widgets/app_bar/appbar_leading_image.dart';
 import 'package:csevent/widgets/app_bar/appbar_title.dart';
 import 'package:csevent/widgets/app_bar/custom_app_bar_image.dart';
 import 'package:csevent/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_it/get_it.dart';
 
-class EventBarCardScreen extends StatelessWidget {
-  const EventBarCardScreen({super.key});
+class EventBarCardScreen extends StatefulWidget {
+  const EventBarCardScreen({
+    super.key,
+    required this.organizationId,
+    required this.eventId,
+  });
+
+  final String organizationId;
+
+  final String eventId;
+
+  @override
+  State<EventBarCardScreen> createState() => _EventBarCardScreenState();
+}
+
+class _EventBarCardScreenState extends State<EventBarCardScreen> {
+  final CocktailService cocktailService = GetIt.I<CocktailService>();
+
+  final CacheService cacheService = GetIt.I<CacheService>();
+
+  late Future<ApiResponse<List<CocktailWithIngredientsResponse>>>
+      cocktailsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    cocktailsFuture = fetchCoctails(
+      widget.organizationId,
+      widget.eventId,
+    );
+  }
+
+  void refreshState() {
+    setState(() {
+      cocktailsFuture = fetchCoctails(
+        widget.organizationId,
+        widget.eventId,
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +67,39 @@ class EventBarCardScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  _buildDrink(context, "Джин тоник", CocktailType.SHOT),
-                  _buildDrink(context, "Лонг-Айленд", CocktailType.HIGHBALL),
-                  _buildDrink(context, "Отвертка", CocktailType.HIGHBALL),
-                  _buildDrink(context, "Джин тоник", CocktailType.SHOT),
-                  _buildDrink(context, "Лонг-Айленд", CocktailType.HIGHBALL),
-                  _buildDrink(context, "Отвертка", CocktailType.HIGHBALL),
-                  _buildDrink(context, "Джин тоник", CocktailType.SHOT),
-                  _buildDrink(context, "Лонг-Айленд", CocktailType.HIGHBALL),
-                  _buildDrink(context, "Отвертка", CocktailType.HIGHBALL),
+                  FutureBuilder(
+                    future: cocktailsFuture,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (snapshot.hasError) {
+                        return const Center(
+                          child: Text('Ошибка загрузки'),
+                        );
+                      } else if (snapshot.hasData) {
+                        var cocktails = snapshot.data!.data!;
+                        return ListView.builder(
+                          primary: false,
+                          shrinkWrap: true,
+                          itemCount: cocktails.length,
+                          itemBuilder: (context, index) {
+                            var cocktail = cocktails[index];
+                            return _buildDrink(
+                              context,
+                              drinkName: cocktail.name,
+                              cocktailType: cocktail.type,
+                            );
+                          },
+                        );
+                      } else {
+                        return const Center(
+                          child: Text('Нет данных'),
+                        );
+                      }
+                    },
+                  )
                 ],
               ),
             ),
@@ -46,14 +114,38 @@ class EventBarCardScreen extends StatelessWidget {
               ),
               child: CustomElevatedButton(
                 text: "Добавить коктейль",
-                onPressed: () {
-                  Navigator.of(context).pushNamed(RouteGenerator.addCocktail);
+                onPressed: () async {
+                  var result = await Navigator.of(context).pushNamed(
+                    RouteGenerator.addCocktail,
+                    arguments: <String, String>{
+                      'organizationId': widget.organizationId,
+                      'eventId': widget.eventId,
+                    },
+                  );
+                  if (result == true) {
+                    refreshState();
+                  }
                 },
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Future<ApiResponse<List<CocktailWithIngredientsResponse>>> fetchCoctails(
+    String organizationId,
+    String eventId,
+  ) async {
+    String token = await cacheService.loadAuthToken();
+    if (token == CacheService.noToken) {
+      Fluttertoast.showToast(msg: "Ошибка аутентификации");
+    }
+    return await cocktailService.getAll(
+      token,
+      organizationId,
+      eventId,
     );
   }
 
@@ -79,10 +171,10 @@ class EventBarCardScreen extends StatelessWidget {
   }
 
   Widget _buildDrink(
-    BuildContext context,
-    String drinkName,
-    CocktailType cocktailType,
-  ) {
+    BuildContext context, {
+    required String drinkName,
+    required CocktailType cocktailType,
+  }) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pushNamed(
@@ -101,8 +193,7 @@ class EventBarCardScreen extends StatelessWidget {
             CustomImageView(
               imagePath: switch (cocktailType) {
                 CocktailType.SHOT => ImageConstant.shotDrink,
-                CocktailType.HIGHBALL => ImageConstant.longDrink,
-                _ => ImageConstant.imgNotFound,
+                CocktailType.HIGHBALL => ImageConstant.longDrink
               },
               height: 66.adaptSize,
               width: 66.adaptSize,

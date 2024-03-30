@@ -215,8 +215,13 @@ class RouteGenerator {
         );
 
       case eventBarCard:
+        var organizationId = (args as Map<String, String>)['organizationId']!;
+        var eventId = args['eventId']!;
         return MaterialPageRoute(
-          builder: (_) => const EventBarCardScreen(),
+          builder: (_) => EventBarCardScreen(
+            organizationId: organizationId,
+            eventId: eventId,
+          ),
         );
 
       case eventShopping:
@@ -225,8 +230,13 @@ class RouteGenerator {
         );
 
       case addCocktail:
+        var organizationId = (args as Map<String, String>)['organizationId']!;
+        var eventId = args['eventId']!;
         return MaterialPageRoute(
-          builder: (_) => const AddCocktailScreen(),
+          builder: (_) => AddCocktailScreen(
+            organizationId: organizationId,
+            eventId: eventId,
+          ),
         );
 
       case cocktailDetails:

@@ -1,13 +1,27 @@
 import 'package:csevent/core/app_export.dart';
+import 'package:csevent/dto/create_or_update_cocktail_request.dart';
+import 'package:csevent/dto/enum/cocktail_type.dart';
+import 'package:csevent/service/cache_service.dart';
+import 'package:csevent/service/cocktail_service.dart';
 import 'package:csevent/widgets/app_bar/appbar_leading_image.dart';
 import 'package:csevent/widgets/app_bar/appbar_subtitle.dart';
 import 'package:csevent/widgets/app_bar/custom_app_bar_image.dart';
 import 'package:csevent/widgets/custom_elevated_button.dart';
 import 'package:csevent/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_it/get_it.dart';
 
 class AddCocktailScreen extends StatefulWidget {
-  const AddCocktailScreen({super.key});
+  const AddCocktailScreen({
+    super.key,
+    required this.organizationId,
+    required this.eventId,
+  });
+
+  final String organizationId;
+
+  final String eventId;
 
   @override
   State<AddCocktailScreen> createState() => _AddCocktailScreenState();
@@ -16,9 +30,11 @@ class AddCocktailScreen extends StatefulWidget {
 class _AddCocktailScreenState extends State<AddCocktailScreen> {
   final nameController = TextEditingController();
 
-  int category = 1;
+  final CacheService cacheService = GetIt.I<CacheService>();
 
-  int _selectedCategory = 0;
+  final CocktailService cocktailService = GetIt.I<CocktailService>();
+
+  int _selectedCategory = 1;
 
   void _selectCategory(int category) {
     setState(() {
@@ -163,8 +179,31 @@ class _AddCocktailScreenState extends State<AddCocktailScreen> {
   Widget _buildSaveButton(BuildContext context) {
     return CustomElevatedButton(
       text: "Сохранить",
-      onPressed: () {
-        Navigator.of(context).pop();
+      onPressed: () async {
+        String token = await cacheService.loadAuthToken();
+        if (token == CacheService.noToken) {
+          Fluttertoast.showToast(msg: "Ошибка аутентификации");
+        }
+
+        CreateOrUpdateCocktailRequest request = CreateOrUpdateCocktailRequest(
+          name: nameController.text,
+          type: _selectedCategory == 1
+              ? CocktailType.HIGHBALL
+              : CocktailType.SHOT,
+        );
+
+        var response = await cocktailService.create(
+          token,
+          widget.organizationId,
+          widget.eventId,
+          request,
+        );
+
+        if (response.error) {
+          Fluttertoast.showToast(msg: response.message!);
+        } else {
+          Navigator.of(context).pop(true);
+        }
       },
       margin: EdgeInsets.only(
         left: 47.h,

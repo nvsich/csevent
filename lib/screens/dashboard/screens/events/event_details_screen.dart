@@ -288,7 +288,13 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
   }) {
     return CustomElevatedButton(
       onPressed: () {
-        Navigator.of(context).pushNamed(RouteGenerator.eventBarCard);
+        Navigator.of(context).pushNamed(
+          RouteGenerator.eventBarCard,
+          arguments: <String, String>{
+            'organizationId': widget.organizationId,
+            'eventId': widget.eventId,
+          },
+        );
       },
       text: "Барная карта",
       margin: EdgeInsets.only(

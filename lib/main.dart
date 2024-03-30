@@ -2,6 +2,7 @@ import 'package:csevent/core/app_export.dart';
 import 'package:csevent/routes/route_generator.dart';
 import 'package:csevent/service/auth_service.dart';
 import 'package:csevent/service/cache_service.dart';
+import 'package:csevent/service/cocktail_service.dart';
 import 'package:csevent/service/event_service.dart';
 import 'package:csevent/service/organization_service.dart';
 import 'package:csevent/service/response_handler.dart';
@@ -21,6 +22,7 @@ void setupLocator() {
   GetIt.I.registerLazySingleton(() => WarehouseService());
   GetIt.I.registerLazySingleton(() => EventService());
   GetIt.I.registerLazySingleton(() => UserService());
+  GetIt.I.registerLazySingleton(() => CocktailService());
 }
 
 void main() {
