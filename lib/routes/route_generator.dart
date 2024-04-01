@@ -1,4 +1,4 @@
-import 'package:csevent/presentation/auth/create_organization_screen.dart';
+import 'package:csevent/presentation/dashboard/profile/create_organization_screen.dart';
 import 'package:csevent/presentation/dashboard/profile/edit_profile_screen.dart';
 import 'package:csevent/presentation/dashboard/profile/organizations_profile_screen.dart';
 import 'package:csevent/presentation/dashboard/dashboard.dart';
@@ -23,7 +23,7 @@ import 'package:csevent/presentation/dashboard/warehouses/edit_product_in_wareho
 import 'package:csevent/presentation/dashboard/warehouses/warehouse_details_screen.dart';
 import 'package:csevent/presentation/auth/login_screen.dart';
 import 'package:csevent/presentation/dashboard/profile/profile_screen.dart';
-import 'package:csevent/presentation/auth/signin_organization_screen.dart';
+import 'package:csevent/presentation/dashboard/profile/signin_organization_screen.dart';
 import 'package:csevent/presentation/auth/signup_screen.dart';
 import 'package:flutter/material.dart';
 

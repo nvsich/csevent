@@ -54,7 +54,6 @@ class MainApp extends StatelessWidget {
               final initialRoute = snapshot.data == noToken
                   ? RouteGenerator.loginScreen
                   : RouteGenerator.profile;
-              // const initialRoute = RouteGenerator.loginScreen;
               return MaterialApp(
                 theme: theme,
                 title: 'csevent',

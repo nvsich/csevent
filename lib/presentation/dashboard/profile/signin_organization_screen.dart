@@ -13,7 +13,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
 
-import '../../dto/api_response.dart';
+import '../../../dto/api_response.dart';
 
 class SignInOrganization extends StatelessWidget {
   SignInOrganization({super.key});
