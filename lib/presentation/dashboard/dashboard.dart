@@ -1,10 +1,10 @@
 import 'package:csevent/core/app_export.dart';
 import 'package:csevent/core/utils/image_constant.dart';
 import 'package:csevent/routes/route_generator.dart';
-import 'package:csevent/screens/dashboard/screens/events/events_screen.dart';
-import 'package:csevent/screens/dashboard/screens/members/members_screen.dart';
-import 'package:csevent/screens/dashboard/screens/products/products_screen.dart';
-import 'package:csevent/screens/dashboard/screens/warehouses/warehouses_screen.dart';
+import 'package:csevent/presentation/dashboard/events/events_screen.dart';
+import 'package:csevent/presentation/dashboard/members/members_screen.dart';
+import 'package:csevent/presentation/dashboard/products/products_screen.dart';
+import 'package:csevent/presentation/dashboard/warehouses/warehouses_screen.dart';
 import 'package:csevent/widgets/app_bar/appbar_title.dart';
 import 'package:csevent/widgets/app_bar/appbar_trailing_image.dart';
 import 'package:csevent/widgets/app_bar/custom_app_bar_image.dart';

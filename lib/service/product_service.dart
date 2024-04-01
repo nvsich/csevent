@@ -10,20 +10,20 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
 class ProductService {
-  static const apiUrl = 'http://localhost:8080/organizations';
+  static const apiUrl = 'http://10.0.2.2:8080/organizations';
   static const authorizationHeader = 'Authorization';
   static const headers = {'Content-Type': 'application/json'};
   static const bearer = 'Bearer ';
 
   final ResponseHandler responseHandler = GetIt.I<ResponseHandler>();
 
-  Future<ApiResponse<List<ShortProductResponse>>> getAll(
-      String token, String organizationId, SearchAndFilterProductRequest request) async {
+  Future<ApiResponse<List<ShortProductResponse>>> getAll(String token,
+      String organizationId, SearchAndFilterProductRequest request) async {
     final newHeaders = _getHeadersWithToken(token);
     final response = await http.patch(
-        Uri.parse('$apiUrl/$organizationId/products'),
-        headers: newHeaders,
-        body: jsonEncode(request.toJson()),
+      Uri.parse('$apiUrl/$organizationId/products'),
+      headers: newHeaders,
+      body: jsonEncode(request.toJson()),
     );
 
     return responseHandler.handleListResponse(
